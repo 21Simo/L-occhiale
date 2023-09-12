@@ -11,21 +11,24 @@
 	</head>
 	<body>
 		<header>
-			<img alt="Logo" src="img/LogoAdobe.png" width="180" class="logo">
+			<a href="Index.jsp" class="menu">
+				<img alt="Logo" src="img/LogoAdobe.png" width="180" class="logo">
+			</a>
 			<nav>
 				<ul class="menu">
-					<li><a href="#">Uomo</a></li>
-					<li><a href="#">Donna</a></li>
+					<li><a href="Prodotto" class="menu">Tutti i prodotti</a></li>
+					<li><a href="Uomo.jsp" class="menu">Uomo</a></li>
+					<li><a href="Donna.jsp" class="menu">Donna</a></li>
 				</ul>
 			</nav>
 			<div>
-				<a href="#">
+				<a href="ListaDesideri.jsp" class="menu">
 					<img alt="Lista desideri" src="img/icone/heart.svg" class="icone">
 				</a>
-				<a href="#">
+				<a href="Account.jsp" class="menu">
 					<img alt="Account" src="img/icone/person.svg" class="icone">
 				</a>
-				<a href="#">
+				<a href="Carello.jsp" class="menu">
 					<img alt="Carello" src="img/icone/cart4.svg" class="icone">
 				</a>
 			</div>

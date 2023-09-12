@@ -10,7 +10,6 @@
 		<nav>
 			<%@ include file="Header.jsp" %>
 		</nav>
-		<h1>Stiamo creando il sito web</h1>
 		<%@ include file="CaroselloW3School.jsp" %>
 		<footer>
 			<%@ include file="Footer.jsp" %>

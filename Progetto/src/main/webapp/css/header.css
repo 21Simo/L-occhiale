@@ -10,7 +10,18 @@ body
 	background: #ffffff;
 }
 
+/*
 .menu, a, button
+{
+	font-family: sans-serif;
+	font-weight: 300;
+	font-size: 14px;
+	color: #242424;
+	text-decoration: none;
+}
+*/
+
+.menu
 {
 	font-family: sans-serif;
 	font-weight: 300;
@@ -43,7 +54,7 @@ header
 	color:#39f;
 }
 
-button
+.bottone
 {
 	padding: 9px 25px;
 	background: #0d94a6;
@@ -51,11 +62,12 @@ button
 	border-radius: 50px;
 	cursor: pointer;
 }
-
+/*
 button:hover
 {
 	background: #39f;
 }
+*/
 
 .icone
 {
