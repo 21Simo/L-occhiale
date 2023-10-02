@@ -55,9 +55,9 @@ public class ProdottoServlet extends HttpServlet
 				JSONObject prodotto=new JSONObject();
 				prodotto.put("id", prodotti.get(i).getId());
 				prodotto.put("nome", prodotti.get(i).getNome());
-				prodotto.put("descrizione", prodotti.get(i).getDescrizione());
-				prodotto.put("marca", prodotti.get(i).getMarca());
-				prodotto.put("sesso", prodotti.get(i).getSesso());
+				//prodotto.put("descrizione", prodotti.get(i).getDescrizione());
+				//prodotto.put("marca", prodotti.get(i).getMarca());
+				//prodotto.put("sesso", prodotti.get(i).getSesso());
 				jsonProdotti.put("prodotto"+i, prodotto);
 				ArrayList<Colore> colore= coloreDAO.colorePerId(prodotti.get(i).getId());
 				for(int j=0; j<colore.size(); j++)
@@ -67,8 +67,8 @@ public class ProdottoServlet extends HttpServlet
 					coloreJson.put("colore", colore.get(j).getColore());
 					coloreJson.put("immagine", colore.get(j).getImmagine());
 					coloreJson.put("prezzo", colore.get(j).getPrezzo());
-					coloreJson.put("quantità", colore.get(j).getQuantità());
-					coloreJson.put("codiceProdotto", colore.get(j).getCodiceProdotto());
+					//coloreJson.put("quantità", colore.get(j).getQuantità());
+					//coloreJson.put("codiceProdotto", colore.get(j).getCodiceProdotto());
 					prodotto.put("colore"+j, coloreJson);
 				}
 			}

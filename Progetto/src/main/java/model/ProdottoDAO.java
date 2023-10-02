@@ -18,7 +18,9 @@ public class ProdottoDAO
 		
 		ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
 		
-		String query= "Select * From prodotto";
+		//String query= "Select * From prodotto";
+		
+		String query= "select id, nome from occhiale.prodotto";
 		
 		try 
 		{
@@ -31,12 +33,55 @@ public class ProdottoDAO
 				Prodotto prodotto= new Prodotto();
 				prodotto.setId(risultati.getInt("id"));
 				prodotto.setNome(risultati.getString("nome"));
+				//prodotto.setDescrizione(risultati.getString("descrizione"));
+				//prodotto.setMarca(risultati.getString("marca"));
+				//prodotto.setSesso(risultati.getString("sesso"));
+				listaProdotti.add(prodotto);
+			}
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement != null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+		
+		return listaProdotti;
+	}
+	
+	public synchronized ArrayList<Prodotto> dettagliProdottiPerId(int id) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
+		
+		String query= "Select * From occhiale.prodotto where id=?";
+		
+		try 
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			preparedStatement.setInt(1, id);
+			System.out.println(preparedStatement);
+			ResultSet risultati= preparedStatement.executeQuery();	
+			while(risultati.next())
+			{
+				Prodotto prodotto= new Prodotto();
+				prodotto.setId(risultati.getInt("id"));
+				prodotto.setNome(risultati.getString("nome"));
 				prodotto.setDescrizione(risultati.getString("descrizione"));
-				//prodotto.setPrezzo(risultati.getDouble("prezzo"));
 				prodotto.setMarca(risultati.getString("marca"));
 				prodotto.setSesso(risultati.getString("sesso"));
-				//prodotto.setImmagine(risultati.getString("immagine"));
-				//prodotto.setQuantità(risultati.getInt("quantità"));
 				listaProdotti.add(prodotto);
 			}
 		}
