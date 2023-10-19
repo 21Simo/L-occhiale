@@ -5,13 +5,10 @@ function cambiaImmagine(id,prodotto,quantità)
 	var prova=document.getElementById(id);
 	console.log("elemento cliccato: ");
 	console.log(prova);
-	/*
-	console.log("Valore nome: ");
-	console.log(prova.attributes[0].value);
-	var bottone=document.getElementsByName("bottone");
-	console.log("Bottone: ");
-	console.log(bottone);
-	*/
+	//Aggiunta per il modal
+	var colore=prova.getAttribute("title");
+	console.log(colore);
+	$('#myBtn').attr("value", colore);
 	var carta=prova.classList[1];
 	console.log("Carta: "+carta);
 	var indiceProva=carta.indexOf("-");
@@ -52,25 +49,10 @@ function cambiaImmagine(id,prodotto,quantità)
 		}
 	}
 	console.log("Valore nome: ");
-	//console.log(prova.attributes[1].value);
 	console.log(prova.getAttribute("name"));	
 	console.log("Valore title: ");
 	console.log(prova.getAttribute("title"));
 	console.log("Indice: "+provaNumero);
-	
-	/*
-	var bottone=document.getElementById("bottone-"+provaNumero);
-	console.log("Bottone");
-	console.log(bottone);
-	var valore=bottone.getAttribute("value");
-	console.log(valore);
-	console.log("Length: "+valore.indexOf("/"));
-	var id=valore.charAt(0);
-	console.log("Id: "+id);
-	var valoreBottone=id+"/"+prova.getAttribute("title")
-	//var valoreBottone=id+"/"+prova.attributes[0].value;
-	bottone.setAttribute("value", valoreBottone);
-	*/
 	console.log(prodotto);
 	var elementoPrezzoProdotto=document.getElementById("prezzo");
 	console.log(elementoPrezzoProdotto);
@@ -78,8 +60,6 @@ function cambiaImmagine(id,prodotto,quantità)
 	var elementoQuantità=document.getElementById("quantità");
 	console.log("Elemento quantità");
 	console.log(elementoQuantità);
-	//console.log("InnerHTML");
-	//elementoQuantità.innerHTML=elementoQuantità.innerHTML+'<option value="audi">Fiat</option>';
 	console.log(elementoQuantità.innerHTML);
 	console.log("Parametro quantità");
 	console.log(quantità);
@@ -93,8 +73,10 @@ function cambiaImmagine(id,prodotto,quantità)
 	}
 }
 
+/*
 function gradazione() 
 {
+	console.log("Gradazione");
 	var valore=document.getElementById("prescrizione").value;
 	console.log(valore);
 	if(valore=="Si")
@@ -106,52 +88,43 @@ function gradazione()
 		document.getElementById("choose-file-label").style.display="none";
 	}
 }
-/*
-var input = document.getElementById('toggleswitch');
-var outputtext = document.getElementById('status');
-
-input.addEventListener('change',function()
-{
-	if(this.checked)
-	{
-		document.getElementById("choose-file-label").style.display="inline-block";
-		document.getElementById("ergebnis").style.paddingBottom="10px";
-	}
-	else
-	{
-		document.getElementById("choose-file-label").style.display="none";
-		document.getElementById("ergebnis").style.removeProperty('padding-bottom');
-	}
-});
 */
+
 //Nuovo toogle 
-$(document).ready(function() {
-    $("#modificaLenti").on("change", function () {
+$(document).ready(function() 
+{
+    $("#modificaLenti").on("change", function () 
+    {
         colorModePreview(this);
     })
 });
 
-function colorModePreview(ele) {
-    if($(ele).prop("checked") == true){
-        //$('body').addClass('dark-preview');
-        //$('body').removeClass('white-preview');
-        //document.getElementById("etichettaSceltaFile").style.display="inline-block";
+function colorModePreview(ele) 
+{
+    if($(ele).prop("checked") == true)
+    {
         $('#etichettaSceltaFile').removeClass('elementoNascosto');
         $('#etichettaSceltaFile').addClass('elementoVisibile');
-        //document.getElementById("toogle").style.paddingBottom="10px";
         $('#toogle').addClass('paddingToogle');
-		/*document.getElementById("ergebnis").style.paddingBottom="10px";*/ 
-		document.getElementById("modificaLenti").setAttribute('required', '');       
+		document.getElementById("modificaLenti").setAttribute('required', ''); 
+		$('#modificaLenti').val("Graduati");      
     }
-    else if($(ele).prop("checked") == false){
-        //$('body').addClass('white-preview');
-        //$('body').removeClass('dark-preview');
-        //document.getElementById("etichettaSceltaFile").style.display="none";
+    else if($(ele).prop("checked") == false)
+    {
         $('#etichettaSceltaFile').removeClass('elementoVisibile');
         $('#etichettaSceltaFile').addClass('elementoNascosto');
-        //document.getElementById("toogle").style.removeProperty('padding-bottom');
-        $('#toogle').removeClass('paddingToogle');
-		/*document.getElementById("ergebnis").style.removeProperty('padding-bottom');*/
+        $('#toogle').removeClass('paddingToogle');		
 		document.getElementById("modificaLenti").removeAttribute('required');
+		$('#modificaLenti').val("Non graduati");
     }
 }
+
+$(document).ready(function () 
+{
+	$('#sceltaFile').change(function () 
+	{
+		var i = $(this).prev('label').clone();
+		var file = $('#sceltaFile')[0].files[0].name;
+		$(this).prev('label').text(file);
+	}); 
+});

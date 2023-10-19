@@ -19,7 +19,7 @@ import model.Prodotto;
 import model.ProdottoDAO;
 
 /**
- * Servlet implementation class ProdottoServlet
+ * Servlet che serve per la visualizzazione dei prodotti.
  */
 @WebServlet("/Prodotto")
 public class ProdottoServlet extends HttpServlet 
@@ -30,9 +30,6 @@ public class ProdottoServlet extends HttpServlet
 	
 	private ColoreDAO coloreDAO;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ProdottoServlet() 
     {
         super();
@@ -40,9 +37,6 @@ public class ProdottoServlet extends HttpServlet
         this.coloreDAO= new ColoreDAO();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -55,9 +49,6 @@ public class ProdottoServlet extends HttpServlet
 				JSONObject prodotto=new JSONObject();
 				prodotto.put("id", prodotti.get(i).getId());
 				prodotto.put("nome", prodotti.get(i).getNome());
-				//prodotto.put("descrizione", prodotti.get(i).getDescrizione());
-				//prodotto.put("marca", prodotti.get(i).getMarca());
-				//prodotto.put("sesso", prodotti.get(i).getSesso());
 				jsonProdotti.put("prodotto"+i, prodotto);
 				ArrayList<Colore> colore= coloreDAO.colorePerId(prodotti.get(i).getId());
 				for(int j=0; j<colore.size(); j++)
@@ -67,8 +58,6 @@ public class ProdottoServlet extends HttpServlet
 					coloreJson.put("colore", colore.get(j).getColore());
 					coloreJson.put("immagine", colore.get(j).getImmagine());
 					coloreJson.put("prezzo", colore.get(j).getPrezzo());
-					//coloreJson.put("quantità", colore.get(j).getQuantità());
-					//coloreJson.put("codiceProdotto", colore.get(j).getCodiceProdotto());
 					prodotto.put("colore"+j, coloreJson);
 				}
 			}
@@ -84,9 +73,6 @@ public class ProdottoServlet extends HttpServlet
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		doGet(request, response);

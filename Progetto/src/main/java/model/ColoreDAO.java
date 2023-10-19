@@ -106,18 +106,25 @@ public class ColoreDAO
 	
 	public String prezzo(String prezzo)
 	{
-		int punto=prezzo.indexOf(".");
-		String prezzoIntero=prezzo.substring(0, punto);
-		String prezzoDopoPunto=prezzo.substring(punto+1);
-		String prezzoModificato="";
-		if(prezzoDopoPunto.equals("0"))
+		if(prezzo.contains(".")==true)
 		{
-			prezzoModificato=prezzoIntero;
+			int punto=prezzo.indexOf(".");
+			String prezzoIntero=prezzo.substring(0, punto);
+			String prezzoDopoPunto=prezzo.substring(punto+1);
+			String prezzoModificato="";
+			if(prezzoDopoPunto.equals("0"))
+			{
+				prezzoModificato=prezzoIntero;
+			}
+			else
+			{
+				prezzoModificato=prezzo;
+			}
+			return prezzoModificato;
 		}
 		else
 		{
-			prezzoModificato=prezzo;
+			return prezzo;
 		}
-		return prezzoModificato;
 	}
 }

@@ -105,6 +105,16 @@ public class Prodotto
 		this.colore = colore;
 	}
 	*/
+	public Colore getColore() 
+	{
+		return colore;
+	}
+
+	public void setColore(Colore colore) 
+	{
+		this.colore = colore;
+	}
+	
 
 
 	//Variabili di istanza.
@@ -128,4 +138,6 @@ public class Prodotto
 	//private String codice;
 	//Variabile che indica il colore del prodotto.
 	//private String colore;
+	//Variabile che rappresenta l'oggetto Colore del prodotto con relativo prezzo, immagine, ecc.
+	private Colore colore;
 }

@@ -75,3 +75,23 @@ button:hover
 	padding: 10px;
 	cursor: pointer;
 }
+
+.cart-counter
+{
+  display:inline-block;
+  width:20px;
+  opacity:0;
+  height:20px;
+  background:#ddd;
+  text-align:center;
+  border-radius:50%;
+  margin-left:10px;
+  position: absolute;
+  top: 9%;
+  right: 1%;
+}
+
+.opacita
+{
+	opacity: 1;
+}

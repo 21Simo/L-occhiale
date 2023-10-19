@@ -1,3 +1,4 @@
+<%@page import="model.Carello"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -7,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 		<link rel="stylesheet" href="./css/header.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<title>Flex</title>
 	</head>
 	<body>
@@ -28,10 +30,33 @@
 				<a href="Account.jsp" class="menu">
 					<img alt="Account" src="img/icone/person.svg" class="icone">
 				</a>
-				<a href="Carello.jsp" class="menu">
+				<%
+					Carello carello=(Carello) session.getAttribute("carello");
+				%>
+				<a href="Carello.jsp" class="menu" id="carello">
 					<img alt="Carello" src="img/icone/cart4.svg" class="icone">
+					<%
+						if(carello!=null)
+						{
+					%>
+					<span class='cart-counter' id="contatoreCarello"><%=carello.getQuantitaCarello() %></span>
+					<%
+						}
+					%>
+					<span class='cart-counter' id="contatoreCarello"> </span>
 				</a>
 			</div>
 		</header>
+		<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function () 
+			{
+				var quantitàCarello=$('#contatoreCarello').html();
+				if(quantitàCarello>0)
+				{
+					$('#contatoreCarello').addClass("opacita");
+				}
+	 		});
+	</script>
 	</body>
 </html>
