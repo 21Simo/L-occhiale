@@ -98,4 +98,46 @@ public class UtenteDAO
 			}
 		}
 	}
+	
+	public synchronized String login(String email, String password) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		String query="select email, password from occhiale.utente where email=? and password=?";
+		
+		try
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			preparedStatement.setString(1, email);
+			preparedStatement.setString(2, password);
+			ResultSet risultati= preparedStatement.executeQuery();
+			System.out.println("C'è risultato: "+risultati);
+			String login="errore";
+			while(risultati.next())
+			{
+				System.out.println("Risultato: "+risultati.getString("email"));
+				login=risultati.getString("email");
+			}
+			System.out.println("Login: "+login);
+			return login;
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement != null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+	}
 }

@@ -1,3 +1,4 @@
+<%@page import="model.Utente"%>
 <%@page import="model.Carello"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -27,11 +28,31 @@
 				<a href="ListaDesideri.jsp" class="menu">
 					<img alt="Lista desideri" src="img/icone/heart.svg" class="icone">
 				</a>
-				<a href="Account.jsp" class="menu">
+				<%
+					Utente utente=(Utente) request.getSession().getAttribute("utente");
+					System.out.println("Header utente: "+utente);
+					Carello carello;
+					if(utente!=null)
+					{
+						carello=(Carello) session.getAttribute("carelloUtente");
+				%>
+				<a href="Dashboard.jsp" class="menu">
 					<img alt="Account" src="img/icone/person.svg" class="icone">
 				</a>
 				<%
-					Carello carello=(Carello) session.getAttribute("carello");
+					}
+					else
+					{
+						carello=(Carello) session.getAttribute("carello");
+				%>
+				<a href="Login.jsp" class="menu">
+					<img alt="Account" src="img/icone/person.svg" class="icone">
+				</a>
+				<%
+					}
+				%>
+				<%
+					System.out.println("Header carello: "+carello);
 				%>
 				<a href="Carello.jsp" class="menu" id="carello">
 					<img alt="Carello" src="img/icone/cart4.svg" class="icone">

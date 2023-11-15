@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.Carello;
 import model.ProdottoCarello;
+import model.Utente;
 
 /**
  * Servlet che serve per la visualizzazione dei prodotti nel carello.
@@ -29,10 +30,21 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		Carello carello=(Carello) request.getSession().getAttribute("carello");
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		Carello carello;
+		if(utente!=null)
+		{
+			carello=(Carello) request.getSession().getAttribute("carelloUtente");
+		}
+		else
+		{
+			carello=(Carello) request.getSession().getAttribute("carello");
+		}
+		System.out.println("VisualizzazioneCarelloServlet: "+carello);
 		if(carello!=null)
 		{
 			String bottoneQuantità=(String) request.getParameter("quantitàBottone");
+			System.out.println("VisualizzazioneCarelloServlet: "+bottoneQuantità);
 			if(bottoneQuantità!=null)
 			{
 				int indiceTrattino=bottoneQuantità.indexOf("-");
@@ -63,13 +75,27 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 				if(listaProdotti.size()==0)
 				{
 					carello=null;
-					request.getSession().setAttribute("carello", carello);
+					if(utente!=null)
+					{
+						request.getSession().setAttribute("carelloUtente",carello);
+					}
+					else
+					{
+						request.getSession().setAttribute("carello",carello);
+					}
 				}
 				else
 				{
 					int quantitàCarello=carello.getQuantitaCarello();
 					carello.setQuantitaCarello(quantitàCarello-1);
-					request.getSession().setAttribute("carello", carello);
+					if(utente!=null)
+					{
+						request.getSession().setAttribute("carelloUtente",carello);
+					}
+					else
+					{
+						request.getSession().setAttribute("carello",carello);
+					}
 				}
 			}
 		}

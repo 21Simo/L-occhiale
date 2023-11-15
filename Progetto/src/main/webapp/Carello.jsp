@@ -21,7 +21,16 @@
 	<h1>Carello</h1>
 	
 	<%
-		Carello carelloSessione=(Carello) session.getAttribute("carello");
+		//Utente utente=(Utente) request.getSession().getAttribute("utente");
+		Carello carelloSessione;
+		if(utente!=null)
+		{
+			carelloSessione=(Carello) session.getAttribute("carelloUtente");
+		}
+		else
+		{
+			carelloSessione=(Carello) session.getAttribute("carello");
+		}
 	%>
 	
 	<%
@@ -38,7 +47,7 @@
 		}
 		else
 		{
-			ArrayList<ProdottoCarello> listaProdotti=carello.getListaProdotti();
+			ArrayList<ProdottoCarello> listaProdotti=carelloSessione.getListaProdotti();
 	%>
 
 	<div class="shopping-cart group">

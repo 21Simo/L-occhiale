@@ -16,6 +16,7 @@ import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
 import model.ProdottoCarello;
+import model.Utente;
 
 /**
  * Servlet che serve per i dati da inviare al modal tramite JSON.
@@ -45,8 +46,28 @@ public class CarelloServlet extends HttpServlet
 		String prezzo=(String) coloreJSON.get("prezzo");
 		String codiceProdotto=(String) coloreJSON.get("codiceProdotto");
 		
-		Carello carelloSessione=new Carello();
-		carelloSessione= (Carello) request.getSession().getAttribute("carello");
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		System.out.println("CarelloServlet utente: "+utente);
+		Carello carelloSessione;
+		if(utente!=null)
+		{
+			if(request.getSession().getAttribute("carello")!=null)
+			{
+				carelloSessione=(Carello) request.getSession().getAttribute("carello");
+				request.getSession().setAttribute("carello", null);
+				request.getSession().setAttribute("carelloUtente", carelloSessione);
+			}
+			else
+			{
+				carelloSessione=(Carello) request.getSession().getAttribute("carelloUtente");
+			}
+			System.out.println("CarelloServlet carello utente: "+carelloSessione);
+		}
+		else
+		{
+			carelloSessione=new Carello();
+			carelloSessione= (Carello) request.getSession().getAttribute("carello");
+		}
 		ProdottoCarello prodottoSelezionato= new ProdottoCarello();
 		prodottoSelezionato.setNome(nome);
 		Colore coloreSelezionato=new Colore();
@@ -57,7 +78,14 @@ public class CarelloServlet extends HttpServlet
 		coloreSelezionato.setCodiceProdotto(codiceProdotto);
 		prodottoSelezionato.setColore(coloreSelezionato);
 		prodottoSelezionato.setGradazione(gradazione);
-		prodottoSelezionato.setFile(file);
+		if(gradazione.equals("Graduati"))
+		{
+			prodottoSelezionato.setFile(file);
+		}
+		else
+		{
+			prodottoSelezionato.setFile("null");
+		}
 		
 		request.setAttribute("prova", "daiiii");
 		response.setContentType("application/json");
@@ -74,7 +102,14 @@ public class CarelloServlet extends HttpServlet
 			carello.setQuantitaCarello(1);
 			carello.setTotaleCosto(prezzo);
 			carello.aggiungiProdotto(prodottoSelezionato);
-			request.getSession().setAttribute("carello", carello);
+			if(utente!=null)
+			{
+				request.getSession().setAttribute("carelloUtente", carello);
+			}
+			else
+			{
+				request.getSession().setAttribute("carello", carello);
+			}
 			ColoreDAO coloreDAO=new ColoreDAO();
 			String totaleCosto=coloreDAO.prezzo(carello.getTotaleCosto());
 			json.put("totaleCarello", totaleCosto);
@@ -95,7 +130,14 @@ public class CarelloServlet extends HttpServlet
 				quantitàCarello--;
 				carelloSessione.setQuantitaCarello(quantitàCarello);
 			}
-			request.getSession().setAttribute("carello", carelloSessione);
+			if(utente!=null)
+			{
+				request.getSession().setAttribute("carelloUtente", carelloSessione);
+			}
+			else
+			{
+				request.getSession().setAttribute("carello", carelloSessione);
+			}
 			ColoreDAO coloreDAO=new ColoreDAO();
 			String totaleCosto=coloreDAO.prezzo(carelloSessione.getTotaleCosto());
 			json.put("totaleCarello", totaleCosto);
