@@ -31,7 +31,7 @@ a
 .content
 {
 	height: 26em;
-	width: 20%;
+	width: 22%;
 	margin: 15px;
 	box-sizing: border-box;
 	float: left;
@@ -173,14 +173,17 @@ li
 }
 
 /*Aggiunto*/
-.color-content{
+.color-content
+{
     margin-top: 1.2rem;
 }
-.color-content h3{
+.color-content h3
+{
     text-transform: uppercase;
     font-size: 1.6rem;
 }
-.color{
+.color
+{
     width: 55px;
     height: 45px;
     background: none;
@@ -199,32 +202,40 @@ li
     -ms-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
 }
-.color-black{
+.color-black
+{
     background-color: #242424;
 }
-.color-blue{
+.color-blue
+{
     background-color: #085ea0;
 }
-.color-yellow{
+.color-yellow
+{
     background-color: #c0b50d;
 }
-.color-red{
+.color-red
+{
     background-color: #8b0516;
 }
-.color-white{
+.color-white
+{
     background-color: #ededed;
 }
-.color:hover{
+.color:hover
+{
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);
 }
 
-.active-color{
+.active-color
+{
     /*box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);*/
     border: 1px solid blue;
     border-radius: 10px;
 }
 
-.color-groups{
+.color-groups
+{
     padding: 1rem 0;
     display: flex;
     justify-content: center;

@@ -99,13 +99,13 @@ public class UtenteDAO
 		}
 	}
 	
-	public synchronized String login(String email, String password) throws ClassNotFoundException, SQLException
+	public synchronized Utente login(String email, String password) throws ClassNotFoundException, SQLException
 	{
 		Connection connessione= null;
 		
 		PreparedStatement preparedStatement= null;
 		
-		String query="select email, password from occhiale.utente where email=? and password=?";
+		String query="select id, email, password from occhiale.utente where email=? and password=?";
 		
 		try
 		{
@@ -115,15 +115,20 @@ public class UtenteDAO
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			ResultSet risultati= preparedStatement.executeQuery();
-			System.out.println("C'è risultato: "+risultati);
-			String login="errore";
+			//String login="errore";
+			Utente utente= new Utente();
+			utente.setEmail("errore");
 			while(risultati.next())
 			{
 				System.out.println("Risultato: "+risultati.getString("email"));
-				login=risultati.getString("email");
+				utente= new Utente();
+				utente.setId(risultati.getInt("id"));
+				utente.setEmail(risultati.getString("email"));
+				utente.setPassword(risultati.getString("password"));
+				//login=risultati.getString("email");
 			}
-			System.out.println("Login: "+login);
-			return login;
+			System.out.println("Login: "+utente.getEmail());
+			return utente;
 		}
 		finally
 		{

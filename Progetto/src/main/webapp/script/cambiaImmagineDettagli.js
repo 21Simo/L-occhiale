@@ -8,6 +8,7 @@ function cambiaImmagine(id,prodotto,quantità)
 	//Aggiunta per il modal
 	var colore=prova.getAttribute("title");
 	console.log(colore);
+	$('#coloreProdottoAttivo').attr("value", colore);
 	$('#myBtn').attr("value", colore);
 	var carta=prova.classList[1];
 	console.log("Carta: "+carta);
@@ -18,6 +19,8 @@ function cambiaImmagine(id,prodotto,quantità)
 	var img="#img-"+provaNumero;
 	console.log("Immagine: "+img);
 	document.querySelector(img).src = `./img/prodotti/${id}`;
+	console.log($(img).attr("src"));
+	$('#immagineProdotto').attr("value", $(img).attr("src"));
 	var elementoProva=document.getElementById(id);
 	console.log("Elemento selezionato: ")
 	console.log(elementoProva);
@@ -56,6 +59,7 @@ function cambiaImmagine(id,prodotto,quantità)
 	console.log(prodotto);
 	var elementoPrezzoProdotto=document.getElementById("prezzo");
 	console.log(elementoPrezzoProdotto);
+	$('#prezzoProdotto').attr("value", prodotto);
 	elementoPrezzoProdotto.innerHTML=prodotto+" €";
 	var elementoQuantità=document.getElementById("quantità");
 	console.log("Elemento quantità");
@@ -66,11 +70,29 @@ function cambiaImmagine(id,prodotto,quantità)
 	elementoQuantità.innerHTML="";
 	console.log("Inizializziamo l'innerHTML");
 	console.log(elementoQuantità.innerHTML);
+	if(quantità<=0)
+	{
+		elementoQuantità.innerHTML=elementoQuantità.innerHTML+'<option value=0>'+0+'</option>';
+		$('#disponibilità').html("Prodotto non disponibile");
+		$('#myBtn').prop("disabled", true);
+	}
+	else
+	{
+		$('#disponibilità').html("");
+		$('#myBtn').prop("disabled", false);
+	}
 	for (let i=1; i<=quantità; i++)
 	{
 		console.log(i);
 		elementoQuantità.innerHTML=elementoQuantità.innerHTML+'<option value='+i+'>'+i+'</option>';
 	}
+}
+
+function quantita()
+{
+	var quantità= $("#quantità").val();
+	console.log(quantità);
+	$('#quantitàProdotto').attr("value", quantità);
 }
 
 /*
@@ -107,7 +129,9 @@ function colorModePreview(ele)
         $('#etichettaSceltaFile').addClass('elementoVisibile');
         $('#toogle').addClass('paddingToogle');
 		document.getElementById("modificaLenti").setAttribute('required', ''); 
-		$('#modificaLenti').val("Graduati");      
+		$('#modificaLenti').val("Graduati"); 
+		$('#gradazione').attr("value", "Graduati");
+		$('#erroreFile').html("");     
     }
     else if($(ele).prop("checked") == false)
     {
@@ -116,6 +140,8 @@ function colorModePreview(ele)
         $('#toogle').removeClass('paddingToogle');		
 		document.getElementById("modificaLenti").removeAttribute('required');
 		$('#modificaLenti').val("Non graduati");
+		$('#gradazione').attr("value", "Non graduati");
+		$('#erroreFile').html("");
     }
 }
 
@@ -124,7 +150,14 @@ $(document).ready(function ()
 	$('#sceltaFile').change(function () 
 	{
 		var i = $(this).prev('label').clone();
+		console.log("Cambia label: ");
+		console.log(i);
 		var file = $('#sceltaFile')[0].files[0].name;
-		$(this).prev('label').text(file);
+		console.log("Cambia label: ");
+		console.log(file);
+		//console.log($(this).prev('label'));
+		//$(this).prev('label').text(file);
+		$('#etichettaSceltaFile').html(file);
+		$('#erroreFile').html("");
 	}); 
 });

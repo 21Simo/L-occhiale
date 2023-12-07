@@ -3,7 +3,6 @@
 	
 <%
 	String login=(String) request.getAttribute("login");
-	System.out.println("JSP: "+login);
 %>
 	
 <!DOCTYPE html>
@@ -20,27 +19,11 @@
 	</nav>
 	<div class="login">
 		<div class="container" id="container">
-			<!--  
-			<div class="form-container sign-up-container">
-				<form action="#" class="formLogin">
-					<h1 class="grassetto">Create Account</h1>
-					<div class="social-container">
-						<a href="#" class="social linkLogin"><i class="fab fa-facebook-f"></i></a> 
-						<a href="#" class="social linkLogin"><i class="fab fa-google-plus-g"></i></a> 
-						<a href="#" class="social linkLogin"><i class="fab fa-linkedin-in"></i></a>
-					</div>
-					<span class="etichettaLogin">or use your email for registration</span> 
-					<input type="text" placeholder="Name" class="inputLogin" /> <input type="email" placeholder="Email" />
-					<input type="password" placeholder="Password" class="inputLogin" />
-					<button class="bottoneLogin">Sign Up</button>
-				</form>
-			</div>-->
 			<div class="form-container sign-in-container">
 				<form action="LoginServlet" class="formLogin" method="post">
 					<h1 class="grassetto">Login</h1>
 					<input name="email" type="email" placeholder="Email" class="inputLogin" /> 
-					<input name="password" type="password" placeholder="Password" class="inputLogin" /> 
-					<!--  <a href="#" class="linkLogin">Forgot your password?</a>-->
+					<input name="password" type="password" placeholder="Password" class="inputLogin" />
 					<% 
 						if(login!=null)
 						{
@@ -57,12 +40,6 @@
 			</div>
 			<div class="overlay-container">
 				<div class="overlay">
-					<!--  
-					<div class="overlay-panel overlay-left">
-						<h1 class="grassetto">Welcome Back!</h1>
-						<p class="testoLogin">To keep connected with us please login with your personal info</p>
-						<button class="ghost bottoneLogin" id="signIn">Sign In</button>
-					</div>-->
 					<div class="overlay-panel overlay-right">
 						<h1 class="grassetto">Registrati</h1>
 						<p class="testoLogin">Inserisci i tuoi dati e unisciti a noi.</p>

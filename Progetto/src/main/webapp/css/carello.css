@@ -218,6 +218,7 @@ label
   color: #fff;
   font-size: 25px;
   border-radius: 3px;
+  cursor: pointer;
 }
 
 .checkout:hover 

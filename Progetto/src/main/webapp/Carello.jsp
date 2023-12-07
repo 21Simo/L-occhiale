@@ -21,7 +21,6 @@
 	<h1>Carello</h1>
 	
 	<%
-		//Utente utente=(Utente) request.getSession().getAttribute("utente");
 		Carello carelloSessione;
 		if(utente!=null)
 		{
@@ -83,7 +82,7 @@
 					{
 				%>
 				<p class="dettagliProdottoDescrizione">
-					Prescrizione medica: <%=listaProdotti.get(i).getFile() %>
+					Prescrizione medica: <%=listaProdotti.get(i).getNomeFile() %>
 				</p>
 				<%
 					}
@@ -157,8 +156,25 @@
 				<div class="totals-value totaleValoriElemento" id="cart-total">90.57</div>
 			</div>
 		</div>
-
-		<button class="checkout">Vai alla cassa</button>
+		
+		<%
+			if(utente==null)
+			{
+		%>
+		<a href="Login.jsp">
+			<button class="checkout">Vai alla cassa</button>
+		</a>
+		<%
+			}
+			else
+			{
+		%>
+		<a href="Cassa.jsp">
+			<button class="checkout">Vai alla cassa</button>
+		</a>
+		<%
+			}
+		%>
 
 	</div>
 	

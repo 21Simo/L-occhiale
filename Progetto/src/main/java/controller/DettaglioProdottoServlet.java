@@ -13,10 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import model.Carello;
 import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
+import model.ProdottoCarello;
 import model.ProdottoDAO;
+import model.Utente;
 
 /**
  * Servlet che serve per i dettagli dei prodotti.
@@ -47,6 +50,18 @@ public class DettaglioProdottoServlet extends HttpServlet
 			int idProdotto=Integer.parseInt(id.substring(0, indice));
 			String indiceColore=id.substring(indice+1);
 			ArrayList<Prodotto> prodotti= prodottoDAO.dettagliProdottiPerId(idProdotto);
+			
+			Utente utente=(Utente) request.getSession().getAttribute("utente");
+			Carello carelloSessione;
+			if(utente!=null)
+			{
+				carelloSessione=(Carello) request.getSession().getAttribute("carelloUtente");
+			}
+			else
+			{
+				carelloSessione=(Carello) request.getSession().getAttribute("carello");
+			}
+			
 			JSONObject prodotto= new JSONObject();
 			for(int i=0; i<prodotti.size(); i++)
 			{
@@ -64,7 +79,22 @@ public class DettaglioProdottoServlet extends HttpServlet
 					coloreJson.put("colore", colore.get(j).getColore());
 					coloreJson.put("immagine", colore.get(j).getImmagine());
 					coloreJson.put("prezzo", colore.get(j).getPrezzo());
-					coloreJson.put("quantità", colore.get(j).getQuantità());
+					
+					int quantitàSospesa=0;
+					if(carelloSessione!=null)
+					{
+						ArrayList<ProdottoCarello> listaCarello= carelloSessione.getListaProdotti();
+						for(int k=0; i<=listaCarello.size(); i++)
+						{
+							if(listaCarello.get(k).getColore().getId()==colore.get(j).getId())
+							{
+								System.out.println("Perfetto.");
+								quantitàSospesa= listaCarello.get(k).getColore().getQuantità();
+							}
+						}
+					}
+					
+					coloreJson.put("quantità", colore.get(j).getQuantità()-quantitàSospesa); 
 					coloreJson.put("codiceProdotto", colore.get(j).getCodiceProdotto());
 					prodotto.put("colore"+j, coloreJson);
 				}

@@ -84,7 +84,7 @@ public class Carello
 				{
 					if(this.listaProdotti.get(i).getGradazione().equals(this.listaProdotti.get(k).getGradazione()))
 					{
-						if(this.listaProdotti.get(i).getFile().equals(this.listaProdotti.get(k).getFile()))
+						if(this.listaProdotti.get(i).getNomeFile().equals(this.listaProdotti.get(k).getNomeFile()))
 						{
 							this.listaProdotti.remove(k);
 							System.out.println(this.listaProdotti.size());

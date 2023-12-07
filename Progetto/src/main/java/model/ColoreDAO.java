@@ -127,4 +127,57 @@ public class ColoreDAO
 			return prezzo;
 		}
 	}
+	
+	public synchronized void aggiornaQuantità(int idProdotto, int idColore, int quantità) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione=null;
+		
+		PreparedStatement preparedStatement=null;
+		
+		PreparedStatement preparedStatementQuantità=null;
+		
+		String queryQuantità="select quantità from occhiale.colore where id=?";
+		
+		String query="update occhiale.colore set quantità=? where id=? and idProdotto=?";
+		
+		try
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			
+			preparedStatementQuantità= connessione.prepareStatement(queryQuantità);
+			preparedStatementQuantità.setInt(1, idColore);
+			ResultSet risultati=preparedStatementQuantità.executeQuery();
+			int quantitàMagazzino=-1;
+			while(risultati.next())
+			{
+				quantitàMagazzino=risultati.getInt("quantità");
+			}
+			
+			System.out.println("ColoreDAO: "+quantitàMagazzino);
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			int quantitàAggiornata=quantitàMagazzino-quantità;
+			preparedStatement.setInt(1, quantitàAggiornata);
+			preparedStatement.setInt(2, idColore);
+			preparedStatement.setInt(3, idProdotto);
+			preparedStatement.executeUpdate();
+			
+			connessione.commit();
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement!=null)
+				{
+					preparedStatement.close();
+					preparedStatementQuantità.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+	}
 }

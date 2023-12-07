@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import model.Carello;
 import model.ProdottoCarello;
 import model.Utente;
@@ -40,11 +42,9 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 		{
 			carello=(Carello) request.getSession().getAttribute("carello");
 		}
-		System.out.println("VisualizzazioneCarelloServlet: "+carello);
 		if(carello!=null)
 		{
 			String bottoneQuantità=(String) request.getParameter("quantitàBottone");
-			System.out.println("VisualizzazioneCarelloServlet: "+bottoneQuantità);
 			if(bottoneQuantità!=null)
 			{
 				int indiceTrattino=bottoneQuantità.indexOf("-");
@@ -71,6 +71,20 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 			{
 				int indice=Integer.parseInt(request.getParameter("prodotto"));
 				ArrayList<ProdottoCarello> listaProdotti=carello.getListaProdotti();
+				
+				JSONObject prodotto=(JSONObject) request.getSession().getAttribute("dettaglioProdotto");
+				String coloreSelezionato=(String) request.getSession().getAttribute("coloreSelezionato");
+				JSONObject colore=(JSONObject) prodotto.get(coloreSelezionato);
+				if(Integer.parseInt(colore.get("id").toString())==listaProdotti.get(indice).getColore().getId())
+				{
+					int quantità= Integer.parseInt(colore.get("quantità").toString());
+					int quantitàSospesa= listaProdotti.get(indice).getColore().getQuantità();
+					colore.remove("quantità");
+					colore.put("quantità", quantità+quantitàSospesa);
+					prodotto.remove(coloreSelezionato);
+					prodotto.put(coloreSelezionato, colore);
+				}
+				
 				listaProdotti.remove(indice);
 				if(listaProdotti.size()==0)
 				{

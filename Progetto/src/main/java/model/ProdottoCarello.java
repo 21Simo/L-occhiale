@@ -1,5 +1,7 @@
 package model;
 
+import javax.servlet.http.Part;
+
 public class ProdottoCarello extends Prodotto
 {
 	public String getGradazione() 
@@ -12,17 +14,28 @@ public class ProdottoCarello extends Prodotto
 		this.gradazione = gradazione;
 	}
 	
-	public String getFile()
+	public String getNomeFile()
 	{
-		return file;
+		return nomeFile;
 	}
 	
-	public void setFile(String file) 
+	public void setNomeFile(String nomeFile) 
 	{
-		this.file = file;
+		this.nomeFile = nomeFile;
 	}
-	
-	
+
+	public String getPath() 
+	{
+		return path;
+	}
+
+	public void setPath(String path) 
+	{
+		this.path = path;
+	}
+
+
 	private String gradazione;
-	private String file;
+	private String nomeFile;
+	private String path;
 }
