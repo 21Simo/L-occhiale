@@ -1,3 +1,8 @@
+<%@page import="java.sql.Date"%>
+<%@page import="model.ColoreDAO"%>
+<%@page import="model.DettagliOrdineDAO"%>
+<%@page import="model.DettagliOrdine"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -20,30 +25,7 @@
 	</nav>
 
 	<div class="contenitoreDashboard">
-		<nav class="navDashboard">
-			<div class="menu-items">
-				<ul class="nav-links">
-					<li><a href="#"> <i class="uil uil-estate"></i> <span
-							class="link-name">Dahsboard</span>
-					</a></li>
-					<li><a href="#"> <i class="uil uil-files-landscapes"></i>
-							<span class="link-name">Account</span>
-					</a></li>
-					<li><a href="#"> <i class="uil uil-chart"></i> <span
-							class="link-name">Ordini</span>
-					</a></li>
-					<li><a href="#"> <i class="uil uil-thumbs-up"></i> <span
-							class="link-name">Lista desideri</span>
-					</a></li>
-				</ul>
-
-				<ul class="logout-mode">
-					<li><a href="#"> <i class="uil uil-signout"></i> <span
-							class="link-name">Logout</span>
-					</a></li>
-				</ul>
-			</div>
-		</nav>
+		<%@ include file="MenùDashboard.jsp" %>
 
 		<section class="dashboard">
 			<div class="dash-content">
@@ -68,20 +50,19 @@
 					</div>
 				</div>
 
+				
 				<div class="activity padding">
 					<div class="title">
 						<i class="uil uil-clock-three"></i> <span class="text">Ordini
 							recenti</span>
 					</div>
-
+				
+					<!--  
 					<div class="activity-data">
 						<div class="data names">
-							<span class="data-title">Name</span> <span class="data-list">Prem
-								Shahi</span> <span class="data-list">Deepa Chand</span> <span
-								class="data-list">Manisha Chand</span> <span class="data-list">Pratima
-								Shahi</span> <span class="data-list">Man Shahi</span> <span
-								class="data-list">Ganesh Chand</span> <span class="data-list">Bikash
-								Chand</span>
+							<span class="data-title">Name</span> 
+							<span class="data-list">Prem Shahi</span> 
+							<span class="data-list">aaaaaaaaaa</span>
 						</div>
 						<div class="data email">
 							<span class="data-title">Email</span> <span class="data-list">premshahi@gmail.com</span>
@@ -111,9 +92,85 @@
 							<span class="data-list">Liked</span> <span class="data-list">Liked</span>
 						</div>
 					</div>
+					-->
 				</div>
 			</div>
+
+			<table id="ordini">
+				<tr>
+					<th>Numero d'ordine</th>
+					<th>Importo</th>
+					<th>Quantità</th>
+					<th>Data</th>
+					<th>Stato</th>
+					<th></th>
+				</tr>
+				<%
+					System.out.println("Dashboard JSP: "+utente);
+					if(utente==null)
+					{
+						response.sendRedirect("Login.jsp");
+					}
+					else
+					{
+						DettagliOrdineDAO dettagliOrdineDAO= new DettagliOrdineDAO();
+						ArrayList<DettagliOrdine> listaDettagliOrdini= dettagliOrdineDAO.dettagliOrdiniPerUtente(utente.getId());
+						System.out.println("Dashboard JSP: "+listaDettagliOrdini);
+						if(listaDettagliOrdini==null)
+						{
+				%>
+				<p>Non ci sono ordini recenti. </p>
+				<%
+						}
+						else
+						{
+							request.setAttribute("listaDettagliOrdini", listaDettagliOrdini);
+							session.setAttribute("listaDettagliOrdini", listaDettagliOrdini);
+							for(int i=0; i<listaDettagliOrdini.size(); i++)
+							{
+					//}
+						
+					//else if(utente!=null)
+					//{
+						//System.out.println("Dashboard JSP: "+utente.getId());
+						//DettagliOrdineDAO dettagliOrdineDAO= new DettagliOrdineDAO();
+						//ArrayList<DettagliOrdine> listaDettagliOrdini= dettagliOrdineDAO.dettagliOrdiniPerUtente(utente.getId());
+						//ArrayList<DettagliOrdine> listaDettagliOrdini= new ArrayList<DettagliOrdine>();
+						//listaDettagliOrdini=(ArrayList<DettagliOrdine>) request.getAttribute("listaDettagliOrdini");
+						//System.out.println("Dashboard JSP: "+listaDettagliOrdini);
+						//for(int i=0; i<listaDettagliOrdini.size(); i++)
+						//{ 
+								
+						//}
+					//}
+								ColoreDAO coloreDAO= new ColoreDAO();
+								String importo= coloreDAO.prezzo(Double.toString(listaDettagliOrdini.get(i).getImporto()));
+								Date data= listaDettagliOrdini.get(i).getData();
+				%>
+				<tr>
+					<td><%=listaDettagliOrdini.get(i).getId() %></td>
+					<td><%=importo %> &euro;</td>
+					<td><%=listaDettagliOrdini.get(i).getQuantità() %></td>
+					<td><%=listaDettagliOrdini.get(i).visualizzaData(data) %></td>
+					<td><%=listaDettagliOrdini.get(i).getStato() %></td>
+					<!--  
+					<td><a href="DettaglioOrdineServlet">Vai al dettaglio</a></td>
+					-->
+					<td>
+						<form action="DettaglioOrdineServlet" method="post">
+							<button name="dettaglioOrdine" class="noButton" value="<%=i%>">Dettaglio</button>
+						</form>
+					</td>
+				</tr>
+				<%
+							}
+						}
+					}
+				%>
+			</table>
+
 		</section>
+
 	</div>
 
 	<footer>

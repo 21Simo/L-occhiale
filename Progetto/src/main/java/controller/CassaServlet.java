@@ -77,6 +77,7 @@ public class CassaServlet extends HttpServlet
 		{
 			pagamentoDAO.inserisciPagamento(pagamento);
 			Carello carello=(Carello) request.getSession().getAttribute("carelloUtente");
+			System.out.println("Cassa servlet: "+carello.getTotaleCosto());
 			Double importo= Double.parseDouble(carello.getTotaleCosto());
 			Date data= new Date(System.currentTimeMillis());
 			int quantità= carello.getQuantitaCarello();
@@ -90,6 +91,13 @@ public class CassaServlet extends HttpServlet
 			dettagliOrdine.setIdPagamento(pagamentoDAO.ultimoId());
 			dettagliOrdine.setStato("In elaborazione");
 			ArrayList<ProdottoCarello> listaProdotti= carello.getListaProdotti();
+			
+			
+			dettagliOrdineDAO.inserisciDettagliOrdine(dettagliOrdine);
+			Ordine ordine= new Ordine();
+			ordine.setIdOrdine(dettagliOrdineDAO.ultimoId());
+			
+			//ArrayList<ProdottoCarello> listaProdotti= carello.getListaProdotti();
 			for(int i=0; i<listaProdotti.size(); i++)
 			{
 				coloreDAO.aggiornaQuantità(listaProdotti.get(i).getId(), listaProdotti.get(i).getColore().getId(), listaProdotti.get(i).getColore().getQuantità());
@@ -99,12 +107,16 @@ public class CassaServlet extends HttpServlet
 					String pathTemp="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\tmp file\\";
 					String destinazione="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\file\\";
 					Files.move(Paths.get(pathTemp+file.substring(file.lastIndexOf("\\")+1)), Paths.get(destinazione+file.substring(file.lastIndexOf("\\")+1)));
-					dettagliOrdine.setFile(file);
+					//dettagliOrdine.setFile(file);
+					
+					ordine.setFile(file);
 				}
-				dettagliOrdineDAO.inserisciDettagliOrdine(dettagliOrdine);
-				Ordine ordine= new Ordine();
-				ordine.setIdOrdine(dettagliOrdineDAO.ultimoId());
+				//dettagliOrdineDAO.inserisciDettagliOrdine(dettagliOrdine);
+				//Ordine ordine= new Ordine();
+				//ordine.setIdOrdine(dettagliOrdineDAO.ultimoId());
 				ordine.setIdProdotto(listaProdotti.get(i).getId());
+				ordine.setIdColore(listaProdotti.get(i).getColore().getId());
+				ordine.setQuantitàProdotto(listaProdotti.get(i).getColore().getQuantità());
 				ordineDAO.inserisciOrdine(ordine);
 				carello= null;
 				request.getSession().setAttribute("carelloUtente", carello);

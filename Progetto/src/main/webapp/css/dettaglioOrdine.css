@@ -1,0 +1,62 @@
+.top
+{
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 15px;
+}
+
+.padding
+{
+	padding-bottom: 15px;
+}
+
+.immagine
+{
+	height: 82px;
+}
+
+.fattura
+{
+	border: none;
+	background: transparent;
+	cursor: pointer;
+	text-decoration: underline;
+	font-size: 20px;
+	color: red;
+	font-weight: bold;
+}
+
+/*Tabella*/
+#dettagliOrdini 
+{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#dettagliOrdini td, #dettagliOrdini th 
+{
+  /*border: 1px solid #ddd;*/
+  border: none;
+  padding: 0px;
+}
+
+#dettagliOrdini tr:nth-child(even)
+{
+	background-color: #f2f2f2;
+}
+
+#dettagliOrdini tr:hover 
+{
+	background-color: #ddd;
+}
+
+#dettagliOrdini th 
+{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+/*Fine tabella*/

@@ -94,6 +94,19 @@ public class DettagliOrdine
 		this.file = file;
 	}
 	
+	public String visualizzaData(Date dataInput)
+	{
+		String dataString= dataInput.toString();
+		int indiceAnno= dataString.indexOf("-");
+		String anno= dataString.substring(0, indiceAnno);
+		dataString= dataString.substring(indiceAnno+1);
+		int indiceMese= dataString.indexOf("-");
+		String mese= dataString.substring(0, indiceMese);
+		String giorno= dataString.substring(indiceMese+1);
+		String data= giorno+"-"+mese+"-"+anno;
+		return data;
+	}
+	
 
 	private int id;
 	private double importo;

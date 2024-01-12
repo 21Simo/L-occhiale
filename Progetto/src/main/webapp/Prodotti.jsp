@@ -29,6 +29,7 @@
 		%>
 		<div class="content" id="card-<%=i %>">
 			<form action="DettaglioProdottoServlet" method="post">
+				<input name="admin" type="text" hidden="true" value="false">
 				<button type="submit" name="bottone" value="<%=prodotto.get("id")%>/colore0<%-- <%=colore.get("id") %>--%>" class="dettagli" id="bottone-<%=i %>">
 					<%
 						session.setAttribute("prodotto", json);
@@ -99,6 +100,6 @@
 	<footer>
 		<%@ include file="Footer.jsp" %>
 	</footer>
-	<script type="text/javascript"charset="UTF-8" src="./script/cambiaImmagine.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="./script/cambiaImmagine.js"></script>
 </body>
 </html>

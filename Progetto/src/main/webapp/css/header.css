@@ -55,6 +55,11 @@ header
 	color:#39f;
 }
 
+.menu button:hover
+{
+	color:#39f;
+}
+
 .bottone
 {
 	padding: 9px 25px;

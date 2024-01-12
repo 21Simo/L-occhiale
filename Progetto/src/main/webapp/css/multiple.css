@@ -106,7 +106,8 @@ h6
 	padding-top: 10px;
 }
 
-ul
+/*ul*/
+.elementoLista
 {
 	list-style: none;
 	display: flex;

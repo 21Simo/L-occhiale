@@ -33,8 +33,41 @@ public class Ordine
 		this.idProdotto = idProdotto;
 	}
 	
-	
+	public int getIdColore() 
+	{
+		return idColore;
+	}
+
+	public void setIdColore(int idColore) 
+	{
+		this.idColore = idColore;
+	}
+
+	public String getFile() 
+	{
+		return file;
+	}
+
+	public void setFile(String file) 
+	{
+		this.file = file;
+	}
+
+	public int getQuantitàProdotto() 
+	{
+		return quantitàProdotto;
+	}
+
+	public void setQuantitàProdotto(int quantitàProdotto) 
+	{
+		this.quantitàProdotto = quantitàProdotto;
+	}
+
+
 	private int id;
 	private int idOrdine;
 	private int idProdotto;
+	private int idColore;
+	private String file;
+	private int quantitàProdotto;
 }

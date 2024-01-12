@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+</head>
+<body>
+	<nav class="navDashboard">
+		<div class="menu-items">
+			<ul class="nav-links">
+				<li><a href="Dashboard.jsp"> <i class="uil uil-estate"></i>
+						<span class="link-name">Dahsboard</span>
+				</a></li>
+				<li><a href="Account.jsp"> <i
+						class="uil uil-files-landscapes"></i> <span class="link-name">Account</span>
+				</a></li>
+				<li><a href="OrdiniServlet"> <i class="uil uil-chart"></i> <span
+						class="link-name">Ordini</span>
+				</a></li>
+				<li><a href="#"> <i class="uil uil-thumbs-up"></i> <span
+						class="link-name">Lista desideri</span>
+				</a></li>
+			</ul>
+
+			<ul class="logout-mode nav-links">
+				<li><a href="LogoutServlet"> <i class="uil uil-signout"></i> <span
+						class="link-name">Logout</span>
+				</a></li>
+			</ul>
+		</div>
+	</nav>
+</body>
+</html>

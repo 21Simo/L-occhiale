@@ -110,6 +110,16 @@ body
     text-decoration: none;
     position: relative;
 }
+
+.menu-items li button
+{
+    display: flex;
+    align-items: center;
+    height: 50px;
+    text-decoration: none;
+    position: relative;
+}
+
 .nav-links li a:hover:before
 {
     content: "";
@@ -120,6 +130,18 @@ body
     border-radius: 50%;
     background-color: var(--primary-color);
 }
+
+.nav-links li button:hover:before
+{
+    content: "";
+    position: absolute;
+    left: -7px;
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
 .menu-items li a i
 {
     font-size: 24px;
@@ -130,6 +152,18 @@ body
     justify-content: center;
     color: var(--black-light-color);
 }
+
+.menu-items li button i
+{
+    font-size: 24px;
+    min-width: 45px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black-light-color);
+}
+
 .menu-items li a .link-name
 {
     font-size: 18px;
@@ -137,10 +171,25 @@ body
     color: var(--black-light-color);    
     transition: var(--tran-05);
 }
+
+.menu-items li button .link-name
+{
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black-light-color);    
+    transition: var(--tran-05);
+}
+
 .nav-links li a:hover i, .nav-links li a:hover .link-name
 {
     color: var(--primary-color);
 }
+
+.nav-links li button:hover i, .nav-links li button:hover .link-name
+{
+    color: var(--primary-color);
+}
+
 .menu-items .logout-mode
 {
     padding-top: 10px;
@@ -337,4 +386,46 @@ body
         left: 0;
         width: 100%;
     }
+}
+
+/*Tabella*/
+#ordini 
+{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#ordini td, #ordini th 
+{
+  /*border: 1px solid #ddd;*/
+  border: none;
+  padding: 8px;
+}
+
+#ordini tr:nth-child(even)
+{
+	background-color: #f2f2f2;
+}
+
+#ordini tr:hover 
+{
+	background-color: #ddd;
+}
+
+#ordini th 
+{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+/*Fine tabella*/
+
+.noButton
+{
+	border: none;
+	background: transparent;
+	cursor: pointer;
 }

@@ -180,4 +180,162 @@ public class ColoreDAO
 			}
 		}
 	}
+	
+	public synchronized Colore colorePerIdColore(int idColore) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		String query= "select * from occhiale.colore where id= ?";
+		
+		try
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			preparedStatement.setInt(1, idColore);
+			ResultSet risultati= preparedStatement.executeQuery();
+			Colore colore= new Colore();
+			while(risultati.next())
+			{
+				colore.setId(risultati.getInt("id"));
+				colore.setIdProdotto(risultati.getInt("idProdotto"));
+				colore.setColore(risultati.getString("colore"));
+				colore.setImmagine(risultati.getString("immagine"));
+				colore.setPrezzo(risultati.getString("prezzo"));
+				colore.setQuantità(risultati.getInt("quantità"));
+				colore.setCodiceProdotto(risultati.getString("codiceProdotto"));
+			}
+			return colore;
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement != null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+	}
+	
+	public synchronized void aggiornaColore(Colore colore) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		String query= "update occhiale.colore set colore=?, immagine=?, prezzo=?, quantità=?, codiceProdotto=? where id=?";
+		
+		try
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			//preparedStatement.setInt(1, colore.getIdProdotto());
+			preparedStatement.setString(1, colore.getColore());
+			preparedStatement.setString(2, colore.getImmagine());
+			preparedStatement.setString(3, colore.getPrezzo());
+			preparedStatement.setInt(4, colore.getQuantità());
+			preparedStatement.setString(5, colore.getCodiceProdotto());
+			preparedStatement.setInt(6, colore.getId());
+			System.out.println(preparedStatement);
+			preparedStatement.executeUpdate();
+			connessione.commit();
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement!=null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+	}
+	
+	public synchronized void inserisciColore(Colore colore) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		String query= "INSERT INTO occhiale.colore (idProdotto, colore, immagine, prezzo, quantità, codiceProdotto) VALUES (?, ?, ?, ?, ?, ?)";
+		
+		try
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			preparedStatement.setInt(1, colore.getIdProdotto());
+			preparedStatement.setString(2, colore.getColore());
+			preparedStatement.setString(3, colore.getImmagine());
+			preparedStatement.setString(4, colore.getPrezzo());
+			preparedStatement.setInt(5, colore.getQuantità());
+			preparedStatement.setString(6, colore.getCodiceProdotto());
+			System.out.println(preparedStatement);
+			preparedStatement.executeUpdate();
+			connessione.commit();
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement!=null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+	}
+	
+	public synchronized void eliminaColore(Colore colore) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		String query= "DELETE FROM occhiale.colore WHERE id=? and idProdotto=?";
+		
+		try
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			preparedStatement.setInt(1, colore.getId());
+			preparedStatement.setInt(2, colore.getIdProdotto());
+			System.out.println(preparedStatement);
+			preparedStatement.executeUpdate();
+			connessione.commit();
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement!=null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+	}
 }

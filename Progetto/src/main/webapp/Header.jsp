@@ -19,7 +19,12 @@
 			</a>
 			<nav>
 				<ul class="menu">
-					<li><a href="Prodotto" class="menu">Tutti i prodotti</a></li>
+					<li>
+						<!--  <a href="Prodotto" class="menu">Tutti i prodotti</a>-->
+						<form action="Prodotto" method="post">
+							<button name="prodotti" class="noButton menu" value="header">Tutti i prodotti</button>							
+						</form>
+					</li>
 					<li><a href="Uomo.jsp" class="menu">Uomo</a></li>
 					<li><a href="Donna.jsp" class="menu">Donna</a></li>
 				</ul>
@@ -35,11 +40,23 @@
 					if(utente!=null)
 					{
 						carello=(Carello) session.getAttribute("carelloUtente");
+						String tipo= utente.getTipo();
+						if(tipo.equals("Utente"))
+						{
 				%>
 				<a href="Dashboard.jsp" class="menu">
 					<img alt="Account" src="img/icone/person.svg" class="icone">
 				</a>
 				<%
+						}
+						else if(tipo.equals("Amministratore"))
+						{
+				%>
+				<a href="DashboardAdmin.jsp" class="menu">
+					<img alt="Account" src="img/icone/person.svg" class="icone">
+				</a>
+				<%
+						}
 					}
 					else
 					{

@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Carello;
+import model.DettagliOrdine;
+import model.DettagliOrdineDAO;
 import model.Utente;
 import model.UtenteDAO;
 
@@ -68,8 +71,18 @@ public class LoginServlet extends HttpServlet
 				request.getSession().setAttribute("carelloUtente", carelloUtente);
 				carello= null;
 			}
-			RequestDispatcher dispatcher= request.getRequestDispatcher("/Dashboard.jsp");
-			dispatcher.forward(request, response);
+			
+			String tipo= utente.getTipo();
+			if(tipo.equals("Utente"))
+			{
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/Dashboard.jsp"); 
+				dispatcher.forward(request, response);
+			}
+			else if (tipo.equals("Amministratore")) 
+			{
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/DashboardAdmin.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 	}
 

@@ -91,6 +91,7 @@
 				</h4>
 				<%
 					ArrayList<ProdottoCarello> prodottiCarello=carelloSessione.getListaProdotti();
+					Double totale=0.0;
 					for(int i=0; i<prodottiCarello.size(); i++)
 					{
 				%>
@@ -99,9 +100,11 @@
 					<%
 						Double prezzo=Double.parseDouble(prodottiCarello.get(i).getColore().getPrezzo());
 						int quantità=prodottiCarello.get(i).getColore().getQuantità();
-						Double totale=prezzo*quantità;
+						totale=totale+(prezzo*quantità);
+						System.out.println("Cassa JSP totale: "+totale);
 						ColoreDAO coloreDAO= new ColoreDAO();
 						String totaleStringa=coloreDAO.prezzo(totale.toString());
+						System.out.println("Cassa JSP totale ehh: "+totaleStringa);
 						carelloSessione.setTotaleCosto(totaleStringa);
 					%>
 					<span class="price"><%=totaleStringa %> &euro;</span>

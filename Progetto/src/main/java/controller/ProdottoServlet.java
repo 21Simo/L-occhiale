@@ -17,6 +17,7 @@ import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
 import model.ProdottoDAO;
+import model.Utente;
 
 /**
  * Servlet che serve per la visualizzazione dei prodotti.
@@ -49,6 +50,9 @@ public class ProdottoServlet extends HttpServlet
 				JSONObject prodotto=new JSONObject();
 				prodotto.put("id", prodotti.get(i).getId());
 				prodotto.put("nome", prodotti.get(i).getNome());
+				System.out.println("Marca: "+prodotti.get(i).getMarca());
+				prodotto.put("marca", prodotti.get(i).getMarca());
+				prodotto.put("sesso", prodotti.get(i).getSesso());
 				jsonProdotti.put("prodotto"+i, prodotto);
 				ArrayList<Colore> colore= coloreDAO.colorePerId(prodotti.get(i).getId());
 				for(int j=0; j<colore.size(); j++)
@@ -69,8 +73,22 @@ public class ProdottoServlet extends HttpServlet
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher= request.getRequestDispatcher("/Prodotti.jsp");
-		dispatcher.forward(request, response);
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		String header=request.getParameter("prodotti");
+		System.out.println(header);
+		
+		if(header.equals("header") || utente==null || utente.getTipo().equals("Utente"))
+		{
+			RequestDispatcher dispatcher= request.getRequestDispatcher("/Prodotti.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if (header.equals("dashboard") || utente.getTipo().equals("Amministratore")) 
+		{
+			RequestDispatcher dispatcher= request.getRequestDispatcher("/ProdottiAdmin.jsp");
+			dispatcher.forward(request, response);
+		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
