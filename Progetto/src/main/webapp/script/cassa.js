@@ -4,53 +4,61 @@ function validazionePagamento()
 	
 	if(nome()==true)
 	{
-		nomeOK=true;
+		$("#nome").removeClass("bordoErrore");
+		$('#erroreNome').html("");
+		nomeOk=true;
 	}
 	else
 	{
 		$('#erroreNome').html("Errore: il nome non può contenere un numero");
-		$("#nome").css("border-color", "red");
-		nomeOK=false;
+		$("#nome").addClass("bordoErrore");
+		nomeOk=false;
 	}
 	
 	if(numeroCarta()==true)
 	{
+		$("#numeroCarta").removeClass("bordoErrore");
+		$('#erroreNumeroCarta').html("");
 		numeroCartaOk=true;
 	}
 	else
 	{
 		$('#erroreNumeroCarta').html("Errore: il numero della carta non è corretto. Non può essere più lungo di 16 caratteri.");
-		$("#numeroCarta").css("border-color", "red");
+		$("#numeroCarta").addClass("bordoErrore");
 		numeroCartaOk=false;
 	}
 	
 	if(scadenza()==true)
 	{
+		$("#scadenza").removeClass("bordoErrore");
+		$('#erroreScadenza').html("");
 		scadenzaOk=true;
 	}
 	else
 	{
 		$('#erroreScadenza').html("Errore: la scadenza non è corretta");
-		$("#scadenza").css("border-color", "red");
+		$("#scadenza").addClass("bordoErrore");
 		scadenzaOk=false;
 	}
 	
 	if(cvv()==true)
 	{
+		$("#cvv").removeClass("bordoErrore");
+		$('#erroreCVV').html("");
 		cvvOk=true;
 	}
 	else
 	{
 		$('#erroreCVV').html("Errore: il CVV non è corretto. Non può essere più lungo di 4 caratteri.");
-		$("#cvv").css("border-color", "red");
+		$("#cvv").addClass("bordoErrore");
 		cvvOk=false;
 	}
 	
-	if(nomeOK==false && numeroCartaOk==false && scadenzaOk==false && cvvOk==false)
+	if(nomeOk==false && numeroCartaOk==false && scadenzaOk==false && cvvOk==false)
 	{
 		return false;
 	}
-	else if(nomeOK==false || numeroCartaOk==false || scadenza==false || cvvOk==false)
+	else if(nomeOk==false || numeroCartaOk==false || scadenzaOk==false || cvvOk==false)
 	{
 		return false;
 	}

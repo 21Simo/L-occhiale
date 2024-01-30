@@ -21,7 +21,7 @@ import model.DettagliOrdineDAO;
 import model.UtenteDAO;
 
 /**
- * Servlet implementation class OrdiniAdminServlet
+ * Servlet che serve per ottenere gli ordini per l'amministratore. 
  */
 @WebServlet("/OrdiniAdminServlet")
 public class OrdiniAdminServlet extends HttpServlet 

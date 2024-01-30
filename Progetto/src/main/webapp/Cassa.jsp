@@ -31,32 +31,30 @@
 								<img alt="" src="img/icone/icons8-maestro.svg">
 								<img alt="" src="img/icone/icons8-paypal.svg">
 							</div>
-							<div>
+							<div class="padding">
 								<label for="cname" class="etichettaCassa">Nome sulla carta</label> 
 								<input type="text" id="nome" name="nome" placeholder="Inserisci il nome e il cognome presente sulla tua carta" class="inputText" required>
 								<p id="erroreNome" class="errore"></p>
 							</div>
-							<div>
+							<div class="padding">
 								<label for="ccnum" class="etichettaCassa">Numero carta di credito</label> 
-								<input type="text" id="numeroCarta" name="numeroCarta" placeholder="Inserisci il numero della tua carta" class="inputText" required>
-								<p id="erroreNumeroCarta"></p>
+								<input type="number" id="numeroCarta" name="numeroCarta" placeholder="Inserisci il numero della tua carta" class="inputText" required>
+								<p id="erroreNumeroCarta" class="errore"></p>
 							</div>
-							<div>
+							<div class="padding">
 								<label for="expmonth" class="etichettaCassa">Scadenza (mese anno)</label> 
 								<input type="month" id="scadenza" name="scadenza" class="inputText">
-								<p id="erroreScadenza"></p>
+								<p id="erroreScadenza" class="errore"></p>
 							</div>
-							<div class="row">
-								<div class="col-50">
-									<label for="cvv" class="etichettaCassa">CVV</label> 
-									<input type="text" id="cvv" name="cvv" placeholder="Inserisci il CVV della tua carta" class="inputText">
-									<p id="erroreCVV"></p>
-								</div>
+							<div class="padding">
+								<label for="cvv" class="etichettaCassa">CVV</label> 
+								<input type="number" id="cvv" name="cvv" placeholder="Inserisci il CVV della tua carta" class="inputText">
+								<p id="erroreCVV" class="errore"></p>
 							</div>
 						</div>
 
 					</div>
-					<input type="submit" value="Vai al pagamento" class="btn">
+					<button value="Vai al pagamento" class="btn">Vai al pagamento</button>
 				</form>
 			</div>
 		</div>
@@ -96,7 +94,7 @@
 					{
 				%>
 				<p>
-					<span class="linkCassa"><%=prodottiCarello.get(i).getNome() %></span> 
+					<span> <%=prodottiCarello.get(i).getNome() %></span> 
 					<%
 						Double prezzo=Double.parseDouble(prodottiCarello.get(i).getColore().getPrezzo());
 						int quantità=prodottiCarello.get(i).getColore().getQuantità();
@@ -128,7 +126,7 @@
 					String costoProdottiString=coloreDAO.prezzo(costoProdotti.toString());
 				%>
 				<p>
-					Total 
+					Totale 
 					<span class="price" style="color: black">
 						<b><%=costoProdottiString %> &euro;</b>
 					</span>

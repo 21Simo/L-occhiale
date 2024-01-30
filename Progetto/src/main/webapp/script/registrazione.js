@@ -4,45 +4,54 @@ function validazione()
 	
 	if(nome()==true)
 	{
+		$("#nome").removeClass("bordoErrore");
+		$('#erroreNome').html("");
 		nomeOK=true;
 	}
 	else
 	{
 		$('#erroreNome').html("Errore: il nome non può contenere un numero");
-		$("#nome").css("border-color", "red");
+		/*$("#nome").css("border-color", "red");*/
+		$("#nome").addClass("bordoErrore");
 		nomeOK=false;
 	}
 	
 	if(cognome()==true)
 	{
+		$("#cognome").removeClass("bordoErrore");
+		$('#erroreCognome').html("");
 		cognomeOK=true;
 	}	
 	else
 	{
 		$('#erroreCognome').html("Errore: il cognome non può contenere un numero");
-		$("#cognome").css("border-color", "red");
+		$("#cognome").addClass("bordoErrore");
 		cognomeOK=false;
 	}
 	
 	if(codiceFiscale()==true)
 	{
-		cognomeOK=true;
+		$("#codiceFiscale").removeClass("bordoErrore");
+		$('#erroreCodiceFiscale').html("");
+		codiceFiscaleOK=true;
 	}
 	else
 	{
 		$('#erroreCodiceFiscale').html("Errore: il codice fiscale è errato");
-		$("#codiceFiscale").css("border-color", "red");
-		cognomeOK=false;
+		$("#codiceFiscale").addClass("bordoErrore");
+		codiceFiscaleOK=false;
 	}
 	
 	if(dataNascita()==true)
 	{
+		$("#dataNascita").removeClass("bordoErrore");
+		$('#erroreDataNascita').html("");
 		dataNascitaOK=true;
 	}
 	else
 	{
 		$('#erroreDataNascita').html("Errore: la data di nascita non è corretta");
-		$("#dataNascita").css("border-color", "red");
+		$("#dataNascita").addClass("bordoErrore");
 		dataNascitaOK=false;
 	}
 	
@@ -52,51 +61,59 @@ function validazione()
 		if(presenzaEmail==true)
 		{
 			$('#erroreEmail').html("Errore: l'email è già inserita.");
-			$("#email").css("border-color", "red");
+			$("#email").addClass("bordoErrore");
 			emailOK=false;
 		}
 		else
 		{
+			$("#email").removeClass("bordoErrore");
+			$('#erroreEmail').html("");
 			emailOK=true;
 		}
 	}
 	else
 	{
 		$('#erroreEmail').html("Errore: l'email non è corretta");
-		$("#email").css("border-color", "red");
+		$("#email").addClass("bordoErrore");
 		emailOK=false;
 	}
 	
 	if(password()==true)
 	{
+		$("#password").removeClass("bordoErrore");
+		$('#errorePassword').html("");
 		passwordOK=true;
 	}
 	else
 	{
 		$('#errorePassword').html("Errore: la password non rispetta i requisiti");
-		$("#password").css("border-color", "red");
+		$("#password").addClass("bordoErrore");
 		passwordOK=false;
 	}
 	
 	if(telefono()==true)
 	{
+		$("#telefono").removeClass("bordoErrore");
+		$('#erroreTelefono').html("");
 		telefonoOK=true;
 	}
 	else
 	{
 		$('#erroreTelefono').html("Errore: il numero di telefono non è corretto");
-		$("#telefono").css("border-color", "red");
+		$("#telefono").addClass("bordoErrore");
 		telefonoOK=false;
 	}
 	
 	if(indirizzo()==true)
 	{
+		$("#indirizzo").removeClass("bordoErrore");
+		$('#erroreIndirizzo').html("");
 		indirizzoOK=true;
 	}
 	else
 	{
 		$('#erroreIndirizzo').html("Errore: l'indirizzo non è corretto");
-		$("#indirizzo").css("border-color", "red");
+		$("#indirizzo").addClass("bordoErrore");
 		indirizzoOK=false;
 	}
 	

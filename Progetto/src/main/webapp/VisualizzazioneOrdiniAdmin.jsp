@@ -8,32 +8,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
-	<link rel="stylesheet" href="./css/dashboard.css">
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 	<link rel="stylesheet" href="./css/dettaglioProdotti.css">
 	<link rel="stylesheet" href="./css/dettaglioOrdine.css">
 	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	
+	<!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
 	<title>Ordini</title>
 </head>
 <body>
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
-	
-	<div class="contenitoreDashboard">
+	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
-
-		<section class="dashboard">
-			<div class="dash-content">				
-				<div class="activity padding">
-					<div class="title">
-						<i class="uil uil-clock-three"></i> 
-						<span class="text">Ordini recenti</span>
-					</div>
-				</div>
-			</div>
-		
-				<%
+		<main class="main-container">
+        	<div class="main-title">
+          		<p class="font-weight-bold">Ordini</p>
+        	</div>
+        	<%
 					JSONObject ordini=(JSONObject) request.getAttribute("ordiniJson");
 					JSONArray listaOrdini=(JSONArray) ordini.get("ordini");
 					System.out.println("Ordini JSP: "+listaOrdini);
@@ -77,13 +80,17 @@
 					}
 				%>
 			</table>
-
-		</section>
-
+        </main>
 	</div>
 	
 	<footer>
 		<%@ include file="Footer.jsp" %>
 	</footer>
+	<!-- Scripts -->
+	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./script/dashboard.js"></script>
 </body>
 </html>

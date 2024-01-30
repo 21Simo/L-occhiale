@@ -25,7 +25,6 @@ function cambiaImmagineAdmin(id,prodotto,quantità)
 	var carta=prova.classList[1];
 	console.log("Carta: "+carta);
 	var indiceProva=carta.indexOf("-");
-	//console.log("Indice dell'id: "+indiceProva);
 	var provaNumero=carta.substring(indiceProva+1);
 	console.log("Numero dell'id: "+provaNumero);
 	var img="#img-"+provaNumero;
@@ -72,16 +71,12 @@ function cambiaImmagineAdmin(id,prodotto,quantità)
 	var elementoPrezzoProdotto=document.getElementById("prezzo");
 	console.log(elementoPrezzoProdotto);
 	$('#prezzoProdotto').attr("value", prodotto);
-	//elementoPrezzoProdotto.innerHTML=prodotto+" €";
 	var elementoQuantità=document.getElementById("quantità");
 	console.log("Elemento quantità");
 	console.log(elementoQuantità);
-	//console.log(elementoQuantità.innerHTML);
 	console.log("Parametro quantità");
 	console.log(quantità);
-	//elementoQuantità.innerHTML="";
 	console.log("Inizializziamo l'innerHTML");
-	//console.log(elementoQuantità.innerHTML);
 	if(quantità<=0)
 	{
 		elementoQuantità.innerHTML=elementoQuantità.innerHTML+'<option value=0>'+0+'</option>';
@@ -94,13 +89,6 @@ function cambiaImmagineAdmin(id,prodotto,quantità)
 		$('#myBtn').prop("disabled", false);
 		$('#quantitàProdotto').attr("value", quantità);
 	}
-	/*
-	for (let i=1; i<=quantità; i++)
-	{
-		console.log(i);
-		elementoQuantità.innerHTML=elementoQuantità.innerHTML+'<option value='+i+'>'+i+'</option>';
-	}
-	*/
 }
 
 function validazioneModificaAdmin()
@@ -111,87 +99,89 @@ function validazioneModificaAdmin()
 	if(file=="Inserisci il file")
 	{
 		$('#erroreFile').html("Devi inserire l'immagine del prodotto");
-		$('#erroreFile').css("color", "red");
 		fileOK=false;
 	}
 	else
 	{
+		$('#erroreFile').html("");
 		fileOK=true;
 	}
 	
 	if(marca()==true)
 	{
+		$("#marcaProdotto").removeClass("bordoErrore");
+		$('#erroreMarca').html("");
 		marcaOK=true;
 	}
 	else
 	{
 		$('#erroreMarca').html("Errore: la marca non può essere vuota");
-		$("#marcaProdotto").css("border-color", "red");
+		$("#marcaProdotto").addClass("bordoErrore");
 		marcaOK=false;
 	}
 	
 	if(nome()==true)
 	{
+		$("#nomeProdotto").removeClass("bordoErrore");
 		$('#erroreNome').html("");
-		$("#nomeProdotto").css("border", "none");
 		nomeOK=true;
 	}
 	else
 	{
 		$('#erroreNome').html("Errore: il nome non può essere vuoto");
-		$("#nomeProdotto").css("border-color", "red");
+		$("#nomeProdotto").addClass("bordoErrore");
 		nomeOK=false;
 	}
 	
 	if(prezzo()==true)
 	{
+		$("#prezzoProdotto").removeClass("bordoErrore");
 		$('#errorePrezzo').html("");
-		$("#prezzoProdotto").css("border", "none");
 		prezzoOK=true;
 	}
 	else
 	{
 		$('#errorePrezzo').html("Errore: il prezzo non è valido");
-		$("#prezzoProdotto").css("border-color", "red");
+		$("#prezzoProdotto").addClass("bordoErrore");
 		prezzoOK=false;
 	}
 	
 	if(quantità()==true)
 	{
+		$("#quantitàProdotto").removeClass("bordoErrore");
 		$('#erroreQuantità').html("");
-		$("#quantitàProdotto").css("border", "none");
 		quantitàOK=true;
 	}
 	else
 	{
 		$('#erroreQuantità').html("Errore: la quantità può avere solo numeri da 0 in poi e non può essere vuota.");
-		$("#quantitàProdotto").css("border-color", "red");
+		$("#quantitàProdotto").addClass("bordoErrore");
 		quantitàOK=false;
 	}
 	
 	if(codiceProdotto()==true)
 	{
+		$("#codiceProdotto").removeClass("bordoErrore");
 		$('#erroreCodice').html("");
-		$("#codiceProdotto").css("border", "none");
 		codiceProdottoOK=true;
 	}
 	else
 	{
 		$('#erroreCodice').html("Errore: il codice prodotto non può essere vuoto.");
-		$("#codiceProdotto").css("border-color", "red");
+		$("#codiceProdotto").addClass("bordoErrore");
 		codiceProdottoOK=false;
 	}
 	
 	if(nomeColore()==true)
 	{
+		$("#nomeColoreProdotto").removeClass("bordoErrore");
 		$('#erroreColore').html("");
-		$("#nomeColoreProdotto").css("border", "none");
 		nomeColoreOK=true;
 	}
 	else
 	{
 		$('#erroreColore').html("Errore: il nome del colore non può essere vuoto.");
-		$("#nomeColoreProdotto").css("border-color", "red");
+		$("#nomeColoreProdotto").addClass("bordoErrore");
 		nomeColoreOK=false;
 	}
 	
@@ -304,8 +294,6 @@ $(document).ready(function ()
 		var file = $('#sceltaFile')[0].files[0].name;
 		console.log("Cambia label: ");
 		console.log(file);
-		//console.log($(this).prev('label'));
-		//$(this).prev('label').text(file);
 		$('#etichettaSceltaFile').html(file);
 		$('#erroreFile').html("");
 	}); 
@@ -356,7 +344,6 @@ function aggiungiColore()
 	document.getElementById("formDettagli").setAttribute("onsubmit", "return validazioneModificaAdmin()");
 	$('#etichettaSceltaFile').prop('disabled',false);
 	$('#etichettaSceltaFile').html("Inserisci il file");
-	//$('#bottoneColore').prop('disabled',true);
 	$('#bottoneColore').remove();
 	$('#myBtn').html("Aggiungi colore");
 	$('#myBtn').attr("value", "insert");

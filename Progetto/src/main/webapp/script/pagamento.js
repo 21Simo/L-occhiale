@@ -10,4 +10,5 @@ $(window).on('load', function ()
 function visibile()
 {
 	$("#principale").removeClass("principale");
+	document.location.href="IndexServlet";
 }

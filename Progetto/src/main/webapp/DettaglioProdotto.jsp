@@ -25,16 +25,16 @@
 	
 	<form enctype="multipart/form-data" method="post" action="AggiungiCarelloServlet" onsubmit="return validazioneDettagli()">
 		<div class="row" id="card-1">
-			<div class="column left" style="background-color: #aaa;">
+			<div class="column left">
 				<input type="text" id="immagineProdotto" name="immagineProdotto" value="./img/prodotti/<%=colore.get("immagine") %>" hidden="true">
 				<img src="./img/prodotti/<%=colore.get("immagine") %>" class="img-prodotto" id="img-1">
 			</div>
-			<div class="column right" style="background-color: #bbb;">
+			<div class="column right">
 				<input type="text" id="marcaProdotto" name="marcaProdotto" value="<%=prodotto.get("marca") %>" hidden="true">
-				<p><%=prodotto.get("marca") %></p>
+				<p class="coloreTesto"><%=prodotto.get("marca") %></p>
 				<input type="text" id="nomeProdotto" name="nomeProdotto" value="<%=prodotto.get("nome") %>" hidden="true">
-				<h3 id="nome"><%=prodotto.get("nome") %></h3>
-				<h6 id="prezzo"><%=colore.get("prezzo") %> &euro;</h6>
+				<h3 class="coloreTesto" id="nome"><%=prodotto.get("nome") %></h3>
+				<h6 class="coloreTesto" id="prezzo"><%=colore.get("prezzo") %> &euro;</h6>
 				<input type="text" id="prezzoProdotto" name="prezzoProdotto" value="<%=colore.get("prezzo") %>" hidden="true">
 				<div class="containerToogle" id="toogle">
 					<label class="switch switchToogle etichettaToogle">
@@ -76,7 +76,7 @@
 					</div>
 				</div>
 				<div class="contenitoreQuantita">
-					<label for="quantità" class="labelQuantita">
+					<label for="quantità" class="labelQuantita coloreTesto">
 						Quantità: 
 					</label>
 					<input type="text" id="quantitàProdotto" name="quantitaProdotto" value="1" hidden="true">
@@ -206,10 +206,10 @@
 				%>
 				</div>
 				<div class="infoCarelloBottoni">
-					<form action="Prodotto" method="post">
-						<button class="bottoneModal">Continua lo shopping</button>
+					<form action="Prodotto" method="post" class="spazioBottoni">
+						<button name="prodotti" class="bottoneModal" value="header">Continua lo shopping</button>
 					</form>
-					<a href="Carello.jsp">
+					<a href="Carrello.jsp">
 						<button class="bottoneModal">Vai al carello</button>
 					</a>
 				</div>

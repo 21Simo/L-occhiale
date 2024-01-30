@@ -18,7 +18,7 @@ import model.Province;
 import model.ProvinceDAO;
 
 /**
- * Servlet implementation class IndirizzoServlet
+ * Servlet che serve per ottenere le provincie dato una regione. 
  */
 @WebServlet("/ProvinceServlet")
 public class ProvinceServlet extends HttpServlet 
@@ -41,7 +41,6 @@ public class ProvinceServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		int regione= Integer.parseInt(request.getParameter("regione"));
 		JSONObject jsonProvince= new JSONObject();
 		JSONArray jsonArray= new JSONArray();
@@ -69,8 +68,8 @@ public class ProvinceServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		doGet(request, response);
 	}
 

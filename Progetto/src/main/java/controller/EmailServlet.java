@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import model.UtenteDAO;
 
 /**
- * Servlet implementation class EmailServlet
+ * Servlet che serve per vedere se un email è già presente nel database. 
  */
 @WebServlet("/EmailServlet")
 public class EmailServlet extends HttpServlet 
@@ -34,7 +34,6 @@ public class EmailServlet extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String email= request.getParameter("email");
 		JSONObject json= new JSONObject();
 		try

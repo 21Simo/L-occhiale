@@ -21,7 +21,6 @@ public class UtenteDAO
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
 			System.out.println(preparedStatement);
-			//preparedStatement.setInt(1, utente.getId());
 			preparedStatement.setString(1, utente.getNome());
 			preparedStatement.setString(2, utente.getCognome());
 			preparedStatement.setString(3, utente.getCodiceFiscale());
@@ -116,7 +115,6 @@ public class UtenteDAO
 			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 			ResultSet risultati= preparedStatement.executeQuery();
-			//String login="errore";
 			Utente utente= new Utente();
 			utente.setEmail("errore");
 			while(risultati.next())
@@ -137,7 +135,6 @@ public class UtenteDAO
 				utente.setProvincia(risultati.getString("provincia"));
 				utente.setComune(risultati.getString("comune"));
 				utente.setIndirizzo(risultati.getString("indirizzo"));
-				//login=risultati.getString("email");
 			}
 			System.out.println("Login: "+utente.getEmail());
 			return utente;

@@ -9,12 +9,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 	
-	<link rel="stylesheet" href="./css/dashboard.css">
 	<link rel="stylesheet" href="./css/dettaglioProdotti.css">
 	<link rel="stylesheet" href="./css/dettaglioOrdine.css">
 	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	
+	<!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
 	
 	<title>Ordini</title>
 </head>
@@ -23,28 +32,14 @@
 		<%@ include file="Header.jsp" %>
 	</nav>
 	
-	<div class="contenitoreDashboard">
+	<div class="grid-container">
 		<%@ include file="MenùDashboard.jsp" %>
-
-		<section class="dashboard">
-			<div class="dash-content">				
-				<div class="activity padding">
-					<div class="title">
-						<i class="uil uil-clock-three"></i> 
-						<span class="text">Ordini recenti</span>
-					</div>
-				</div>
-			</div>
-			
-			<table id="ordini">
-				<tr>
-					<th>Numero d'ordine</th>
-					<th>Importo</th>
-					<th>Quantità</th>
-					<th>Data</th>
-					<th>Stato</th>
-					<th></th>
-				</tr>
+		<main class="main-container">
+        	<div class="main-title">
+         		<p class="font-weight-bold">Ordini</p>
+        	</div>
+        
+        
 				<%
 					JSONObject ordini=(JSONObject) request.getAttribute("ordini");
 					JSONArray listaOrdini=(JSONArray) ordini.get("listaOrdini");
@@ -57,6 +52,17 @@
 					}
 					else
 					{
+				%>
+				<table id="ordini">
+				<tr>
+					<th>Numero d'ordine</th>
+					<th>Importo</th>
+					<th>Quantità</th>
+					<th>Data</th>
+					<th>Stato</th>
+					<th></th>
+				</tr>
+				<%
 						ArrayList<DettagliOrdine> listaDettagliOrdini= new ArrayList<DettagliOrdine>();
 						for(int i=0; i<listaOrdini.length(); i++)
 						{
@@ -94,13 +100,19 @@
 					}
 				%>
 			</table>
-
-		</section>
-
+		</main>
+        
 	</div>
 	
 	<footer>
 		<%@ include file="Footer.jsp" %>
 	</footer>
+	
+	<!-- Scripts -->
+	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./script/dashboard.js"></script>
 </body>
 </html>

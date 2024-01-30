@@ -18,7 +18,7 @@ import model.Prodotto;
 import model.ProdottoDAO;
 
 /**
- * Servlet implementation class DettaglioProdottoAdminServlet
+ * Servlet che serve per il dettaglio prodotto per l'amministratore. 
  */
 @WebServlet("/DettaglioProdottoAdminServlet")
 @MultipartConfig
@@ -109,8 +109,6 @@ public class DettaglioProdottoAdminServlet extends HttpServlet
 		{
 			e.printStackTrace();
 		}
-		//request.setAttribute("prodotti", request.getSession().getAttribute("dettaglioProdotto"));
-		//request.setAttribute("coloreSelezionato", request.getSession().getAttribute("coloreSelezionato"));
 		request.setAttribute("prodotti", request.getSession().getAttribute("prodottiAdmin"));
 		RequestDispatcher dispatcher= request.getRequestDispatcher("/ProdottiAdmin.jsp");
 		dispatcher.forward(request, response);

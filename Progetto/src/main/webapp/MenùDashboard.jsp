@@ -1,35 +1,57 @@
+<%@page import="model.Utente"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Menù Dashboard</title>
 </head>
 <body>
-	<nav class="navDashboard">
-		<div class="menu-items">
-			<ul class="nav-links">
-				<li><a href="Dashboard.jsp"> <i class="uil uil-estate"></i>
-						<span class="link-name">Dahsboard</span>
-				</a></li>
-				<li><a href="Account.jsp"> <i
-						class="uil uil-files-landscapes"></i> <span class="link-name">Account</span>
-				</a></li>
-				<li><a href="OrdiniServlet"> <i class="uil uil-chart"></i> <span
-						class="link-name">Ordini</span>
-				</a></li>
-				<li><a href="#"> <i class="uil uil-thumbs-up"></i> <span
-						class="link-name">Lista desideri</span>
-				</a></li>
-			</ul>
+	<!-- Header -->
+      <header class="header">
+        <div class="menu-icon" onclick="openSidebar()">
+          <span class="material-icons-outlined coloreMenu">menu</span>
+        </div>
+      </header>
+      <!-- End Header -->
+      
+      <%
+      Utente utenteMenù=(Utente) request.getSession().getAttribute("utente");
+      %>
 
-			<ul class="logout-mode nav-links">
-				<li><a href="LogoutServlet"> <i class="uil uil-signout"></i> <span
-						class="link-name">Logout</span>
-				</a></li>
-			</ul>
-		</div>
-	</nav>
+      <!-- Sidebar -->
+      <aside id="sidebar">
+        <div class="sidebar-title">
+          <div class="sidebar-brand">
+            Ciao <%=utenteMenù.getNome() %>
+          </div>
+          <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+        </div>
+
+        <ul class="sidebar-list">
+          <li class="sidebar-list-item">
+            <a href="DashboardUtenteServlet">
+              Dashboard
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="Account.jsp">
+              Account
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="OrdiniServlet">
+              Ordini
+            </a>
+          </li>
+          <li class="sidebar-list-item">
+            <a href="LogoutServlet">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </aside>
+      <!-- End Sidebar -->
 </body>
 </html>

@@ -6,19 +6,20 @@ function aggiungiCampi()
 	if(numeroColori.match(espressioneRegolareQuantità) && numeroColori>0)
 	{
 		$('#erroreColore').html("");
+		$('#idColore').removeClass("bordoErrore");
 		$('#idColore').prop('disabled',true);
 		$('#idColore').attr("value", numeroColori);
 		$('#bottoneColore').remove();
 		for(i=numeroColori; i>=1; i--)
 		{
-			$('#colori').after('<div id="colore'+i+'"class="details personal"><span class="title">Colore'+i+'</span><div class="fields"><div class="input-field"><label>Immagine: </label><input type="text" id="immagineProdotto" name="immagineProdotto'+i+'" value="" hidden="true"><input name="immagine'+i+'" type="file" id="sceltaFile'+i+'" accept="image/*" value=""/><span id="erroreFile'+i+'"></span></div><div class="input-field"><label>Prezzo: </label><input type="text" id="prezzoProdotto'+i+'" name="prezzoProdotto'+i+'" value="" placeholder="Inserisci il prezzo"><p id="errorePrezzo'+i+'"></p></div><div class="input-field"><label>Nome colore: </label><input type="text" id="nomeColoreProdotto'+i+'" name="nomeColoreProdotto'+i+'" value="" placeholder="Inserisci il colore"><p id="erroreColore'+i+'"></p></div><div class="input-field"><label for="quantità" class="labelQuantita"> Quantità: </label><input type="text" id="quantitàProdotto'+i+'" name="quantitaProdotto'+i+'" value="" placeholder="Inserisci la quantità"><p id="erroreQuantità'+i+'"></p></div><div class="input-field"><label>Codice prodotto: </label><input type="text" id="codiceProdotto'+i+'" name="codiceProdotto'+i+'" value="" placeholder="Inserisci il codice del prodotto"><p id="erroreCodice'+i+'"></p></div></div></div>');
+			$('#colori').after('<div id="colore'+i+'"class="details personal"><span class="title">Colore'+i+'</span><div class="fields"><div class="input-field"><label>Immagine: </label><input type="text" id="immagineProdotto" name="immagineProdotto'+i+'" value="" hidden="true"><input name="immagine'+i+'" type="file" id="sceltaFile'+i+'" accept="image/*" value=""/><span class="errore" id="erroreFile'+i+'"></span></div><div class="input-field"><label>Prezzo: </label><input type="text" id="prezzoProdotto'+i+'" name="prezzoProdotto'+i+'" value="" placeholder="Inserisci il prezzo"><p class="errore" id="errorePrezzo'+i+'"></p></div><div class="input-field"><label>Nome colore: </label><input type="text" id="nomeColoreProdotto'+i+'" name="nomeColoreProdotto'+i+'" value="" placeholder="Inserisci il colore"><p class="errore" id="erroreColore'+i+'"></p></div><div class="input-field"><label for="quantità" class="labelQuantita"> Quantità: </label><input type="text" id="quantitàProdotto'+i+'" name="quantitaProdotto'+i+'" value="" placeholder="Inserisci la quantità"><p class="errore" id="erroreQuantità'+i+'"></p></div><div class="input-field"><label>Codice prodotto: </label><input type="text" id="codiceProdotto'+i+'" name="codiceProdotto'+i+'" value="" placeholder="Inserisci il codice del prodotto"><p class="errore" id="erroreCodice'+i+'"></p></div></div></div>');
 		}
 		$('#colore'+numeroColori).after('<button type="submit" class="bottoneDettagli" name="bottoneInserisci" value="" id="bottoneInserisci" onclick="validazioneInserisci()">Inserisci il prodotto</button>');
 	}
 	else
 	{
 		$('#erroreColore').html("Devi inserire un numero e deve essere maggiore di 0.");
-		$('#idColore').css("border-color", "red");
+		$('#idColore').addClass("bordoErrore");
 	}
 }
 
@@ -34,60 +35,66 @@ function validazioneInserisci()
 		filee[i]= $('#sceltaFile'+i).val();
 		if(filee[i]!="")
 		{
+			$('#erroreFile'+i).removeClass("bordoErrore");
+			$('#erroreFile'+i).html("");
 			fileOK=true;
 		}
 		else
 		{
 			$('#erroreFile'+i).html("Devi inserire l'immagine del prodotto");
-			$('#erroreFile'+i).css("color", "red");
+			$('#erroreFile'+i).addClass("bordoErrore");
 			fileOK=false;
 		}
 		
 		if(prezzoProdotto(i)==true)
 		{
 			$('#errorePrezzo'+i).html("");
+			$('#prezzoProdotto'+i).removeClass("bordoErrore");
 			prezzoProdottoOK=true;
 		}
 		else
 		{
 			$('#errorePrezzo'+i).html("Errore: il prezzo non può essere vuoto");
-			$("#prezzoProdotto"+i).css("border-color", "red");
+			$("#prezzoProdotto"+i).addClass("bordoErrore");
 			prezzoProdottoOK=false;
 		}
 		
 		if(nomeColoreProdotto(i)==true)
 		{
 			$('#erroreColore'+i).html("");
+			$('#nomeColoreProdotto'+i).removeClass("bordoErrore");
 			nomeColoreProdottoOK=true;
 		}
 		else
 		{
 			$('#erroreColore'+i).html("Errore: il nome del colore non può essere vuoto");
-			$("#nomeColoreProdotto"+i).css("border-color", "red");
+			$("#nomeColoreProdotto"+i).addClass("bordoErrore");
 			nomeColoreProdottoOK=false;
 		}
 		
 		if(quantitàProdotto(i)==true)
 		{
 			$('#erroreQuantità'+i).html("");
+			$('#quantitàProdotto'+i).removeClass("bordoErrore");
 			quantitàProdottoOK=true;
 		}
 		else
 		{
 			$('#erroreQuantità'+i).html("Errore: il nome del colore non può essere vuoto");
-			$("#quantitàProdotto"+i).css("border-color", "red");
+			$("#quantitàProdotto"+i).addClass("bordoErrore");
 			quantitàProdottoOK=false;
 		}
 		
 		if(codiceProdotto(i)==true)
 		{
 			$('#erroreCodice'+i).html("");
+			$('#codiceProdotto'+i).removeClass("bordoErrore");
 			codiceProdottoOK=true;
 		}
 		else
 		{
 			$('#erroreCodice'+i).html("Errore: il codice del prodotto non può essere vuoto");
-			$("#codiceProdotto"+i).css("border-color", "red");
+			$("#codiceProdotto"+i).addClass("bordoErrore");
 			codiceProdottoOK=false;
 		}
 	}
@@ -97,36 +104,39 @@ function validazioneInserisci()
 	if(nomeProdotto()==true)
 	{
 		$('#erroreNome').html("");
+		$("#nomeProdotto").removeClass("bordoErrore");
 		nomeProdottoOK=true;
 	}
 	else
 	{
 		$('#erroreNome').html("Errore: il nome non può essere vuoto");
-		$("#nomeProdotto").css("border-color", "red");
+		$("#nomeProdotto").addClass("bordoErrore");
 		nomeProdottoOK=false;
 	}
 	
 	if(marcaProdotto()==true)
 	{
 		$('#erroreMarca').html("");
+		$("#marcaProdotto").removeClass("bordoErrore");
 		marcaProdottoOK=true;
 	}
 	else
 	{
 		$('#erroreMarca').html("Errore: la marca non può essere vuota");
-		$("#marcaProdotto").css("border-color", "red");
+		$("#marcaProdotto").addClass("bordoErrore");
 		marcaProdottoOK=false;
 	}
 	
 	if(genereProdotto()==true)
 	{
 		$('#erroreGenere').html("");
+		$("#genereProdotto").removeClass("bordoErrore");
 		genereProdottoOK=true;
 	}
 	else
 	{
 		$('#erroreGenere').html("Errore: devi selezionare il genere del prodotto");
-		$("#genereProdotto").css("border-color", "red");
+		$("#genereProdotto").addClass("bordoErrore");
 		genereProdottoOK=false;
 	}
 	

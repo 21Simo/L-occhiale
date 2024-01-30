@@ -17,7 +17,7 @@ import model.Prodotto;
 import model.ProdottoDAO;
 
 /**
- * Servlet implementation class EliminaProdottoServlet
+ * Servlet che serve per l'eliminazione del prodotto. 
  */
 @WebServlet("/EliminaProdottoServlet")
 public class EliminaProdottoServlet extends HttpServlet 
@@ -76,7 +76,7 @@ public class EliminaProdottoServlet extends HttpServlet
 				colore.setId(idColore);
 				colore.setIdProdotto(idProdotto);				
 				coloreDAO.eliminaColore(colore);
-				listaColore= coloreDAO.colorePerId(idColore);
+				listaColore= coloreDAO.colorePerId(idProdotto); 
 				if(listaColore.size()==0)
 				{
 					Prodotto prodotto= new Prodotto();
@@ -90,7 +90,7 @@ public class EliminaProdottoServlet extends HttpServlet
 			e.printStackTrace();
 		}
 		
-		RequestDispatcher dispatcher= request.getRequestDispatcher("/DashboardAdmin.jsp");
+		RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardAdminServlet"); 
 		dispatcher.forward(request, response);
 	}
 

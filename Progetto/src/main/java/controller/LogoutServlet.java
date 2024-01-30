@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Utente;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet che serve per la logout. 
  */
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet 
@@ -38,7 +38,7 @@ public class LogoutServlet extends HttpServlet
 		if(utente!=null)
 		{
 			request.getSession().setAttribute("utente", null);
-			RequestDispatcher dispatcher= request.getRequestDispatcher("Index.jsp");
+			RequestDispatcher dispatcher= request.getRequestDispatcher("IndexServlet");
 			dispatcher.forward(request, response);
 		}
 	}

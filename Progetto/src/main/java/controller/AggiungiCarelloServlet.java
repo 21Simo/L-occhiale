@@ -22,7 +22,7 @@ import model.ProdottoCarello;
 import model.Utente;
 
 /**
- * Servlet implementation class ProvaServlet
+ * Servlet che serve per aggiungere i prodotti al carrello.
  */
 @WebServlet("/AggiungiCarelloServlet")
 @MultipartConfig

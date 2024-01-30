@@ -19,7 +19,7 @@ import model.ComuneDAO;
 import model.Province;
 
 /**
- * Servlet implementation class ComuniServlet
+ * Servlet che serve per ottenere i comuni selezionata una provincia. 
  */
 @WebServlet("/ComuniServlet")
 public class ComuniServlet extends HttpServlet 
@@ -42,7 +42,6 @@ public class ComuniServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		int provincia= Integer.parseInt(request.getParameter("provincia"));
 		JSONObject jsonComuni= new JSONObject();
 		JSONArray jsonArray= new JSONArray();
@@ -53,10 +52,8 @@ public class ComuniServlet extends HttpServlet
 			for(int i=0; i<listaComuni.size(); i++)
 			{
 				jsonArray.put(listaComuni.get(i).getNome());
-				//prova.put(listaComuni.get(i).getId());
 			}
 			jsonComuni.put("comuni", jsonArray);
-			//jsonProvince.put("id", prova);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{

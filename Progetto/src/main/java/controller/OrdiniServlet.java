@@ -18,7 +18,7 @@ import model.DettagliOrdineDAO;
 import model.Utente;
 
 /**
- * Servlet implementation class OrdiniServlet
+ * Servlet che serve per ottenere gli ordini. 
  */
 @WebServlet("/OrdiniServlet")
 public class OrdiniServlet extends HttpServlet {

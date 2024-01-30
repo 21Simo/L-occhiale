@@ -6,11 +6,13 @@ function opzioni()
 	{
 		$('#data').removeClass("nascondi");
 		$('#data').addClass("fields");
+		$('#utente').addClass("nascondi");
 	}
 	else if(opzione=="Utente")
 	{
 		$('#utente').removeClass("nascondi");
 		$('#utente').addClass("fields");
+		$('#data').addClass("nascondi");
 	}
 	$('#bottone').removeClass("nascondi");
 }
@@ -21,13 +23,14 @@ function validazioneOrdini()
 	
 	if(opzione()==true)
 	{
+		$("#opzione").removeClass("bordoErrore");
 		$('#erroreOpzione').html("");
 		opzioneOK=true;
 	}
 	else
 	{
 		$('#erroreOpzione').html("Errore: devi selezionare se vuoi visualizzare gli ordini per data o per utente");
-		$("#opzione").css("border-color", "red");
+		$("#opzione").addClass("bordoErrore");
 		opzioneOK=false;
 	}
 	
@@ -37,24 +40,26 @@ function validazioneOrdini()
 	{
 		if(data("data1")==true)
 		{
+			$("#data1").removeClass("bordoErrore");
 			$('#erroreData1').html("");
 			data1OK=true;
 		}
 		else
 		{
 			$('#erroreData1').html("Errore: devi selezionare da quale data visualizzare gli ordini");
-			$("#data1").css("border-color", "red");
-			data2OK=false;
+			$("#data1").addClass("bordoErrore");
+			data1OK=false;
 		}
 		if(data("data2")==true)
 		{
+			$("#data2").removeClass("bordoErrore");
 			$('#erroreData2').html("");
 			data2OK=true;
 		}
 		else
 		{
 			$('#erroreData2').html("Errore: devi selezionare da quale data visualizzare gli ordini");
-			$("#data2").css("border-color", "red");
+			$("#data2").addClass("bordoErrore");
 			data2OK=false;
 		}
 	}
@@ -62,13 +67,14 @@ function validazioneOrdini()
 	{
 		if(utente()==true)
 		{
+			$("#utenteOption").removeClass("bordoErrore");
 			$('#erroreUtente').html("");
 			utenteOK=true;
 		}	
 		else
 		{
 			$('#erroreUtente').html("Errore: devi selezionare un utente");
-			$("#utenteOption").css("border-color", "red");
+			$("#utenteOption").addClass("bordoErrore");
 			utenteOK=false;
 		}
 	}
@@ -117,7 +123,7 @@ function data(data)
 
 function utente()
 {
-	var utenteForm= document.forms["formOrdini"]["utente"].value.trim();
+	var utenteForm= document.forms["formOrdini"]["utenteOption"].value.trim();
 	if(utenteForm!="Seleziona l'utente")
 	{
 		return true;

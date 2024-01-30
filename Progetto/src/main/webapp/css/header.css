@@ -1,85 +1,114 @@
-*
-{
-	box-sizing: border-box;
-	
+:root 
+{  
+  --bgcolor: #DD935C;
 }
 
-body
+* 
 {
-	background: #ffffff;
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/*
-.menu, a, button
+.page-header 
 {
-	font-family: sans-serif;
-	font-weight: 300;
-	font-size: 14px;
-	color: #242424;
-	text-decoration: none;
-}
-*/
-
-.menu
-{
-	font-family: sans-serif;
-	font-weight: 300;
-	font-size: 14px;
-	color: #242424;
-	text-decoration: none;
+  background-color: var(--bgcolor);
+  padding: 1.3rem;
+  display: flex;
+  justify-content: space-between;
 }
 
-header
+.logo 
 {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding-right: 10px;
+  color: white;
+  align-self: center;
+  margin-left: 1.2rem;
+  font-size: 2.5rem;
 }
 
-.menu
+.nav-bar 
 {
-	list-style: none;
+  margin: auto;
+  display: flex;
 }
 
-.menu li
+.nav-bar a 
 {
-	display: inline-block;
-	padding: 0 20px;
+  color: white;
+  padding: 1.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.2rem;
 }
 
-.menu a:hover
+.menu-icon 
 {
-	color:#39f;
+  color: white;
+  cursor: pointer;
+  display: none;
 }
 
-.menu button:hover
+button 
 {
-	color:#39f;
+  font-size: 1rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.9rem;
 }
 
-.bottone
+@media screen and (max-width: 700px) 
 {
-	padding: 9px 25px;
-	background: #0d94a6;
-	border: none;
-	border-radius: 50px;
-	cursor: pointer;
+  .nav-bar 
+  {
+    display: none;
+    position: absolute;
+    top: 3.7rem;
+    left: 0;
+    width: 100%;
+    background-color: var(--bgcolor);
+    text-align: center;
+  }
+
+  .nav-bar.responsive 
+  {
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-bar a 
+  {
+    display: block;
+  }
+
+  .menu-icon 
+  {
+    display: block;
+    z-index: 1;
+    padding-top: 20px;
+  }
+
+  .logo 
+  {
+    font-size: 1.4rem;
+  }
 }
-/*
-button:hover
-{
-	background: #39f;
-}
-*/
 
 .icone
 {
-	width: 50px;
-	padding: 10px;
+	width: 35px;
 	cursor: pointer;
+}
+
+.noButton
+{
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+.header-right
+{
+	padding-top: 15px;
 }
 
 .cart-counter
@@ -93,11 +122,33 @@ button:hover
   border-radius:50%;
   margin-left:10px;
   position: absolute;
-  top: 9%;
   right: 1%;
 }
 
 .opacita
 {
 	opacity: 1;
+}
+
+.noLink
+{
+	text-decoration: none;
+}
+
+::-webkit-scrollbar 
+{
+  width: 5px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track 
+{
+  box-shadow: inset 0 0 5px #dd935c;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb 
+{
+  background-color: #07020d;
+  border-radius: 10px;
 }

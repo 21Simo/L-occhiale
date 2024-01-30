@@ -5,17 +5,9 @@ function cambiaImmagine(id,prodotto)
 	var prova=document.getElementById(id);
 	console.log("elemento cliccato: ");
 	console.log(prova);
-	/*
-	console.log("Valore nome: ");
-	console.log(prova.attributes[0].value);
-	var bottone=document.getElementsByName("bottone");
-	console.log("Bottone: ");
-	console.log(bottone);
-	*/
 	var carta=prova.classList[1];
 	console.log("Carta: "+carta);
 	var indiceProva=carta.indexOf("-");
-	//console.log("Indice dell'id: "+indiceProva);
 	var provaNumero=carta.substring(indiceProva+1);
 	console.log("Numero dell'id: "+provaNumero);
 	var img="#img-"+provaNumero;
@@ -52,7 +44,6 @@ function cambiaImmagine(id,prodotto)
 		}
 	}
 	console.log("Valore nome: ");
-	//console.log(prova.attributes[1].value);
 	console.log(prova.getAttribute("name"));	
 	console.log("Valore title: ");
 	console.log(prova.getAttribute("title"));
@@ -65,14 +56,22 @@ function cambiaImmagine(id,prodotto)
 	console.log(valore);
 	var indiceSlash=valore.indexOf("/");
 	console.log("Length slash: "+indiceSlash);
-	//var id=valore.charAt(0);
 	var id=valore.substring(0,indiceSlash);
 	console.log("Id: "+id);
-	var valoreBottone=id+"/"+prova.getAttribute("title")
-	//var valoreBottone=id+"/"+prova.attributes[0].value;
+	var valoreBottone=id+"/"+prova.getAttribute("title");
 	bottone.setAttribute("value", valoreBottone);
 	console.log(prodotto);
 	var elementoPrezzoProdotto=document.getElementById("prezzoProdotto-"+provaNumero);
 	console.log(elementoPrezzoProdotto);
 	elementoPrezzoProdotto.innerHTML=prodotto+" €";
+}
+
+function animazione(immagine)
+{
+	$("#"+immagine).animate({zoom: '150%'}, "slow");
+}
+
+function fuori(immagine)
+{
+	$("#"+immagine).animate({zoom: '100%'}, "slow");
 }

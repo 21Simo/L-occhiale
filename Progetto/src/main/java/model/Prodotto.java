@@ -32,18 +32,6 @@ public class Prodotto
 		this.descrizione = descrizione;
 	}
 	
-	/*
-	public double getPrezzo() 
-	{
-		return prezzo;
-	}
-	
-	public void setPrezzo(double prezzo) 
-	{
-		this.prezzo = prezzo;
-	}
-	*/
-	
 	public String getMarca() 
 	{
 		return marca;
@@ -64,47 +52,6 @@ public class Prodotto
 		this.sesso = sesso;
 	}
 	
-	/*
-	public String getImmagine()
-	{
-		return immagine;
-	}
-	
-	public void setImmagine(String immagine)
-	{
-		this.immagine = immagine;
-	}
-	
-	public int getQuantità()
-	{
-		return quantità;
-	}
-	
-	public void setQuantità(int quantità)
-	{
-		this.quantità = quantità;
-	}
-	
-	public String getCodice() 
-	{
-		return codice;
-	}
-
-	public void setCodice(String codice)
-	{
-		this.codice = codice;
-	}
-
-	public String getColore() 
-	{
-		return colore;
-	}
-
-	public void setColore(String colore) 
-	{
-		this.colore = colore;
-	}
-	*/
 	public Colore getColore() 
 	{
 		return colore;
@@ -124,20 +71,10 @@ public class Prodotto
 	private String nome;
 	//Variabile che indica la descrizione del prodotto.
 	private String descrizione;
-	//Variabile che indica il prezo del prodotto.
-	//private double prezzo;
 	//Variabile che indica la marca del prodotto.
 	private String marca;
 	//Variabile che indica il sesso del prodotto.
 	private String sesso;
-	//Variabile che indica l'immagine del prodotto.
-	//private String immagine;
-	//Variabile che indica la quantità del prodotto.
-	//private int quantità;
-	//Variabile che indica il codice del prodotto.
-	//private String codice;
-	//Variabile che indica il colore del prodotto.
-	//private String colore;
 	//Variabile che rappresenta l'oggetto Colore del prodotto con relativo prezzo, immagine, ecc.
 	private Colore colore;
 }

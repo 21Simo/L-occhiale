@@ -25,39 +25,16 @@
 			{
 				JSONObject prodotto=(JSONObject) json.get("prodotto"+i);
 				JSONObject colore=(JSONObject) prodotto.get("colore0");
-				//System.out.println("ProdottoJSP: "+colore.get("id"));
 		%>
 		<div class="content" id="card-<%=i %>">
 			<form action="DettaglioProdottoServlet" method="post">
 				<input name="admin" type="text" hidden="true" value="false">
-				<button type="submit" name="bottone" value="<%=prodotto.get("id")%>/colore0<%-- <%=colore.get("id") %>--%>" class="dettagli" id="bottone-<%=i %>">
+				<button type="submit" name="bottone" value="<%=prodotto.get("id")%>/colore0" class="dettagli" id="bottone-<%=i %>">
 					<%
 						session.setAttribute("prodotto", json);
 					%>
-					<img src="./img/prodotti/<%=colore.get("immagine")%>" class="img-prodotto" id="img-<%=i %>">
+					<img onmouseover="animazione(id)" onmouseout="fuori(id)" src="./img/prodotti/<%=colore.get("immagine")%>" class="img-prodotto" id="img-<%=i %>">
 					<h3><%=prodotto.get("nome") %></h3>
-					<%
-						/*
-						System.out.println("ProdottiJSP: "+colore.get("prezzo"));
-						String prezzo=colore.get("prezzo").toString();
-						int punto=prezzo.indexOf(".");
-						System.out.println(punto);
-						String prezzoIntero=prezzo.substring(0, punto);
-						System.out.println(prezzoIntero);
-						String prezzoDopoPunto=prezzo.substring(punto+1);
-						System.out.println(prezzoDopoPunto);
-						String prezzoModificato="";
-						if(prezzoDopoPunto.equals("0"))
-						{
-							prezzoModificato=prezzoIntero;
-						}
-						else
-						{
-							prezzoModificato=prezzo;
-						}
-						System.out.println("PrezzoModificato: "+prezzoModificato);
-						*/
-					%>
 					<h6 id="prezzoProdotto-<%=i%>"> <%=colore.get("prezzo") %> &euro;</h6>
 				</button>
 			</form>
@@ -70,7 +47,6 @@
 						{
 							String nome=prodotto.names().get(k).toString();
 							JSONObject coloreSelezionato=(JSONObject) prodotto.get(prodotto.names().get(k).toString());
-							//System.out.println("JSP prodotto: "+coloreSelezionato);
 							if(nome.equals("colore0"))
 							{
 			 	 %>
@@ -100,6 +76,7 @@
 	<footer>
 		<%@ include file="Footer.jsp" %>
 	</footer>
+	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/cambiaImmagine.js"></script>
 </body>
 </html>

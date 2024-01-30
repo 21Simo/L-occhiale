@@ -14,9 +14,9 @@ body
 {
 	margin-top: 150px;
 	width: 100%;
-	padding: 100px 15%;
-	background: #333;
-	color: #efefef;
+	padding: 100px 1%;
+	background: #07020d;
+	color: #fffafa;
 	display: flex;
 }
 
@@ -35,6 +35,7 @@ body
 	font-weight: 300;
 	margin-bottom: 30px;
 	letter-spacing: 1px;
+	color: #dd935c;
 }
 
 .col-1 a
@@ -45,27 +46,15 @@ body
 	margin-bottom: 10px;
 }
 
-/*
-form input
+@media screen and (max-width: 992px)
 {
-	width: 400px;
-	height: 45px;
-	border-radius: 4px;
-	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 40px;
-	outline: none;
-	border: none;
+	.footer
+	{
+		margin-top: 150px;
+		width: 100%;
+		padding: 100px 15%;
+		background: #333;
+		color: #efefef;
+		display: block;
+	}
 }
-
-form button
-{
-	background: transparent;
-	border: 2px solid #fff;
-	color: #fff;
-	border-radius: 30px;
-	padding: 10px 30px;
-	font-size: 15px;
-	cursor: pointer;
-}
-*/

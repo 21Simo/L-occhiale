@@ -18,7 +18,7 @@ import model.Utente;
 import model.UtenteDAO;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet che serve per la login. 
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet 
@@ -57,6 +57,7 @@ public class LoginServlet extends HttpServlet
 		if(utente.getEmail().equals("errore"))
 		{
 			request.setAttribute("login", utente.getEmail());
+			utente.setTipo("errore");
 			request.getSession().setAttribute("utente", utente);
 			RequestDispatcher dispatcher= request.getRequestDispatcher("/Login.jsp");
 			dispatcher.forward(request, response);
@@ -75,12 +76,12 @@ public class LoginServlet extends HttpServlet
 			String tipo= utente.getTipo();
 			if(tipo.equals("Utente"))
 			{
-				RequestDispatcher dispatcher= request.getRequestDispatcher("/Dashboard.jsp"); 
+				RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardUtenteServlet"); 
 				dispatcher.forward(request, response);
 			}
 			else if (tipo.equals("Amministratore")) 
 			{
-				RequestDispatcher dispatcher= request.getRequestDispatcher("/DashboardAdmin.jsp");
+				RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardAdminServlet");
 				dispatcher.forward(request, response);
 			}
 		}

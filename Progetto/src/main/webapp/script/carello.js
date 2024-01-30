@@ -4,14 +4,6 @@ var shippingRate = 15.00;
 var fadeTime = 300;
 
 
-/* Assign actions */
-/*
-$('.product-quantity input').change( function() 
-{
-  console.log(this);
-  updateQuantity(this);
-});
-*/
 
 $('.product-removal button').click( function() 
 {
@@ -39,11 +31,9 @@ function recalculateCart()
   /* Update totals display */
   $('.totals-value').fadeOut(fadeTime, function() 
   {
-    //$('#cart-subtotal').html(subtotal.toFixed(2));
     $('#cart-subtotal').html(subtotal);
     $('#cart-tax').html(tax.toFixed(2));
     $('#cart-shipping').html(shipping.toFixed(2));
-    //$('#cart-total').html(total.toFixed(2));
     $('#cart-total').html(total);
     if(total == 0)
     {
@@ -69,8 +59,8 @@ function updateQuantity(quantityInput)
   
   /* Update line price display and recalc cart totals */
   productRow.children('.product-line-price').each(function () {
-    $(this).fadeOut(fadeTime, function() {
-      //$(this).text(linePrice.toFixed(2));
+    $(this).fadeOut(fadeTime, function() 
+    {
       $(this).text(linePrice);
       recalculateCart();
       $(this).fadeIn(fadeTime);

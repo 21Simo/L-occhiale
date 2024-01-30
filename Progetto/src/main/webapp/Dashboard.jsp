@@ -1,102 +1,64 @@
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
 <%@page import="java.sql.Date"%>
 <%@page import="model.ColoreDAO"%>
-<%@page import="model.DettagliOrdineDAO"%>
 <%@page import="model.DettagliOrdine"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="model.DettagliOrdineDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+
+<%
+	JSONObject dettagliOrdiniJson= (JSONObject) request.getAttribute("dettagliOrdini");
+	System.out.println(dettagliOrdiniJson);
+	JSONArray listaDettagliOrdini=(JSONArray) dettagliOrdiniJson.get("listaDettagliOrdini");
+	System.out.println(listaDettagliOrdini.length());
+%>
+    
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="./css/dashboard.css">
-    <link rel="stylesheet" href="./css/dettaglioProdotti.css">
-     
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
+<head>	
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
 </head>
 <body>
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
-
-	<div class="contenitoreDashboard">
+	<div class="grid-container">
 		<%@ include file="MenùDashboard.jsp" %>
-
-		<section class="dashboard">
-			<div class="dash-content">
-				<div class="overview">
-					<div class="title">
-						<i class="uil uil-tachometer-fast-alt"></i> <span class="text">Dashboard</span>
-					</div>
-
-					<div class="boxes">
-						<div class="box box1">
-							<i class="uil uil-thumbs-up"></i> <span class="text">Total
-								Likes</span> <span class="number">50,120</span>
-						</div>
-						<div class="box box2">
-							<i class="uil uil-comments"></i> <span class="text">Comments</span>
-							<span class="number">20,120</span>
-						</div>
-						<div class="box box3">
-							<i class="uil uil-share"></i> <span class="text">Total
-								Share</span> <span class="number">10,120</span>
-						</div>
-					</div>
-				</div>
-
-				
-				<div class="activity padding">
-					<div class="title">
-						<i class="uil uil-clock-three"></i> <span class="text">Ordini
-							recenti</span>
-					</div>
-				
-					<!--  
-					<div class="activity-data">
-						<div class="data names">
-							<span class="data-title">Name</span> 
-							<span class="data-list">Prem Shahi</span> 
-							<span class="data-list">aaaaaaaaaa</span>
-						</div>
-						<div class="data email">
-							<span class="data-title">Email</span> <span class="data-list">premshahi@gmail.com</span>
-							<span class="data-list">deepachand@gmail.com</span> <span
-								class="data-list">prakashhai@gmail.com</span> <span
-								class="data-list">manishachand@gmail.com</span> <span
-								class="data-list">pratimashhai@gmail.com</span> <span
-								class="data-list">manshahi@gmail.com</span> <span
-								class="data-list">ganeshchand@gmail.com</span>
-						</div>
-						<div class="data joined">
-							<span class="data-title">Joined</span> <span class="data-list">2022-02-12</span>
-							<span class="data-list">2022-02-12</span> <span class="data-list">2022-02-13</span>
-							<span class="data-list">2022-02-13</span> <span class="data-list">2022-02-14</span>
-							<span class="data-list">2022-02-14</span> <span class="data-list">2022-02-15</span>
-						</div>
-						<div class="data type">
-							<span class="data-title">Type</span> <span class="data-list">New</span>
-							<span class="data-list">Member</span> <span class="data-list">Member</span>
-							<span class="data-list">New</span> <span class="data-list">Member</span>
-							<span class="data-list">New</span> <span class="data-list">Member</span>
-						</div>
-						<div class="data status">
-							<span class="data-title">Status</span> <span class="data-list">Liked</span>
-							<span class="data-list">Liked</span> <span class="data-list">Liked</span>
-							<span class="data-list">Liked</span> <span class="data-list">Liked</span>
-							<span class="data-list">Liked</span> <span class="data-list">Liked</span>
-						</div>
-					</div>
-					-->
-				</div>
-			</div>
-
-			<table id="ordini">
+      <main class="main-container">
+        <div class="main-title">
+          <p class="font-weight-bold">Ordini recenti</p>
+        </div>
+				<%
+					System.out.println("Dashboard JSP: "+utente);
+					if(utente==null)
+					{
+						response.sendRedirect("Login.jsp");
+					}
+					else
+					{
+						if(listaDettagliOrdini==null)
+						{
+				%>
+				<p>Non ci sono ordini recenti. </p>
+				<%
+						}
+						else
+						{
+				%>
+				<table id="ordini">
 				<tr>
 					<th>Numero d'ordine</th>
 					<th>Importo</th>
@@ -106,77 +68,52 @@
 					<th></th>
 				</tr>
 				<%
-					System.out.println("Dashboard JSP: "+utente);
-					if(utente==null)
-					{
-						response.sendRedirect("Login.jsp");
-					}
-					else
-					{
-						DettagliOrdineDAO dettagliOrdineDAO= new DettagliOrdineDAO();
-						ArrayList<DettagliOrdine> listaDettagliOrdini= dettagliOrdineDAO.dettagliOrdiniPerUtente(utente.getId());
-						System.out.println("Dashboard JSP: "+listaDettagliOrdini);
-						if(listaDettagliOrdini==null)
-						{
-				%>
-				<p>Non ci sono ordini recenti. </p>
-				<%
-						}
-						else
-						{
-							request.setAttribute("listaDettagliOrdini", listaDettagliOrdini);
-							session.setAttribute("listaDettagliOrdini", listaDettagliOrdini);
-							for(int i=0; i<listaDettagliOrdini.size(); i++)
+							ArrayList<DettagliOrdine> listaDettagliOrdiniOggetto= new ArrayList<DettagliOrdine>();
+							for(int i=0; i<listaDettagliOrdini.length(); i++)
 							{
-					//}
-						
-					//else if(utente!=null)
-					//{
-						//System.out.println("Dashboard JSP: "+utente.getId());
-						//DettagliOrdineDAO dettagliOrdineDAO= new DettagliOrdineDAO();
-						//ArrayList<DettagliOrdine> listaDettagliOrdini= dettagliOrdineDAO.dettagliOrdiniPerUtente(utente.getId());
-						//ArrayList<DettagliOrdine> listaDettagliOrdini= new ArrayList<DettagliOrdine>();
-						//listaDettagliOrdini=(ArrayList<DettagliOrdine>) request.getAttribute("listaDettagliOrdini");
-						//System.out.println("Dashboard JSP: "+listaDettagliOrdini);
-						//for(int i=0; i<listaDettagliOrdini.size(); i++)
-						//{ 
-								
-						//}
-					//}
+								JSONObject dettagliOrdineJson=(JSONObject) listaDettagliOrdini.get(i);
 								ColoreDAO coloreDAO= new ColoreDAO();
-								String importo= coloreDAO.prezzo(Double.toString(listaDettagliOrdini.get(i).getImporto()));
-								Date data= listaDettagliOrdini.get(i).getData();
+								String importo= coloreDAO.prezzo(dettagliOrdineJson.get("importo").toString());
+								Date data= Date.valueOf(dettagliOrdineJson.get("data").toString());
+								DettagliOrdine dettagliOrdine= new DettagliOrdine();
+								dettagliOrdine.setId(Integer.parseInt(dettagliOrdineJson.get("id").toString()));
+								dettagliOrdine.setImporto(Double.parseDouble(dettagliOrdineJson.get("importo").toString()));
+								dettagliOrdine.setIva(Double.parseDouble(dettagliOrdineJson.get("iva").toString()));
+								dettagliOrdine.setData(data);
+								dettagliOrdine.setQuantità(Integer.parseInt(dettagliOrdineJson.get("quantità").toString()));
+								dettagliOrdine.setIdUtente(Integer.parseInt(dettagliOrdineJson.get("idUtente").toString()));
+								dettagliOrdine.setIdPagamento(Integer.parseInt(dettagliOrdineJson.get("idPagamento").toString()));
+								dettagliOrdine.setStato(dettagliOrdineJson.get("stato").toString());
+								listaDettagliOrdiniOggetto.add(dettagliOrdine);
 				%>
-				<tr>
-					<td><%=listaDettagliOrdini.get(i).getId() %></td>
+				<tr> 
+					<td><%=dettagliOrdineJson.get("id") %></td> 
 					<td><%=importo %> &euro;</td>
-					<td><%=listaDettagliOrdini.get(i).getQuantità() %></td>
-					<td><%=listaDettagliOrdini.get(i).visualizzaData(data) %></td>
-					<td><%=listaDettagliOrdini.get(i).getStato() %></td>
-					<!--  
-					<td><a href="DettaglioOrdineServlet">Vai al dettaglio</a></td>
-					-->
+					<td><%=dettagliOrdineJson.get("quantità") %></td>
+					<td><%=dettagliOrdine.visualizzaData(data) %></td>
 					<td>
 						<form action="DettaglioOrdineServlet" method="post">
-							<button name="dettaglioOrdine" class="noButton" value="<%=i%>">Dettaglio</button>
+							<button name="dettaglioOrdine" class="noButton" value="<%=i %>">Dettaglio</button>
 						</form>
 					</td>
 				</tr>
 				<%
 							}
+							request.setAttribute("listaDettagliOrdini", listaDettagliOrdiniOggetto);
+							session.setAttribute("listaDettagliOrdini", listaDettagliOrdiniOggetto);
 						}
 					}
 				%>
-			</table>
+		</table>
+      </main>
 
-		</section>
-
-	</div>
-
-	<footer>
+    </div>
+    
+    <footer>
 		<%@ include file="Footer.jsp" %>
 	</footer>
 
+    <script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
     <script src="./script/dashboard.js"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@ import model.Utente;
 import model.UtenteDAO;
 
 /**
- * Servlet implementation class ModificaAccountServlet
+ * Servlet che serve per la modifica dell'account. 
  */
 @WebServlet("/ModificaAccountServlet")
 public class ModificaAccountServlet extends HttpServlet 

@@ -53,10 +53,9 @@ var props = {
     },
     business: {
         name: "L'occhiale",
-        address: "Albania, Tirane ish-Dogana, Durres 2001",
-        phone: "(+39) 3311007122",
-        email: "s.civale2@studenti.unisa.it",
-        email_1: "info@example.al",
+        address: "Via Giovanni Paolo II, 132, 84084 Fisciano SA \n Università degli Studi di Salerno, Italia",
+        phone: "\n(+39) 3311007122",
+        email: "\ns.civale2@studenti.unisa.it",
         website: "www.l'occhiale.it",
     },
     contact: {

@@ -13,7 +13,6 @@ function cambiaImmagine(id,prodotto,quantità)
 	var carta=prova.classList[1];
 	console.log("Carta: "+carta);
 	var indiceProva=carta.indexOf("-");
-	//console.log("Indice dell'id: "+indiceProva);
 	var provaNumero=carta.substring(indiceProva+1);
 	console.log("Numero dell'id: "+provaNumero);
 	var img="#img-"+provaNumero;
@@ -95,24 +94,7 @@ function quantita()
 	$('#quantitàProdotto').attr("value", quantità);
 }
 
-/*
-function gradazione() 
-{
-	console.log("Gradazione");
-	var valore=document.getElementById("prescrizione").value;
-	console.log(valore);
-	if(valore=="Si")
-	{
-		document.getElementById("choose-file-label").style.display="inline-block";
-	}
-	else if(valore=="No")
-	{
-		document.getElementById("choose-file-label").style.display="none";
-	}
-}
-*/
-
-//Nuovo toogle 
+//Toogle 
 $(document).ready(function() 
 {
     $("#modificaLenti").on("change", function () 
@@ -155,8 +137,6 @@ $(document).ready(function ()
 		var file = $('#sceltaFile')[0].files[0].name;
 		console.log("Cambia label: ");
 		console.log(file);
-		//console.log($(this).prev('label'));
-		//$(this).prev('label').text(file);
 		$('#etichettaSceltaFile').html(file);
 		$('#erroreFile').html("");
 	}); 

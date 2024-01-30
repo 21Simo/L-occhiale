@@ -14,3 +14,28 @@
 {
 	display: none;
 }
+
+.bottoniModifica
+{
+	display: flex;
+	justify-content: space-between;
+	width: 50%;
+}
+
+.spazioBottone
+{
+	margin-right: 20px !important;
+}
+
+@media screen and (max-width: 700px)
+{
+	.bottoniModifica
+	{
+		flex-direction: column;
+	}
+}
+
+.errore
+{
+	color: red;
+}

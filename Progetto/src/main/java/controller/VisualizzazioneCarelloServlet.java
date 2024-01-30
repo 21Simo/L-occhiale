@@ -113,7 +113,7 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 				}
 			}
 		}
-		RequestDispatcher dispatcher= request.getRequestDispatcher("/Carello.jsp");
+		RequestDispatcher dispatcher= request.getRequestDispatcher("/Carrello.jsp");
 		dispatcher.forward(request, response);
 	}
 

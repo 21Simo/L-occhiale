@@ -11,10 +11,10 @@
 	<body>
 		<div class="footer">
 			<div class="col-1">
-				<h3>Informazioni utili</h3>
-				<a href="#">Contatti</a>
-				<a href="#">Domande frequenti</a>
-				<a href="#">Servizi</a>
+				<h3>Chi sono</h3>
+				<p>Simone Civale</p>
+				<p>Nato a Torre Annunziata (NA), 1998.</p>
+				<p>Ho realizzato questo sito ai fini dell'esame di Tecnologie Software per il Web.</p>
 			</div>
 			<div class="col-2">
 				<h3>Metodi di pagamento</h3>
@@ -31,7 +31,8 @@
 			</div>
 			<div class="col-3">
 				<h3>Contatti</h3>
-				<p>123, XYZ Road, BSK 3<br>Bangalore, karnataka, IN</p>
+				
+				<p>Via Giovanni Paolo II, 132, 84084 Fisciano SA<br>Università degli Studi di Salerno</p>
 			</div>
 		</div>
 	</body>

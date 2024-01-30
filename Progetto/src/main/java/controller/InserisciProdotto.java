@@ -18,7 +18,7 @@ import model.Prodotto;
 import model.ProdottoDAO;
 
 /**
- * Servlet implementation class InserisciProdotto
+ * Servlet che serve per inserire un prodotto. 
  */
 @WebServlet("/InserisciProdotto")
 @MultipartConfig

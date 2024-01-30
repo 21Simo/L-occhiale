@@ -42,17 +42,6 @@ public class Colore
 		this.immagine = immagine;
 	}
 	
-	/*
-	public double getPrezzo()
-	{
-		return prezzo;
-	}
-	
-	public void setPrezzo(double prezzo) 
-	{
-		this.prezzo = prezzo;
-	}
-	*/
 	public String getPrezzo()
 	{
 		return prezzo;
@@ -87,7 +76,6 @@ public class Colore
 	private int idProdotto;
 	private String colore;
 	private String immagine;
-	//private double prezzo;
 	private String prezzo;
 	private int quantità;
 	private String codiceProdotto;

@@ -14,7 +14,7 @@ public class OrdineDAO
 		
 		PreparedStatement preparedStatement=null;
 		
-		String query="insert into ordine (idOrdine, idProdotto, idColore, file, quantitàProdotto) values (?, ?, ?, ?, ?)";
+		String query="insert into ordine (idOrdine, file, quantitàProdotto, prezzo, immagineProdotto, nomeProdotto, coloreProdotto) values (?, ?, ?, ?, ?, ?, ?)";
 		
 		try
 		{
@@ -22,10 +22,12 @@ public class OrdineDAO
 			preparedStatement= connessione.prepareStatement(query);
 			System.out.println(preparedStatement);
 			preparedStatement.setInt(1, ordine.getIdOrdine());
-			preparedStatement.setInt(2, ordine.getIdProdotto());
-			preparedStatement.setInt(3, ordine.getIdColore());
-			preparedStatement.setString(4, ordine.getFile());
-			preparedStatement.setInt(5, ordine.getQuantitàProdotto());
+			preparedStatement.setString(2, ordine.getFile());
+			preparedStatement.setInt(3, ordine.getQuantitàProdotto());
+			preparedStatement.setString(4, ordine.getPrezzo());
+			preparedStatement.setString(5, ordine.getImmagineProdotto());
+			preparedStatement.setString(6, ordine.getNomeProdotto());
+			preparedStatement.setString(7, ordine.getColoreProdotto());
 			preparedStatement.executeUpdate();
 			
 			connessione.commit();
@@ -68,10 +70,12 @@ public class OrdineDAO
 				Ordine ordine= new Ordine();
 				ordine.setId(risultati.getInt("id"));
 				ordine.setIdOrdine(risultati.getInt("idOrdine"));
-				ordine.setIdProdotto(risultati.getInt("idProdotto"));
-				ordine.setIdColore(risultati.getInt("idColore"));
 				ordine.setFile(risultati.getString("file"));
 				ordine.setQuantitàProdotto(risultati.getInt("quantitàProdotto"));
+				ordine.setPrezzo(risultati.getString("prezzo"));
+				ordine.setImmagineProdotto(risultati.getString("immagineProdotto"));
+				ordine.setNomeProdotto(risultati.getString("nomeProdotto"));
+				ordine.setColoreProdotto(risultati.getString("coloreProdotto"));
 				listaOrdini.add(ordine);
 			}
 		}

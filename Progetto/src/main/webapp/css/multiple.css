@@ -2,7 +2,7 @@ body
 {
 	margin: 0;
 	font-family: sans-serif;
-	background: #f2f2f2;
+	background: #FFFAFA;
 }
 
 h3
@@ -39,24 +39,14 @@ a
 	border-radius: 20px;
 	cursor: pointer;
 	padding-top: 10px;
-	/*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
 	transition: -4s;
-	/*background: #f2f2f2;*/
 	background: #fff;
 	display: grid;
 	align-content: space-between;
-	border-color: black;
+	border-color: #DD935C;
 	border-style: solid;
 	border-width: 2px;
 }
-
-/*
-.content:hover
-{
-	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-	transform: translate(0px, -8px);
-}
-*/
 
 .img-prodotto
 {
@@ -93,7 +83,8 @@ a
 p
 {
 	text-align: center;
-	color: #b2bec3;
+	/*color: #b2bec3;*/
+	color: #fffafa;
 	padding-top: 0 8px;
 }
 
@@ -106,7 +97,6 @@ h6
 	padding-top: 10px;
 }
 
-/*ul*/
 .elementoLista
 {
 	list-style: none;
@@ -173,10 +163,9 @@ li
 	background: #ff9f43;
 }
 
-/*Aggiunto*/
 .color-content
 {
-    margin-top: 1.2rem;
+    margin-top: -0.8rem;
 }
 .color-content h3
 {
@@ -188,13 +177,6 @@ li
     width: 55px;
     height: 45px;
     background: none;
-    /*
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    */
     margin-right: 12px;
     cursor: pointer;
     transition: all 0.5s ease;
@@ -230,8 +212,7 @@ li
 
 .active-color
 {
-    /*box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.3);*/
-    border: 1px solid blue;
+    border: 1px solid black;
     border-radius: 10px;
 }
 
@@ -250,12 +231,9 @@ li
 .dettagli
 {
 	background: transparent;
-	/*color: #fff;*/
 	border: none;
 	cursor: pointer;
 }
-
-/*Fine aggiunta */
 
 
 @media (max-width:1000px) 

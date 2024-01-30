@@ -33,8 +33,6 @@ public class ColoreDAO
 				colore.setImmagine(risultati.getString("immagine"));
 				String prezzo=prezzo(risultati.getString("prezzo"));
 				colore.setPrezzo(prezzo);
-				//colore.setQuantità(risultati.getInt("quantità"));
-				//colore.setCodiceProdotto(risultati.getString("codiceProdotto"));
 				listaColore.add(colore); 
 			}
 		}

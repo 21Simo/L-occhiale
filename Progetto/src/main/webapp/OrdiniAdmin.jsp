@@ -8,11 +8,19 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="./css/dashboard.css">  
+      
     <link rel="stylesheet" href="./css/registrazione.css">
     <link rel="stylesheet" href="./css/ordiniAdmin.css">   
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
     
 	<title>Ordini</title>
 </head>
@@ -20,21 +28,13 @@
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
-	
-	<div class="contenitoreDashboard">
+	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
-
-		<section class="dashboard">
-			<div class="dash-content">				
-				<div class="activity padding">
-					<div class="title">
-						<i class="uil uil-clock-three"></i> 
-						<span class="text">Ordini</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="container">
+		<main class="main-container">
+        	<div class="main-title">
+          		<p class="font-weight-bold">Ordini</p>
+        	</div>
+        	<div class="container">
 				<form id="formOrdini" method="post" action="OrdiniAdminServlet" onsubmit="return validazioneOrdini()">
 					<div class="form first">
 						<div class="details personal">
@@ -46,19 +46,19 @@
                                			<option>Data</option>
                                	 		<option>Utente</option>                                
                             		</select>
-                            		<p id="erroreOpzione"></p>
+                            		<p id="erroreOpzione" class="errore"></p>
                         		</div>
                         	</div>
                         	<div id="data" class="nascondi">
                         		<div class="input-field">
                             		<label>Dalla data</label>
                             		<input type="date" id="data1" name="data1" placeholder="Inserisci la tua data di nascita">
-                            		<p id="erroreData1"></p>
+                            		<p id="erroreData1" class="errore"></p>
                         		</div>	
                         		<div class="input-field">
                             		<label>Alla data</label>
                             		<input type="date" id="data2" name="data2" placeholder="Inserisci la tua data di nascita">
-                            		<p id="erroreData2"></p>
+                            		<p id="erroreData2" class="errore"></p>
                         		</div>					
                         	</div>
                         	<div id="utente" class="nascondi">
@@ -78,7 +78,7 @@
                                 		}
                                 		%>                                		                                
                             		</select>
-                            		<p id="erroreUtente"></p>
+                            		<p id="erroreUtente" class="errore"></p>
                         		</div>              					
                         	</div>
                         	<div id="bottone" class="nascondi">
@@ -88,8 +88,7 @@
 					</div>
 				</form>
 			</div>
-
-		</section>
+        </main>
 	</div>
 	
 	<footer>
@@ -98,5 +97,10 @@
 	
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/ordiniAdmin.js"></script>
+	<!-- Scripts -->
+    <!-- ApexCharts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./script/dashboard.js"></script>
 </body>
 </html>

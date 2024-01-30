@@ -17,7 +17,7 @@ import model.Utente;
 import model.UtenteDAO;
 
 /**
- * Servlet implementation class RegistrazioneServlet
+ * Servlet che serve per la registrazione dell'utente. 
  */
 @WebServlet("/RegistrazioneServlet")
 public class RegistrazioneServlet extends HttpServlet 

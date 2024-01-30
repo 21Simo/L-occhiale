@@ -50,7 +50,6 @@ public class DettaglioProdottoServlet extends HttpServlet
 			int indice=id.indexOf("/");
 			int idProdotto=Integer.parseInt(id.substring(0, indice));
 			String indiceColore=id.substring(indice+1); 
-			//ArrayList<Prodotto> prodotti= prodottoDAO.dettagliProdottiPerId(idProdotto);
 			Prodotto prodottoo= prodottoDAO.dettagliProdottiPerId(idProdotto);
 			
 			Utente utente=(Utente) request.getSession().getAttribute("utente");
@@ -65,47 +64,38 @@ public class DettaglioProdottoServlet extends HttpServlet
 			}
 			
 			JSONObject prodotto= new JSONObject();
-			//for(int i=0; i<prodotti.size(); i++)
-			//{
-				/*prodotto.put("id", prodotti.get(i).getId());*/
-				prodotto.put("id", prodottoo.getId());
-				//prodotto.put("nome", prodotti.get(i).getNome());
-				prodotto.put("nome", prodottoo.getNome());
-				//prodotto.put("descrizione", prodotti.get(i).getDescrizione());
-				prodotto.put("descrizione", prodottoo.getDescrizione());
-				//prodotto.put("marca", prodotti.get(i).getMarca());
-				prodotto.put("marca", prodottoo.getMarca());
-				//prodotto.put("sesso", prodotti.get(i).getSesso());
-				prodotto.put("sesso", prodottoo.getSesso());
-				ArrayList<Colore> colore= coloreDAO.dettaglioColorePerId(idProdotto);
-				for(int j=0; j<colore.size(); j++)
-				{
-					JSONObject coloreJson= new JSONObject();
-					coloreJson.put("id", colore.get(j).getId());
-					coloreJson.put("idProdotto", colore.get(j).getIdProdotto());
-					coloreJson.put("colore", colore.get(j).getColore());
-					coloreJson.put("immagine", colore.get(j).getImmagine());
-					coloreJson.put("prezzo", colore.get(j).getPrezzo());
+			prodotto.put("id", prodottoo.getId());
+			prodotto.put("nome", prodottoo.getNome());
+			prodotto.put("descrizione", prodottoo.getDescrizione());
+			prodotto.put("marca", prodottoo.getMarca());
+			prodotto.put("sesso", prodottoo.getSesso());
+			ArrayList<Colore> colore= coloreDAO.dettaglioColorePerId(idProdotto);
+			for(int j=0; j<colore.size(); j++)
+			{
+				JSONObject coloreJson= new JSONObject();
+				coloreJson.put("id", colore.get(j).getId());
+				coloreJson.put("idProdotto", colore.get(j).getIdProdotto());
+				coloreJson.put("colore", colore.get(j).getColore());
+				coloreJson.put("immagine", colore.get(j).getImmagine());
+				coloreJson.put("prezzo", colore.get(j).getPrezzo());
 					
-					int quantitàSospesa=0;
-					if(carelloSessione!=null)
+				int quantitàSospesa=0;
+				if(carelloSessione!=null)
+				{
+					ArrayList<ProdottoCarello> listaCarello= carelloSessione.getListaProdotti();
+					for(int k=0; k<listaCarello.size(); k++)
 					{
-						ArrayList<ProdottoCarello> listaCarello= carelloSessione.getListaProdotti();
-						//for(int k=0; i<=listaCarello.size(); i++)
-						for(int k=0; k<listaCarello.size(); k++)
+						if(listaCarello.get(k).getColore().getId()==colore.get(j).getId())
 						{
-							if(listaCarello.get(k).getColore().getId()==colore.get(j).getId())
-							{
-								System.out.println("Perfetto.");
-								quantitàSospesa= listaCarello.get(k).getColore().getQuantità();
-							}
+							System.out.println("Perfetto.");
+							quantitàSospesa= listaCarello.get(k).getColore().getQuantità();
 						}
 					}
+				}
 					
-					coloreJson.put("quantità", colore.get(j).getQuantità()-quantitàSospesa); 
-					coloreJson.put("codiceProdotto", colore.get(j).getCodiceProdotto());
-					prodotto.put("colore"+j, coloreJson);
-				//}
+				coloreJson.put("quantità", colore.get(j).getQuantità()-quantitàSospesa); 
+				coloreJson.put("codiceProdotto", colore.get(j).getCodiceProdotto());
+				prodotto.put("colore"+j, coloreJson);
 			}
 			request.setAttribute("prodotto", prodotto);
 			request.setAttribute("coloreSelezionato", indiceColore);

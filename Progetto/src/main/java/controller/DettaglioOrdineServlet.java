@@ -23,7 +23,7 @@ import model.ProdottoDAO;
 import model.UtenteDAO;
 
 /**
- * Servlet implementation class DettaglioOrdine
+ * Servlet che serve per ottenere i dettagli dell'ordine. 
  */
 @WebServlet("/DettaglioOrdineServlet")
 public class DettaglioOrdineServlet extends HttpServlet 
@@ -58,7 +58,6 @@ public class DettaglioOrdineServlet extends HttpServlet
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 		ArrayList<DettagliOrdine> listaDettagliOrdini=(ArrayList<DettagliOrdine>) request.getSession().getAttribute("listaDettagliOrdini");
-		//request.getAttribute("listaDettagliOrdini");
 		System.out.println("DettaglioOrdineServlet: "+listaDettagliOrdini);
 		
 		int indiceDettaglioProdotto= Integer.parseInt(request.getParameter("dettaglioOrdine"));
@@ -76,25 +75,14 @@ public class DettaglioOrdineServlet extends HttpServlet
 			ArrayList<Colore> listaColore= new ArrayList<Colore>();
 			for(int i=0; i<listaOrdini.size(); i++)
 			{
-				Prodotto prodotto= prodottoDAO.dettagliProdottiPerId(listaOrdini.get(i).getIdProdotto());
 				System.out.println("DettaglioOrdineServlet file: "+listaOrdini.get(i).getFile());
-				Colore colore= coloreDAO.colorePerIdColore(listaOrdini.get(i).getIdColore());
-				String prezzo= coloreDAO.prezzo(colore.getPrezzo());
-				System.out.println("DettaglioOrdineServlet prezzo: "+prezzo);
-				colore.setPrezzo(prezzo);
-				prodotto.setColore(colore);
-				prodotti.add(prodotto);
-				System.out.println("DettaglioOrdineServlet: "+prodotti.get(0).getNome());
-				//listaColore.add(colore);
-				//System.out.println("DettaglioOrdineServlet: "+listaColore);
+				System.out.println("Immagine prodotto: "+listaOrdini.get(i).getImmagineProdotto());
 			}
 			JSONObject dettaglioOrdineJson= new JSONObject();
-			System.out.println("DettaglioOrdine Servlet: "+prodotti.get(0));
 			dettaglioOrdineJson.put("dettagliOrdine", listaDettagliOrdini.get(indiceDettaglioProdotto));
 			dettaglioOrdineJson.put("indirizzo", indirizzo);
 			dettaglioOrdineJson.put("prodotti", prodotti);
 			dettaglioOrdineJson.put("ordine", listaOrdini);
-			//dettaglioOrdineJson.put("coloriProdotti", listaColore);
 			request.setAttribute("dettaglioOrdineJson", dettaglioOrdineJson);
 		} 
 		catch (ClassNotFoundException | SQLException e) 

@@ -32,7 +32,7 @@ import model.ProdottoCarello;
 import model.Utente;
 
 /**
- * Servlet implementation class CassaServlet
+ * Servlet che serve per la gestione della cassa.
  */
 @WebServlet("/CassaServlet")
 @MultipartConfig
@@ -96,8 +96,6 @@ public class CassaServlet extends HttpServlet
 			dettagliOrdineDAO.inserisciDettagliOrdine(dettagliOrdine);
 			Ordine ordine= new Ordine();
 			ordine.setIdOrdine(dettagliOrdineDAO.ultimoId());
-			
-			//ArrayList<ProdottoCarello> listaProdotti= carello.getListaProdotti();
 			for(int i=0; i<listaProdotti.size(); i++)
 			{
 				coloreDAO.aggiornaQuantità(listaProdotti.get(i).getId(), listaProdotti.get(i).getColore().getId(), listaProdotti.get(i).getColore().getQuantità());
@@ -106,17 +104,22 @@ public class CassaServlet extends HttpServlet
 					String file= listaProdotti.get(i).getPath();
 					String pathTemp="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\tmp file\\";
 					String destinazione="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\file\\";
-					Files.move(Paths.get(pathTemp+file.substring(file.lastIndexOf("\\")+1)), Paths.get(destinazione+file.substring(file.lastIndexOf("\\")+1)));
-					//dettagliOrdine.setFile(file);
-					
+					Files.move(Paths.get(pathTemp+file.substring(file.lastIndexOf("\\")+1)), Paths.get(destinazione+file.substring(file.lastIndexOf("\\")+1)));					
 					ordine.setFile(file);
 				}
-				//dettagliOrdineDAO.inserisciDettagliOrdine(dettagliOrdine);
-				//Ordine ordine= new Ordine();
-				//ordine.setIdOrdine(dettagliOrdineDAO.ultimoId());
 				ordine.setIdProdotto(listaProdotti.get(i).getId());
 				ordine.setIdColore(listaProdotti.get(i).getColore().getId());
 				ordine.setQuantitàProdotto(listaProdotti.get(i).getColore().getQuantità());
+				ordine.setPrezzo(listaProdotti.get(i).getColore().getPrezzo());
+				System.out.println("Immagine prodotto: "+listaProdotti.get(i).getColore().getImmagine());
+				String immagineProdotto= listaProdotti.get(i).getColore().getImmagine();
+				int indice= immagineProdotto.lastIndexOf("/");
+				System.out.println("Indice: "+indice);
+				immagineProdotto= immagineProdotto.substring(indice+1);
+				System.out.println("Immagine prodotto: "+immagineProdotto);
+				ordine.setImmagineProdotto(immagineProdotto);
+				ordine.setNomeProdotto(listaProdotti.get(i).getNome());
+				ordine.setColoreProdotto(listaProdotti.get(i).getColore().getColore());
 				ordineDAO.inserisciOrdine(ordine);
 				carello= null;
 				request.getSession().setAttribute("carelloUtente", carello);

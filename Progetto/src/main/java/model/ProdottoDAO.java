@@ -18,8 +18,6 @@ public class ProdottoDAO
 		
 		ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
 		
-		//String query= "Select * From prodotto";
-		
 		String query= "select id, nome, marca, sesso from occhiale.prodotto";
 		
 		try 
@@ -33,7 +31,6 @@ public class ProdottoDAO
 				Prodotto prodotto= new Prodotto();
 				prodotto.setId(risultati.getInt("id"));
 				prodotto.setNome(risultati.getString("nome"));
-				//prodotto.setDescrizione(risultati.getString("descrizione"));
 				prodotto.setMarca(risultati.getString("marca"));
 				prodotto.setSesso(risultati.getString("sesso"));
 				listaProdotti.add(prodotto);
@@ -240,40 +237,92 @@ public class ProdottoDAO
 		}
 	}
 	
-	/*
-	public Collection<Prodotto> prodottiPerUomo() throws SQLException 
+	public synchronized ArrayList<Prodotto> ultimiProdotti() throws ClassNotFoundException, SQLException
 	{
-		String query= "select * from occhiale.prodotto where sesso='M'";
+		Connection connessione= null;
 		
-		Connection connessione= DriverManagerConnectionPool.getConnessione();
+		PreparedStatement preparedStatement= null;
 		
-		PreparedStatement preparedStatement= connessione.prepareStatement(query);
+		ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
 		
-		System.out.println(preparedStatement);
+		String query= "select * from occhiale.prodotto order by id desc limit 4";
 		
-		ResultSet risultati= preparedStatement.executeQuery();
-		
-		Prodotto prodotto= new Prodotto();
-		
-		Collection<Prodotto> listaProdotti= new LinkedList<Prodotto>();
-		
-		while(risultati.next())
+		try 
 		{
-			prodotto.setId(risultati.getInt("id"));
-			prodotto.setNome(risultati.getString("nome"));
-			prodotto.setDescrizione(risultati.getString("descrizione"));
-			prodotto.setPrezzo(risultati.getDouble("prezzo"));
-			prodotto.setMarca(risultati.getString("marca"));
-			prodotto.setSesso(risultati.getString("sesso"));
-			prodotto.setImmagine(risultati.getString("immagine"));
-			prodotto.setQuantità(risultati.getInt("quantità"));
-			prodotto.setCodice(risultati.getString("codice"));
-			prodotto.setColore(risultati.getString("colore"));
-			listaProdotti.add(prodotto);
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			System.out.println(preparedStatement);
+			ResultSet risultati= preparedStatement.executeQuery();	
+			while(risultati.next())
+			{
+				Prodotto prodotto= new Prodotto();
+				prodotto.setId(risultati.getInt("id"));
+				prodotto.setNome(risultati.getString("nome"));
+				prodotto.setMarca(risultati.getString("marca"));
+				prodotto.setSesso(risultati.getString("sesso"));
+				listaProdotti.add(prodotto);
+			}
 		}
-		preparedStatement.close();
-		DriverManagerConnectionPool.rilasciaConnessione(connessione);
+		finally
+		{
+			try
+			{
+				if(preparedStatement != null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+		
 		return listaProdotti;
 	}
-	*/
+	
+	public synchronized ArrayList<Prodotto> prodottiPerGenere(String genere) throws ClassNotFoundException, SQLException
+	{
+		Connection connessione= null;
+		
+		PreparedStatement preparedStatement= null;
+		
+		ArrayList<Prodotto> listaProdotti= new ArrayList<Prodotto>();
+		
+		String query= "select * from occhiale.prodotto where sesso=?";
+		
+		try 
+		{
+			connessione= DriverManagerConnectionPool.getConnessione();
+			preparedStatement= connessione.prepareStatement(query);
+			preparedStatement.setString(1, genere);
+			System.out.println(preparedStatement);
+			ResultSet risultati= preparedStatement.executeQuery();	
+			while(risultati.next())
+			{
+				Prodotto prodotto= new Prodotto();
+				prodotto.setId(risultati.getInt("id"));
+				prodotto.setNome(risultati.getString("nome"));
+				prodotto.setMarca(risultati.getString("marca"));
+				prodotto.setSesso(risultati.getString("sesso"));
+				listaProdotti.add(prodotto);
+			}
+		}
+		finally
+		{
+			try
+			{
+				if(preparedStatement != null)
+				{
+					preparedStatement.close();
+				}
+			}
+			finally
+			{
+				DriverManagerConnectionPool.rilasciaConnessione(connessione);
+			}
+		}
+		
+		return listaProdotti;
+	}
 }

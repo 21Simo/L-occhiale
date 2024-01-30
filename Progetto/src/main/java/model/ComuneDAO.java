@@ -28,7 +28,6 @@ public class ComuneDAO
 			while(risultati.next())
 			{
 				Comune comuni=new Comune();
-				//province.setId(risultati.getInt("id"));
 				comuni.setNome(risultati.getString("nome"));
 				listaComuni.add(comuni);
 			}

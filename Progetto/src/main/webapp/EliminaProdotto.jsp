@@ -17,11 +17,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="stylesheet" href="./css/dashboard.css">
     <link rel="stylesheet" href="./css/dettaglioProdottiAdmin.css">
     <link rel="stylesheet" href="./css/registrazione.css">
      
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+     <!-- Montserrat Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/dashboard.css">
 
     <title>Elimina prodotto</title>
 </head>
@@ -29,67 +37,59 @@
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
-	
-	<div class="contenitoreDashboard">
+	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
-
-		<section class="dashboard">
-			<div class="dash-content">				
-				<div class="activity padding">
-					<div class="title">
-						<i class="uil uil-clock-three"></i> 
-						<span class="text">Ordini</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="container">
+		<main class="main-container">
+        	<div class="main-title">
+          		<p class="font-weight-bold">Elimina prodotto</p>
+        	</div>
+        	<div class="container">
 				<form id="formElimina" method="post" action="EliminaProdottoServlet" onsubmit="return validazioneElimina()">
 					<div class="form first">
 						<div class="details personal">
-							<span class="title">Elimina prodotto</span>
+							<span class="title"></span>
 							<div class="fields">
                         		<div class="input-field">
                         			<input type="text" id="idProdotto" name="idProdotto" value="<%=prodotto.get("id")%>" hidden="true">
-                        			<p>Immagine: <%=colore.get("immagine") %></p>     
+                        			<p id="immagine" class="coloreTesto">Immagine: <%=colore.get("immagine") %></p>     
                         		</div>
                         		<div class="input-field">									
-									<p>Marca: <%=prodotto.get("marca")%></p>									
+									<p class="coloreTesto">Marca: <%=prodotto.get("marca")%></p>									
 								</div>
 								<div class="input-field">									
-									<p>Nome: <%=prodotto.get("nome")%></p>									
+									<p class="coloreTesto">Nome: <%=prodotto.get("nome")%></p>									
 								</div>
 								<div class="input-field">									
 									<%
 									if(prodotto.get("sesso").equals("M"))
 									{
 									%>
-									<p>Genere: Uomo</p>
+									<p class="coloreTesto">Genere: Uomo</p>
 									<%
 									}
 									else
 									{
 									%>
-									<p>Genere: Donna</p>
+									<p class="coloreTesto">Genere: Donna</p>
 									<%
 									}
 									%>								
 								</div>
 								<div class="input-field">									
-									<p>Prezzo: <%=colore.get("prezzo")%> &euro;</p>									
+									<p id="prezzo" class="coloreTesto">Prezzo: <%=colore.get("prezzo")%> &euro;</p>									
 								</div>								
 								<div class="input-field">									
-									<p>Nome colore: <%=colore.get("colore") %></p>									
+									<p id="nomeColore" class="coloreTesto">Nome colore: <%=colore.get("colore") %></p>									
 								</div>
 								<div class="input-field">									
-									<p>Quantità: <%=colore.get("quantità") %></p>									
+									<p id="quantità" class="coloreTesto">Quantità: <%=colore.get("quantità") %></p>									
 								</div>
 								<div class="input-field">									
-									<p>Codice prodotto: <%=colore.get("codiceProdotto") %></p>									
+									<p id="codiceProdotto" class="coloreTesto">Codice prodotto: <%=colore.get("codiceProdotto") %></p>									
 								</div>
 								<div class="input-field">			
-									<p>Scegli se vuoi eliminare solo un colore o tutto il prodotto: </p>
-									<select id="coloreProdotto" name="coloreProdotto">
+									<p class="coloreTesto">Scegli se vuoi eliminare solo un colore o tutto il prodotto: </p>
+									<select id="coloreProdotto" name="coloreProdotto" onchange="aggiorna(this)">
 										<option selected="selected">Inserisci il colore da eliminare o tutto il prodotto</option>
 									<%
 									for (int i = 0; i < prodotto.names().length(); i++) 
@@ -108,7 +108,26 @@
 									%>
 										<option value="-1">Tutto il prodotto</option>
 									</select>
-									<p id="erroreColore"></p>
+									<%
+									int k=0;
+									for (int j = 0; j < prodotto.names().length(); j++) 
+									{
+										if (prodotto.names().get(j).toString().contains("colore") == true) 
+										{
+											String nome = prodotto.names().get(j).toString();
+											System.out.println("Colore: "+nome);
+											JSONObject coloreJSON = (JSONObject) prodotto.get(nome);
+											System.out.println(coloreJSON);	
+											k++;
+									%>
+									<input id="colore<%=coloreJSON.get("id")%>" value="<%=coloreJSON.get("immagine") %>,<%=coloreJSON.get("prezzo") %>,<%=coloreJSON.get("colore") %>,<%=coloreJSON.get("quantità") %>,<%=coloreJSON.get("codiceProdotto") %>" hidden="true">
+									<%
+										}
+									}
+									System.out.println(k);
+									%>
+									<input id="colore-1" value="<%=k%>" hidden="true">
+									<p class="errore" id="erroreColore"></p>
 								</div>
                         	</div>
                         	<div>
@@ -118,8 +137,7 @@
 					</div>
 				</form>
 			</div>
-
-		</section>
+        </main>
 	</div>
 	
 	<footer>
@@ -129,5 +147,6 @@
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/dettaglioProdottoAdmin.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/eliminaProdotto.js"></script>
+    <script src="./script/dashboard.js"></script>
 </body>
 </html>

@@ -17,7 +17,6 @@
 		<div class="loader-text">Stiamo effettuando il pagamento.</div>
 	</div>
 	<div class="principale" id="principale"> 
-		<%@ include file="Index.jsp" %>
 	</div>
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" charset="UTF-8" src="./script/pagamento.js"></script>

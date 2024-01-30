@@ -17,6 +17,7 @@ body
   -ms-flex-wrap: wrap; /* IE10 */
   flex-wrap: wrap;
   margin: 0 -16px;
+  padding: 20px;
 }
 
 .col-25 
@@ -29,6 +30,7 @@ body
 {
   -ms-flex: 50%; /* IE10 */
   flex: 50%;
+  color: #07020d;
 }
 
 .col-75 
@@ -44,16 +46,16 @@ body
 
 .container 
 {
-  background-color: #f2f2f2;
+  background-color: #fffafa;
   padding: 5px 20px 15px 20px;
-  border: 1px solid lightgrey;
+  border: 1px solid #dd935c;
   border-radius: 3px;
+  color: #07020d;
 }
 
 .inputText
 {
   width: 100%;
-  /*margin-bottom: 20px;*/
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -63,6 +65,7 @@ body
 {
   margin-bottom: 10px;
   display: block;
+  color: #07020d;
 }
 
 .icon-container 
@@ -74,8 +77,8 @@ body
 
 .btn 
 {
-  background-color: #04AA6D;
-  color: white;
+  background-color: #dd935c;
+  color: #fffafa;
   padding: 12px;
   margin: 10px 0;
   border: none;
@@ -83,11 +86,6 @@ body
   border-radius: 3px;
   cursor: pointer;
   font-size: 17px;
-}
-
-.btn:hover 
-{
-  background-color: #45a049;
 }
 
 .linkCassa
@@ -98,10 +96,9 @@ body
 span.price 
 {
   float: right;
-  color: grey;
 }
 
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+
 @media (max-width: 800px) 
 {
   .row 
@@ -112,4 +109,19 @@ span.price
   {
     margin-bottom: 20px;
   }
+}
+
+.padding
+{
+	padding-top: 10px;
+}
+
+.errore
+{
+	color: red;
+}
+
+.bordoErrore
+{
+	border-color: red !important;
 }
