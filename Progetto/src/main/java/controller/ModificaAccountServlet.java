@@ -104,6 +104,7 @@ public class ModificaAccountServlet extends HttpServlet
 				utenteAggiornato.setProvincia(nomeProvincia);
 				utenteAggiornato.setComune(comune);
 				utenteAggiornato.setIndirizzo(indirizzo);
+				utenteAggiornato.setTipo("Utente");
 				try
 				{
 					utenteDAO.aggiornaProfilo(utenteAggiornato);

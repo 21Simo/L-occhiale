@@ -202,43 +202,51 @@ function validazioneModificaAdmin()
 function marca()
 {
 	var marcaForm= document.forms["formDettagli"]["marcaProdotto"].value.trim();
-	var espressioneRegolareMarca= /^[A-Za-z0-9]+\-*[A-Za-z0-9]+$/;
-	if(marcaForm.match(espressioneRegolareMarca))
+	if(marcaForm.length<=50)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolareMarca= /^[A-Za-z0-9]+\-*[A-Za-z0-9]+$/;
+		if(marcaForm.match(espressioneRegolareMarca))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
 function nome()
 {
 	var nomeForm= document.forms["formDettagli"]["nomeProdotto"].value.trim();
-	console.log(nomeForm);
-	var espressioneRegolareNome= /^[A-Za-z0-9\s]+\-*[A-Za-z0-9\s]+$/;
-	if(nomeForm.match(espressioneRegolareNome))
+	if(nomeForm.length<=30)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolareNome= /^[A-Za-z0-9\s]+\-*[A-Za-z0-9\s]+$/;
+		if(nomeForm.match(espressioneRegolareNome))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
 function prezzo()
 {
 	var prezzoForm= document.forms["formDettagli"]["prezzoProdotto"].value.trim();
-	var espressioneRegolarePrezzo= /^[0-9]+[,|.]?[0-9]+$/;
-	if(prezzoForm.match(espressioneRegolarePrezzo))
+	if(prezzoForm.length<=10)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolarePrezzo= /^[0-9]+[,|.]?[0-9]+$/;
+		if(prezzoForm.match(espressioneRegolarePrezzo))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
