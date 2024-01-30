@@ -133,7 +133,10 @@
 
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
     <script src="./script/dashboard.js"></script>
+    <script src="./script/templateFattura.js"></script>
+    <!--  
     <script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js"></script>
+    -->
     <script src="./script/fattura.js" charset="UTF-8"></script>
 </body>
 </html>

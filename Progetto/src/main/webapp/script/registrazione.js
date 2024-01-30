@@ -191,14 +191,17 @@ function dataNascita()
 function email()
 {
 	var emailForm= document.forms["form"]["email"].value.trim();
-	var espressioneRegolareEmail= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-	if(emailForm.match(espressioneRegolareEmail))
+	if(emailForm.length<=319)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolareEmail= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+		if(emailForm.match(espressioneRegolareEmail))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 

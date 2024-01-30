@@ -97,10 +97,6 @@
 	
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/ordiniAdmin.js"></script>
-	<!-- Scripts -->
-    <!-- ApexCharts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
-    <!-- Custom JS -->
     <script src="./script/dashboard.js"></script>
 </body>
 </html>

@@ -80,11 +80,11 @@ public class CarelloServlet extends HttpServlet
 		prodottoSelezionato.setGradazione(gradazione);
 		if(gradazione.equals("Graduati"))
 		{
-			prodottoSelezionato.setFile(file);
+			prodottoSelezionato.setNomeFile(file);
 		}
 		else
 		{
-			prodottoSelezionato.setFile("null");
+			prodottoSelezionato.setNomeFile("null");
 		}
 		
 		request.setAttribute("prova", "daiiii");

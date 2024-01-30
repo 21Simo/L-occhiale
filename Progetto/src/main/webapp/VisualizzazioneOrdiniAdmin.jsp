@@ -86,11 +86,8 @@
 	<footer>
 		<%@ include file="Footer.jsp" %>
 	</footer>
-	<!-- Scripts -->
+	
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
-    <!-- ApexCharts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
-    <!-- Custom JS -->
     <script src="./script/dashboard.js"></script>
 </body>
 </html>

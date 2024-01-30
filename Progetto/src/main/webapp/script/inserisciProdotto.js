@@ -159,28 +159,34 @@ function validazioneInserisci()
 function nomeProdotto()
 {
 	var nomeProdottoForm= document.forms["formInserisci"]["nomeProdotto"].value.trim();
-	var espressioneRegolareNomeProdotto= /^[A-Za-z0-9\s]+\-*[A-Za-z0-9\s]+$/;
-	if(nomeProdottoForm.match(espressioneRegolareNomeProdotto))
+	if(nomeProdottoForm.length<=30)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolareNomeProdotto= /^[A-Za-z0-9\s]+\-*[A-Za-z0-9\s]+$/;
+		if(nomeProdottoForm.match(espressioneRegolareNomeProdotto))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
 function marcaProdotto()
 {
 	var marcaProdottoForm= document.forms["formInserisci"]["marcaProdotto"].value.trim();
-	var espressioneRegolareMarcaProdotto= /^[A-Za-z0-9]+\-*[A-Za-z0-9]+$/;
-	if(marcaProdottoForm.match(espressioneRegolareMarcaProdotto))
+	if(marcaProdottoForm.length<=50)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolareMarcaProdotto= /^[A-Za-z0-9]+\-*[A-Za-z0-9]+$/;
+		if(marcaProdottoForm.match(espressioneRegolareMarcaProdotto))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
@@ -201,15 +207,17 @@ function genereProdotto()
 function prezzoProdotto(indice)
 {
 	var prezzoProdottoForm= document.forms["formInserisci"]["prezzoProdotto"+indice].value.trim();
-	console.log(prezzoProdottoForm);
-	var espressioneRegolarePrezzoProdotto= /^[0-9]+[,|.]?[0-9]+$/;
-	if(prezzoProdottoForm.match(espressioneRegolarePrezzoProdotto))
+	if(prezzoProdottoForm.length<=10)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
+		var espressioneRegolarePrezzoProdotto= /^[0-9]+[,|.]?[0-9]+$/;
+		if(prezzoProdottoForm.match(espressioneRegolarePrezzoProdotto))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }
 
