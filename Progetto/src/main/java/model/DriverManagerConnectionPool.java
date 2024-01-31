@@ -1,10 +1,18 @@
 package model;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import controller.ComuniServlet;
 
 /**
  * Classe DriverManagerConnectionPool
@@ -17,6 +25,8 @@ public class DriverManagerConnectionPool
 {
 	//Creazione della connessione libera al database.
 	private static List<Connection> connessioneDBLibero;
+	
+	static Logger logger= Logger.getLogger(DriverManagerConnectionPool.class.getName());
 	
 	static
 	{
@@ -48,13 +58,24 @@ public class DriverManagerConnectionPool
 		String ip= "localhost";
 		String porta= "3306";
 		String db= "occhiale";
-		String username= "root";
-		String password= "root";
 		
-		//Prende la connessione al database e restituisce un oggetto di tipo connessione.
-		nuovaConnessione= DriverManager.getConnection("jdbc:mysql://"+ ip + ":" + porta + "/" + db + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", username, password);
+		//Leggiamo il file delle properties e ci prendiamo l'username e la password. 
+		try(InputStream input= new FileInputStream("D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\WEB-INF\\database.properties"))
+		{
+			Properties properties= new Properties(); 
+			properties.load(input);
+			String username= properties.getProperty("db.user");
+			String password= properties.getProperty("db.password");
 		
-		nuovaConnessione.setAutoCommit(false);
+			//Prende la connessione al database e restituisce un oggetto di tipo connessione.
+			nuovaConnessione= DriverManager.getConnection("jdbc:mysql://"+ ip + ":" + porta + "/" + db + "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", username, password);
+			nuovaConnessione.setAutoCommit(false);
+		}
+		catch (IOException e) 
+		{
+			logger.log(Level.INFO, "Exception", e);
+		}
+		
 		return nuovaConnessione;
 	}
 	
