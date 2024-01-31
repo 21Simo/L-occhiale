@@ -12,8 +12,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import controller.ComuniServlet;
-
 /**
  * Classe DriverManagerConnectionPool
  * classe per gestire le connessioni al database.

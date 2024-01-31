@@ -28,7 +28,7 @@ public class IndexServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger= Logger.getLogger(ComuniServlet.class.getName());
+	static Logger logger= Logger.getLogger(IndexServlet.class.getName());
 	
 	private ProdottoDAO prodottoDAO;
 	

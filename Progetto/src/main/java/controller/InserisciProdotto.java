@@ -28,7 +28,7 @@ public class InserisciProdotto extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
-	static Logger logger= Logger.getLogger(ComuniServlet.class.getName());
+	static Logger logger= Logger.getLogger(InserisciProdotto.class.getName());
 	
 	private ProdottoDAO prodottoDAO;
 	
