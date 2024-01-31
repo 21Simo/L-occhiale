@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +25,8 @@ import model.ProdottoDAO;
 public class EliminaProdottoServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(EliminaProdottoServlet.class.getName());
 	
 	private ProdottoDAO prodottoDAO;
 	
@@ -87,7 +91,7 @@ public class EliminaProdottoServlet extends HttpServlet
 		}
 		catch (ClassNotFoundException | SQLException e) 
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		
 		RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardAdminServlet"); 

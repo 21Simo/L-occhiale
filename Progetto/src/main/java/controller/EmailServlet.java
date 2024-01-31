@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +23,8 @@ import model.UtenteDAO;
 public class EmailServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(EmailServlet.class.getName());
 	
 	private UtenteDAO utenteDAO;
        
@@ -42,7 +46,7 @@ public class EmailServlet extends HttpServlet
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		response.setContentType("application/json");
 		PrintWriter out= response.getWriter();

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +26,8 @@ import model.ProvinceDAO;
 public class ProvinceServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(ProvinceServlet.class.getName());
 	
 	private ProvinceDAO provinceDAO;
        
@@ -58,7 +62,7 @@ public class ProvinceServlet extends HttpServlet
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		response.setContentType("application/json");
 		PrintWriter out= response.getWriter();

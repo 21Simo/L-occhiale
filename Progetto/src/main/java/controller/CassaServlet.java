@@ -3,12 +3,14 @@ package controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.System.Logger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.logging.Level;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.RequestDispatcher;
@@ -39,6 +41,8 @@ import model.Utente;
 public class CassaServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static java.util.logging.Logger logger= java.util.logging.Logger.getLogger(CassaServlet.class.getName());
 	
 	private PagamentoDAO pagamentoDAO;
 	private DettagliOrdineDAO dettagliOrdineDAO;
@@ -127,7 +131,7 @@ public class CassaServlet extends HttpServlet
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		RequestDispatcher dispatcher= request.getRequestDispatcher("Pagamento.jsp");
 		dispatcher.forward(request, response);

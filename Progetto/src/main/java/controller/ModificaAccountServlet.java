@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +25,8 @@ import model.UtenteDAO;
 public class ModificaAccountServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(ModificaAccountServlet.class.getName());
 	
 	private UtenteDAO utenteDAO;
        
@@ -112,7 +116,7 @@ public class ModificaAccountServlet extends HttpServlet
 				}
 				catch (ClassNotFoundException | SQLException e)
 				{
-					e.printStackTrace();
+					logger.log(Level.INFO, "Exception", e);
 				}
 				RequestDispatcher dispatcher= request.getRequestDispatcher("Login.jsp");
 				dispatcher.forward(request, response);
@@ -120,7 +124,7 @@ public class ModificaAccountServlet extends HttpServlet
 		}
 		catch (ParseException e)
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		
 	}

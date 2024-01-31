@@ -3,6 +3,8 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,6 +31,8 @@ import model.UtenteDAO;
 public class DettaglioOrdineServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(DettaglioOrdineServlet.class.getName());
 	
 	private UtenteDAO utenteDAO;
 	
@@ -87,7 +91,7 @@ public class DettaglioOrdineServlet extends HttpServlet
 		} 
 		catch (ClassNotFoundException | SQLException e) 
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioOrdine.jsp");
 		dispatcher.forward(request, response);

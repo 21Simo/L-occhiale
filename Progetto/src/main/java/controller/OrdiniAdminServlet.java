@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,6 +29,8 @@ import model.UtenteDAO;
 public class OrdiniAdminServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(OrdiniAdminServlet.class.getName());
 	
 	private DettagliOrdineDAO dettagliOrdineDAO;
        
@@ -75,12 +79,12 @@ public class OrdiniAdminServlet extends HttpServlet
 				} 
 				catch (ClassNotFoundException | SQLException e) 
 				{
-					e.printStackTrace();
+					logger.log(Level.INFO, "Exception", e);
 				}				
 			} 
 			catch (ParseException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.INFO, "Exception", e);
 			}
 		}
 		else if(opzione.equals("Utente"))
@@ -99,7 +103,7 @@ public class OrdiniAdminServlet extends HttpServlet
 			} 
 			catch (ClassNotFoundException | SQLException e) 
 			{
-				e.printStackTrace();
+				logger.log(Level.INFO, "Exception", e);
 			}
 		}
 	}

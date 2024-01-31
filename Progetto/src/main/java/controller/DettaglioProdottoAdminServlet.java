@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +27,8 @@ import model.ProdottoDAO;
 public class DettaglioProdottoAdminServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	static Logger logger= Logger.getLogger(DettaglioProdottoAdminServlet.class.getName());
 	
 	private ProdottoDAO prodottoDAO;
 	private ColoreDAO coloreDAO;
@@ -107,7 +111,7 @@ public class DettaglioProdottoAdminServlet extends HttpServlet
 		} 
 		catch (ClassNotFoundException | SQLException e) 
 		{
-			e.printStackTrace();
+			logger.log(Level.INFO, "Exception", e);
 		}
 		request.setAttribute("prodotti", request.getSession().getAttribute("prodottiAdmin"));
 		RequestDispatcher dispatcher= request.getRequestDispatcher("/ProdottiAdmin.jsp");
