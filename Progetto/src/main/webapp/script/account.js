@@ -1,6 +1,5 @@
 function abilitaCampi()
 {
-	console.log("OK");
 	$("input, select, option", "#formModifica").prop('disabled',false);	
 	$("#password").prop("type", "text");
 }
@@ -207,7 +206,6 @@ function dataNascita()
 function email()
 {
 	var emailForm= document.forms["form"]["email"].value.trim();
-	console.log("Lunghezza stringa: ", emailForm.length);
 	if(emailForm.length<=319)
 	{
 		var espressioneRegolareEmail= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -333,7 +331,6 @@ function controllaEmail()
 	var emailForm= document.forms["form"]["email"].value.trim();
 	var presente;
 	var emailValore= $("#email").attr("value");
-	console.log(emailForm, emailValore);
 	if(emailValore!=emailForm)
 	{
 		$.ajax

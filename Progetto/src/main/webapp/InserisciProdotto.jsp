@@ -27,17 +27,24 @@
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
+	<%
+	if(utente==null)
+	{
+		response.sendRedirect("Login.jsp");
+	}
+	else
+	{
+	%>
 	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
 		<main class="main-container">
         	<div class="main-title">
-          		<p class="font-weight-bold">Ordini recenti</p>
+          		<p class="font-weight-bold">Inserisci prodotto</p>
         	</div>
         	<div class="container">
 				<form id="formInserisci" enctype="multipart/form-data" method="post" action="InserisciProdotto" onsubmit="return validazioneInserisci()">
 					<div class="form first">
 						<div id="colori" class="details personal">
-							<span class="title">Inserisci prodotto</span>
 							<div class="fields">
                         		<div class="input-field">
 									<label>Nome: </label>
@@ -74,6 +81,9 @@
 			</div>
         </main>
 	</div>
+	<%
+	}
+	%>
 	
 	<footer>
 		<%@ include file="Footer.jsp" %>

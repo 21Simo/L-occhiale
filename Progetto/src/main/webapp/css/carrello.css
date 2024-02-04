@@ -180,6 +180,10 @@ body
 		margin-left: 0;
 		margin-bottom: 20px;
 	}
+	.carelloVuoto
+	{
+		flex-direction: row !important;
+	}
 }
 
 @media screen and (max-width: 1250px) 

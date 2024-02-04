@@ -21,7 +21,6 @@ public class DettagliOrdineDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setDouble(1, dettagliOrdine.getImporto());
 			preparedStatement.setDouble(2, dettagliOrdine.getIva());
 			preparedStatement.setDate(3, dettagliOrdine.getData());
@@ -29,6 +28,7 @@ public class DettagliOrdineDAO
 			preparedStatement.setInt(5, dettagliOrdine.getIdUtente());
 			preparedStatement.setInt(6, dettagliOrdine.getIdPagamento());
 			preparedStatement.setString(7, dettagliOrdine.getStato());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			
 			connessione.commit();

@@ -1,18 +1,13 @@
 package controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.System.Logger;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.logging.Level;
 
-import javax.servlet.MultipartConfigElement;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,9 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import model.Carello;
+import model.Carrello;
 import model.ColoreDAO;
 import model.DettagliOrdine;
 import model.DettagliOrdineDAO;
@@ -30,7 +24,7 @@ import model.Ordine;
 import model.OrdineDAO;
 import model.Pagamento;
 import model.PagamentoDAO;
-import model.ProdottoCarello;
+import model.ProdottoCarrello;
 import model.Utente;
 
 /**
@@ -80,11 +74,10 @@ public class CassaServlet extends HttpServlet
 		try
 		{
 			pagamentoDAO.inserisciPagamento(pagamento);
-			Carello carello=(Carello) request.getSession().getAttribute("carelloUtente");
-			System.out.println("Cassa servlet: "+carello.getTotaleCosto());
-			Double importo= Double.parseDouble(carello.getTotaleCosto());
+			Carrello carrello=(Carrello) request.getSession().getAttribute("carrelloUtente");
+			Double importo= Double.parseDouble(carrello.getTotaleCosto());
 			Date data= new Date(System.currentTimeMillis());
-			int quantità= carello.getQuantitaCarello();
+			int quantità= carrello.getQuantitaCarrello();
 			Utente utente=(Utente) request.getSession().getAttribute("utente");
 			DettagliOrdine dettagliOrdine= new DettagliOrdine();
 			dettagliOrdine.setImporto(importo);
@@ -94,9 +87,7 @@ public class CassaServlet extends HttpServlet
 			dettagliOrdine.setIdUtente(utente.getId());
 			dettagliOrdine.setIdPagamento(pagamentoDAO.ultimoId());
 			dettagliOrdine.setStato("In elaborazione");
-			ArrayList<ProdottoCarello> listaProdotti= carello.getListaProdotti();
-			
-			
+			ArrayList<ProdottoCarrello> listaProdotti= carrello.getListaProdotti();
 			dettagliOrdineDAO.inserisciDettagliOrdine(dettagliOrdine);
 			Ordine ordine= new Ordine();
 			ordine.setIdOrdine(dettagliOrdineDAO.ultimoId());
@@ -115,26 +106,24 @@ public class CassaServlet extends HttpServlet
 				ordine.setIdColore(listaProdotti.get(i).getColore().getId());
 				ordine.setQuantitàProdotto(listaProdotti.get(i).getColore().getQuantità());
 				ordine.setPrezzo(listaProdotti.get(i).getColore().getPrezzo());
-				System.out.println("Immagine prodotto: "+listaProdotti.get(i).getColore().getImmagine());
 				String immagineProdotto= listaProdotti.get(i).getColore().getImmagine();
 				int indice= immagineProdotto.lastIndexOf("/");
-				System.out.println("Indice: "+indice);
 				immagineProdotto= immagineProdotto.substring(indice+1);
-				System.out.println("Immagine prodotto: "+immagineProdotto);
 				ordine.setImmagineProdotto(immagineProdotto);
 				ordine.setNomeProdotto(listaProdotti.get(i).getNome());
 				ordine.setColoreProdotto(listaProdotti.get(i).getColore().getColore());
 				ordineDAO.inserisciOrdine(ordine);
-				carello= null;
-				request.getSession().setAttribute("carelloUtente", carello);
-			} 
+				carrello= null;
+				request.getSession().setAttribute("carrelloUtente", carrello);
+				request.getSession().setAttribute("carrello", carrello); 
+			}
+			RequestDispatcher dispatcher= request.getRequestDispatcher("Pagamento.jsp");
+			dispatcher.forward(request, response);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			logger.log(Level.INFO, "Exception", e);
 		}
-		RequestDispatcher dispatcher= request.getRequestDispatcher("Pagamento.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	/**

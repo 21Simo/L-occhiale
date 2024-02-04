@@ -1,8 +1,7 @@
 package model;
 
-import javax.servlet.http.Part;
 
-public class ProdottoCarello extends Prodotto
+public class ProdottoCarrello extends Prodotto
 {
 	public String getGradazione() 
 	{

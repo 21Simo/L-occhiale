@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import model.ColoreDAO;
 import model.DettagliOrdine;
 import model.DettagliOrdineDAO;
 import model.Utente;
@@ -58,12 +56,12 @@ public class DashboardUtenteServlet extends HttpServlet
 			}
 			else
 			{
-			ArrayList<DettagliOrdine> listaDettagliOrdini= dettagliOrdineDAO.dettagliOrdiniPerUtente(utente.getId());
-			JSONObject dettagliOrdiniJson= new JSONObject();
-			dettagliOrdiniJson.put("listaDettagliOrdini", listaDettagliOrdini);
-			request.setAttribute("dettagliOrdini", dettagliOrdiniJson);
-			RequestDispatcher dispatcher= request.getRequestDispatcher("/Dashboard.jsp");
-			dispatcher.forward(request, response);
+				ArrayList<DettagliOrdine> listaDettagliOrdini= dettagliOrdineDAO.dettagliOrdiniPerUtente(utente.getId());
+				JSONObject dettagliOrdiniJson= new JSONObject();
+				dettagliOrdiniJson.put("listaDettagliOrdini", listaDettagliOrdini);
+				request.setAttribute("dettagliOrdini", dettagliOrdiniJson);
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/Dashboard.jsp");
+				dispatcher.forward(request, response);
 			}
 		} 
 		catch (ClassNotFoundException | SQLException e) 

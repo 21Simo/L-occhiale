@@ -10,7 +10,6 @@
     
 <%
 	JSONObject dettaglioOrdineJson=(JSONObject) request.getAttribute("dettaglioOrdineJson");
-	System.out.println("DettaglioOrdine JSP: "+dettaglioOrdineJson);
 %>    
     
 <!DOCTYPE html>
@@ -36,7 +35,7 @@
 </head>
 <body>
 	<nav>
-		<%@ include file="Header.jsp" %>
+		<%@ include file="Header.jsp" %> 
 	</nav>
 	<div class="grid-container">
 		<%@ include file="MenùDashboard.jsp" %>
@@ -46,17 +45,12 @@
         	</div>
         	
         	<%
-				DettagliOrdine dettaglioOrdine=(DettagliOrdine) dettaglioOrdineJson.get("dettagliOrdine");
-				ColoreDAO coloreDAO= new ColoreDAO();
-				String importo= coloreDAO.prezzo(Double.toString(dettaglioOrdine.getImporto()));
-				System.out.println("DettaglioOrdine JSP: "+dettaglioOrdine.getId());
-				System.out.println("DettaglioOrdine JSP importo: "+dettaglioOrdine.getImporto());
-				String indirizzo=(String) dettaglioOrdineJson.get("indirizzo");
-				JSONArray prodotti=(JSONArray) dettaglioOrdineJson.get("prodotti");
-				System.out.println("DettaglioOrdine JSP: "+prodotti.length());
-				JSONArray ordine=(JSONArray) dettaglioOrdineJson.get("ordine");
-				System.out.println("DettaglioOrdine JSP: "+ordine);
-				System.out.println("Utente: "+request.getSession().getAttribute("utente"));
+			DettagliOrdine dettaglioOrdine=(DettagliOrdine) dettaglioOrdineJson.get("dettagliOrdine");
+			ColoreDAO coloreDAO= new ColoreDAO();
+			String importo= coloreDAO.prezzo(Double.toString(dettaglioOrdine.getImporto()));
+			String indirizzo=(String) dettaglioOrdineJson.get("indirizzo");
+			JSONArray prodotti=(JSONArray) dettaglioOrdineJson.get("prodotti");
+			JSONArray ordine=(JSONArray) dettaglioOrdineJson.get("ordine");
 			%>
 			
 			<div class="top">
@@ -81,12 +75,9 @@
 					<th></th>
 				</tr>
 					<%
-						for(int j=0; j<ordine.length(); j++)
-						{
-							JSONObject ordineJson=(JSONObject) ordine.get(j);
-							System.out.println("DettaglioOrdine JSP: "+ordineJson);
-							System.out.println("DettaglioOrdine JSP: "+ordineJson.get("idProdotto"));
-							System.out.println("Prezzo: "+ coloreDAO.prezzo(ordineJson.get("prezzo").toString()));
+					for(int j=0; j<ordine.length(); j++)
+					{
+						JSONObject ordineJson=(JSONObject) ordine.get(j);
 					%>
 					<tr>
 						<td>
@@ -95,29 +86,26 @@
 						<td><%=ordineJson.get("nomeProdotto") %></td>
 						<td><%=ordineJson.get("coloreProdotto") %></td>
 					<%
-								System.out.println("Entro");
-								System.out.println("DettaglioOrdine JSP: "+ ordineJson.names().toString().contains("file"));
-								String graduati;
-								if(ordineJson.names().toString().contains("file")==true)
-								{
-									graduati="Graduati";
+						String graduati;
+						if(ordineJson.names().toString().contains("file")==true)
+						{
+							graduati="Graduati";
 					%>
 					<td><%=graduati %></td>
 					<% 
-								}
-								else
-								{
-									graduati="Non graduati";
+						}
+						else
+						{
+							graduati="Non graduati";
 					%>
 					<td><%=graduati %></td>
 					<%
-								}
-								System.out.println(graduati);
+						}
 					%>
 					<td><%=coloreDAO.prezzo(ordineJson.get("prezzo").toString()) %> &euro;</td>
 					<td><%=ordineJson.get("quantitàProdotto") %></td>
 					<%
-						}
+					}
 					%>
 				</tr>
 			</table>
@@ -133,10 +121,7 @@
 
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
     <script src="./script/dashboard.js"></script>
-    <script src="./script/templateFattura.js"></script>
-    <!--  
-    <script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js"></script>
-    -->
+    <script src="https://unpkg.com/jspdf-invoice-template@latest/dist/index.js" integrity="sha384-LUj5IQIFOuPHPTD9sjLomE0ogaJ/1qnn/uu1forYO0VZgs05t9nClPq/wmDncYR8" crossorigin="anonymous"></script>
     <script src="./script/fattura.js" charset="UTF-8"></script>
 </body>
 </html>

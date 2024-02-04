@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +17,7 @@ import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
 import model.ProdottoDAO;
+import model.Utente;
 
 /**
  * Servlet che serve per inserire un prodotto. 
@@ -51,58 +51,62 @@ public class InserisciProdotto extends HttpServlet
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String nomeProdotto= request.getParameter("nomeProdotto");
-		String marcaProdotto= request.getParameter("marcaProdotto");
-		String genereProdotto= request.getParameter("genereProdotto");
-		System.out.println(request.getParameter("idColore"));
-		int colori= Integer.parseInt(request.getParameter("idColore"));
-		String path="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\img\\prodotti\\";
-		String[] prezzo = new String[colori];
-		String[] nomeColore= new String[colori];
-		int[] quantità = new int[colori];
-		String[] codiceProdotto = new String[colori];
-		Prodotto prodotto= new Prodotto();
-		prodotto.setNome(nomeProdotto);
-		prodotto.setMarca(marcaProdotto);
-		if(genereProdotto.equals("Uomo"))
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		if(utente==null)
 		{
-			prodotto.setSesso("M");
+			response.sendRedirect("Login.jsp");
 		}
-		else if(genereProdotto.equals("Donna"))
-		{
-			prodotto.setSesso("F");
-		}
-		try 
-		{
-			prodottoDAO.inserisciProdotto(prodotto);
-			int ultimoId= prodottoDAO.ultimoId();
-			for(int i=1; i<=colori; i++)
+		else
+		{		
+			String nomeProdotto= request.getParameter("nomeProdotto");
+			String marcaProdotto= request.getParameter("marcaProdotto");
+			String genereProdotto= request.getParameter("genereProdotto");
+			int colori= Integer.parseInt(request.getParameter("idColore"));
+			String path="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\img\\prodotti\\";
+			String[] prezzo = new String[colori];
+			String[] nomeColore= new String[colori];
+			int[] quantità = new int[colori];
+			String[] codiceProdotto = new String[colori];
+			Prodotto prodotto= new Prodotto();
+			prodotto.setNome(nomeProdotto);
+			prodotto.setMarca(marcaProdotto);
+			if(genereProdotto.equals("Uomo"))
 			{
-				Part filePart= request.getPart("immagine"+i);
-				String nomeFile= filePart.getSubmittedFileName();
-				System.out.println("File: "+nomeFile);
-				filePart.write(path+nomeFile);
-				prezzo[i-1]= request.getParameter("prezzoProdotto"+i).replace(',', '.');
-				System.out.println(prezzo[i-1]);
-				nomeColore[i-1]= request.getParameter("nomeColoreProdotto"+i);
-				quantità[i-1]= Integer.parseInt(request.getParameter("quantitaProdotto"+i));
-				codiceProdotto[i-1]= request.getParameter("codiceProdotto"+i);
-				Colore colore= new Colore();
-				colore.setIdProdotto(ultimoId);
-				colore.setColore(nomeColore[i-1]);
-				colore.setImmagine(nomeFile);
-				colore.setPrezzo(prezzo[i-1]);
-				colore.setQuantità(quantità[i-1]);
-				colore.setCodiceProdotto(codiceProdotto[i-1]);
-				coloreDAO.inserisciColore(colore);
+				prodotto.setSesso("M");
 			}
-		} 
-		catch (ClassNotFoundException | SQLException e) 
-		{
-			logger.log(Level.INFO, "Exception", e);
-		} 
-		RequestDispatcher dispatcher= request.getRequestDispatcher("/DashboardAdmin.jsp");
-		dispatcher.forward(request, response);
+			else if(genereProdotto.equals("Donna"))
+			{
+				prodotto.setSesso("F");
+			}
+			try 
+			{
+				prodottoDAO.inserisciProdotto(prodotto);
+				int ultimoId= prodottoDAO.ultimoId();
+				for(int i=1; i<=colori; i++)
+				{
+					Part filePart= request.getPart("immagine"+i);
+					String nomeFile= filePart.getSubmittedFileName();
+					filePart.write(path+nomeFile);
+					prezzo[i-1]= request.getParameter("prezzoProdotto"+i).replace(',', '.');
+					nomeColore[i-1]= request.getParameter("nomeColoreProdotto"+i);
+					quantità[i-1]= Integer.parseInt(request.getParameter("quantitaProdotto"+i));
+					codiceProdotto[i-1]= request.getParameter("codiceProdotto"+i);
+					Colore colore= new Colore();
+					colore.setIdProdotto(ultimoId);
+					colore.setColore(nomeColore[i-1]);
+					colore.setImmagine(nomeFile);
+					colore.setPrezzo(prezzo[i-1]);
+					colore.setQuantità(quantità[i-1]);
+					colore.setCodiceProdotto(codiceProdotto[i-1]);
+					coloreDAO.inserisciColore(colore);
+				}
+				response.sendRedirect("DashboardAdminServlet");
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				logger.log(Level.INFO, "Exception", e);
+			} 
+		}
 	}
 
 	/**

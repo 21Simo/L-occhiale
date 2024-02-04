@@ -18,7 +18,6 @@ import org.json.JSONObject;
 
 import model.Comune;
 import model.ComuneDAO;
-import model.Province;
 
 /**
  * Servlet che serve per ottenere i comuni selezionata una provincia. 
@@ -49,7 +48,6 @@ public class ComuniServlet extends HttpServlet
 		int provincia= Integer.parseInt(request.getParameter("provincia"));
 		JSONObject jsonComuni= new JSONObject();
 		JSONArray jsonArray= new JSONArray();
-		JSONArray prova= new JSONArray();
 		try
 		{
 			ArrayList<Comune> listaComuni= comuneDAO.comuni(provincia);
@@ -58,14 +56,14 @@ public class ComuniServlet extends HttpServlet
 				jsonArray.put(listaComuni.get(i).getNome());
 			}
 			jsonComuni.put("comuni", jsonArray);
+			response.setContentType("application/json");
+			PrintWriter out= response.getWriter();
+			out.print(jsonComuni);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			logger.log(Level.INFO, "Exception", e);
 		}
-		response.setContentType("application/json");
-		PrintWriter out= response.getWriter();
-		out.print(jsonComuni);
 	}
 
 	/**

@@ -151,7 +151,6 @@ public class ColoreDAO
 				quantitàMagazzino=risultati.getInt("quantità");
 			}
 			
-			System.out.println("ColoreDAO: "+quantitàMagazzino);
 			preparedStatement= connessione.prepareStatement(query);
 			System.out.println(preparedStatement);
 			int quantitàAggiornata=quantitàMagazzino-quantità;
@@ -235,8 +234,6 @@ public class ColoreDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
-			//preparedStatement.setInt(1, colore.getIdProdotto());
 			preparedStatement.setString(1, colore.getColore());
 			preparedStatement.setString(2, colore.getImmagine());
 			preparedStatement.setString(3, colore.getPrezzo());
@@ -275,7 +272,6 @@ public class ColoreDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setInt(1, colore.getIdProdotto());
 			preparedStatement.setString(2, colore.getColore());
 			preparedStatement.setString(3, colore.getImmagine());
@@ -314,7 +310,6 @@ public class ColoreDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setInt(1, colore.getId());
 			preparedStatement.setInt(2, colore.getIdProdotto());
 			System.out.println(preparedStatement);

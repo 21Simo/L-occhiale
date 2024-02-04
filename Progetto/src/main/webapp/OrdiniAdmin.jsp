@@ -28,6 +28,14 @@
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
+	<%
+	if(utente==null)
+	{
+		response.sendRedirect("Login.jsp");
+	}
+	else
+	{
+	%>
 	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
 		<main class="main-container">
@@ -68,8 +76,7 @@
                                 		<option selected>Seleziona l'utente</option>
                                 		<%
                                 		UtenteDAO utenteDAO= new UtenteDAO();
-                                		ArrayList<Utente> listaUtente= utenteDAO.utenti();
-                                		System.out.println(listaUtente);
+                                		ArrayList<Utente> listaUtente= utenteDAO.utenti();                         
                                 		for(int i=0; i<listaUtente.size(); i++)
                                 		{
                                 		%>
@@ -90,6 +97,9 @@
 			</div>
         </main>
 	</div>
+	<%
+	}
+	%>
 	
 	<footer>
 		<%@ include file="Footer.jsp" %>

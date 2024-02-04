@@ -1,7 +1,6 @@
 function aggiungiCampi()
 {
 	var numeroColori=$('#idColore').val();
-	console.log(numeroColori);
 	var espressioneRegolareQuantità= /^[0-9]+$/;
 	if(numeroColori.match(espressioneRegolareQuantità) && numeroColori>0)
 	{
@@ -31,7 +30,6 @@ function validazioneInserisci()
 	const filee= [];
 	for(i=1; i<=numeroColori; i++)
 	{
-		console.log(i);
 		filee[i]= $('#sceltaFile'+i).val();
 		if(filee[i]!="")
 		{
@@ -98,8 +96,6 @@ function validazioneInserisci()
 			codiceProdottoOK=false;
 		}
 	}
-	console.log(filee);
-	console.log(fileOK);
 	
 	if(nomeProdotto()==true)
 	{
@@ -193,7 +189,6 @@ function marcaProdotto()
 function genereProdotto()
 {
 	var genereProdottoForm= document.forms["formInserisci"]["genereProdotto"].value.trim();
-	console.log(genereProdottoForm);
 	if(genereProdottoForm=="Uomo" || genereProdottoForm=="Donna")
 	{
 		return true;

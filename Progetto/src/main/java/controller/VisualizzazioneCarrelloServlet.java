@@ -12,19 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import model.Carello;
-import model.ProdottoCarello;
+import model.Carrello;
+import model.ProdottoCarrello;
 import model.Utente;
 
 /**
  * Servlet che serve per la visualizzazione dei prodotti nel carello.
  */
-@WebServlet("/VisualizzazioneCarelloServlet")
-public class VisualizzazioneCarelloServlet extends HttpServlet 
+@WebServlet("/VisualizzazioneCarrelloServlet")
+public class VisualizzazioneCarrelloServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
        
-    public VisualizzazioneCarelloServlet() 
+    public VisualizzazioneCarrelloServlet() 
     {
         super();
     }
@@ -33,16 +33,16 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		Utente utente=(Utente) request.getSession().getAttribute("utente");
-		Carello carello;
+		Carrello carrello;
 		if(utente!=null)
 		{
-			carello=(Carello) request.getSession().getAttribute("carelloUtente");
+			carrello=(Carrello) request.getSession().getAttribute("carrelloUtente");
 		}
 		else
 		{
-			carello=(Carello) request.getSession().getAttribute("carello");
+			carrello=(Carrello) request.getSession().getAttribute("carrello");
 		}
-		if(carello!=null)
+		if(carrello!=null)
 		{
 			String bottoneQuantità=(String) request.getParameter("quantitàBottone");
 			if(bottoneQuantità!=null)
@@ -50,7 +50,7 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 				int indiceTrattino=bottoneQuantità.indexOf("-");
 				String bottonePremuto=bottoneQuantità.substring(0, indiceTrattino);
 				int indice=Integer.parseInt(bottoneQuantità.substring(indiceTrattino+1));
-				ArrayList<ProdottoCarello> listaProdotti=carello.getListaProdotti();
+				ArrayList<ProdottoCarrello> listaProdotti=carrello.getListaProdotti();
 				int quantitàProdotto=listaProdotti.get(indice).getColore().getQuantità();
 				switch (bottonePremuto)
 				{
@@ -70,7 +70,7 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 			else
 			{
 				int indice=Integer.parseInt(request.getParameter("prodotto"));
-				ArrayList<ProdottoCarello> listaProdotti=carello.getListaProdotti();
+				ArrayList<ProdottoCarrello> listaProdotti=carrello.getListaProdotti();
 				
 				JSONObject prodotto=(JSONObject) request.getSession().getAttribute("dettaglioProdotto");
 				String coloreSelezionato=(String) request.getSession().getAttribute("coloreSelezionato");
@@ -88,27 +88,27 @@ public class VisualizzazioneCarelloServlet extends HttpServlet
 				listaProdotti.remove(indice);
 				if(listaProdotti.size()==0)
 				{
-					carello=null;
+					carrello=null;
 					if(utente!=null)
 					{
-						request.getSession().setAttribute("carelloUtente",carello);
+						request.getSession().setAttribute("carrelloUtente",carrello);
 					}
 					else
 					{
-						request.getSession().setAttribute("carello",carello);
+						request.getSession().setAttribute("carrello",carrello);
 					}
 				}
 				else
 				{
-					int quantitàCarello=carello.getQuantitaCarello();
-					carello.setQuantitaCarello(quantitàCarello-1);
+					int quantitàCarrello=carrello.getQuantitaCarrello();
+					carrello.setQuantitaCarrello(quantitàCarrello-1);
 					if(utente!=null)
 					{
-						request.getSession().setAttribute("carelloUtente",carello);
+						request.getSession().setAttribute("carrelloUtente",carrello);
 					}
 					else
 					{
-						request.getSession().setAttribute("carello",carello);
+						request.getSession().setAttribute("carrello",carrello);
 					}
 				}
 			}

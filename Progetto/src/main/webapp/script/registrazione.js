@@ -11,7 +11,6 @@ function validazione()
 	else
 	{
 		$('#erroreNome').html("Errore: il nome non può contenere un numero");
-		/*$("#nome").css("border-color", "red");*/
 		$("#nome").addClass("bordoErrore");
 		nomeOK=false;
 	}

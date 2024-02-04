@@ -25,11 +25,10 @@
 </head>
 <body>
 	<nav>
-		<%@ include file="Header.jsp" %>
+		<%@ include file="Header.jsp" %>   
 	</nav>
 	
 	<%
-		System.out.println("Account JSP: "+utente);
 		if(utente==null)
 		{
 			response.sendRedirect("Login.jsp");
@@ -184,7 +183,6 @@
 										int provincia=0;
 										for(int k=0; k<listaProvince.size(); k++)
 										{
-											System.out.println("Account jsp id provincie: "+listaProvince.get(k).getId());
 											if(listaProvince.get(k).getNome().equals(utente.getProvincia()))
 											{
 												provincia= listaProvince.get(k).getId();
@@ -208,7 +206,6 @@
 									<select name="comune" id="comune" onchange="" required disabled="disabled">
 									<%
 										ComuneDAO comuneDAO= new ComuneDAO();
-										System.out.println("Account jsp provincia: "+provincia);
 										ArrayList<Comune> listaComuni= comuneDAO.comuni(provincia);
 										int h=0; 
 										int comune=0;

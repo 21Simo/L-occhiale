@@ -10,9 +10,7 @@
 
 <%
 	JSONObject dettagliOrdiniJson= (JSONObject) request.getAttribute("dettagliOrdini");
-	System.out.println(dettagliOrdiniJson);
 	JSONArray listaDettagliOrdini=(JSONArray) dettagliOrdiniJson.get("listaDettagliOrdini");
-	System.out.println(listaDettagliOrdini.length());
 %>
     
 <!DOCTYPE html>
@@ -41,70 +39,69 @@
         <div class="main-title">
           <p class="font-weight-bold">Ordini recenti</p>
         </div>
-				<%
-					System.out.println("Dashboard JSP: "+utente);
-					if(utente==null)
-					{
-						response.sendRedirect("Login.jsp");
-					}
-					else
-					{
-						if(listaDettagliOrdini==null)
-						{
-				%>
-				<p>Non ci sono ordini recenti. </p>
-				<%
-						}
-						else
-						{
-				%>
-				<table id="ordini">
-				<tr>
-					<th>Numero d'ordine</th>
-					<th>Importo</th>
-					<th>Quantità</th>
-					<th>Data</th>
-					<th>Stato</th>
-					<th></th>
-				</tr>
-				<%
-							ArrayList<DettagliOrdine> listaDettagliOrdiniOggetto= new ArrayList<DettagliOrdine>();
-							for(int i=0; i<listaDettagliOrdini.length(); i++)
-							{
-								JSONObject dettagliOrdineJson=(JSONObject) listaDettagliOrdini.get(i);
-								ColoreDAO coloreDAO= new ColoreDAO();
-								String importo= coloreDAO.prezzo(dettagliOrdineJson.get("importo").toString());
-								Date data= Date.valueOf(dettagliOrdineJson.get("data").toString());
-								DettagliOrdine dettagliOrdine= new DettagliOrdine();
-								dettagliOrdine.setId(Integer.parseInt(dettagliOrdineJson.get("id").toString()));
-								dettagliOrdine.setImporto(Double.parseDouble(dettagliOrdineJson.get("importo").toString()));
-								dettagliOrdine.setIva(Double.parseDouble(dettagliOrdineJson.get("iva").toString()));
-								dettagliOrdine.setData(data);
-								dettagliOrdine.setQuantità(Integer.parseInt(dettagliOrdineJson.get("quantità").toString()));
-								dettagliOrdine.setIdUtente(Integer.parseInt(dettagliOrdineJson.get("idUtente").toString()));
-								dettagliOrdine.setIdPagamento(Integer.parseInt(dettagliOrdineJson.get("idPagamento").toString()));
-								dettagliOrdine.setStato(dettagliOrdineJson.get("stato").toString());
-								listaDettagliOrdiniOggetto.add(dettagliOrdine);
-				%>
-				<tr> 
-					<td><%=dettagliOrdineJson.get("id") %></td> 
-					<td><%=importo %> &euro;</td>
-					<td><%=dettagliOrdineJson.get("quantità") %></td>
-					<td><%=dettagliOrdine.visualizzaData(data) %></td>
-					<td>
-						<form action="DettaglioOrdineServlet" method="post">
-							<button name="dettaglioOrdine" class="noButton" value="<%=i %>">Dettaglio</button>
-						</form>
-					</td>
-				</tr>
-				<%
-							}
-							request.setAttribute("listaDettagliOrdini", listaDettagliOrdiniOggetto);
-							session.setAttribute("listaDettagliOrdini", listaDettagliOrdiniOggetto);
-						}
-					}
-				%>
-		</table>
+		<%
+		if(utente==null)
+		{
+			response.sendRedirect("Login.jsp");
+		}
+		else
+		{
+			if(listaDettagliOrdini==null)
+			{
+		%>
+		<p>Non ci sono ordini recenti. </p>
+		<%
+			}
+			else
+			{
+		%>
+			<table id="ordini">
+			<tr>
+				<th>Numero d'ordine</th>
+				<th>Importo</th>
+				<th>Quantità</th>
+				<th>Data</th>
+				<th>Stato</th>
+				<th></th>
+			</tr>
+		<%
+				ArrayList<DettagliOrdine> listaDettagliOrdiniOggetto= new ArrayList<DettagliOrdine>();
+				for(int i=0; i<listaDettagliOrdini.length(); i++)
+				{
+					JSONObject dettagliOrdineJson=(JSONObject) listaDettagliOrdini.get(i);
+					ColoreDAO coloreDAO= new ColoreDAO();
+					String importo= coloreDAO.prezzo(dettagliOrdineJson.get("importo").toString());
+					Date data= Date.valueOf(dettagliOrdineJson.get("data").toString());
+					DettagliOrdine dettagliOrdine= new DettagliOrdine();
+					dettagliOrdine.setId(Integer.parseInt(dettagliOrdineJson.get("id").toString()));
+					dettagliOrdine.setImporto(Double.parseDouble(dettagliOrdineJson.get("importo").toString()));
+					dettagliOrdine.setIva(Double.parseDouble(dettagliOrdineJson.get("iva").toString()));
+					dettagliOrdine.setData(data);
+					dettagliOrdine.setQuantità(Integer.parseInt(dettagliOrdineJson.get("quantità").toString()));
+					dettagliOrdine.setIdUtente(Integer.parseInt(dettagliOrdineJson.get("idUtente").toString()));
+					dettagliOrdine.setIdPagamento(Integer.parseInt(dettagliOrdineJson.get("idPagamento").toString()));
+					dettagliOrdine.setStato(dettagliOrdineJson.get("stato").toString());
+					listaDettagliOrdiniOggetto.add(dettagliOrdine);
+		%>
+			<tr> 
+				<td><%=dettagliOrdineJson.get("id") %></td> 
+				<td><%=importo %> &euro;</td>
+				<td><%=dettagliOrdineJson.get("quantità") %></td>
+				<td><%=dettagliOrdine.visualizzaData(data) %></td>
+				<td>
+					<form action="DettaglioOrdineServlet" method="post">
+						<button name="dettaglioOrdine" class="noButton" value="<%=i %>">Dettaglio</button>
+					</form>
+				</td>
+			</tr>
+		<%
+				}
+				request.setAttribute("listaDettagliOrdini", listaDettagliOrdiniOggetto);
+				session.setAttribute("listaDettagliOrdini", listaDettagliOrdiniOggetto);
+			}
+		}
+		%>
+			</table>
       </main>
 
     </div>

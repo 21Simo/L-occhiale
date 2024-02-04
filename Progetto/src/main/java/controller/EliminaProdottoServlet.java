@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +16,7 @@ import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
 import model.ProdottoDAO;
+import model.Utente;
 
 /**
  * Servlet che serve per l'eliminazione del prodotto. 
@@ -49,53 +49,54 @@ public class EliminaProdottoServlet extends HttpServlet
 	{		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		int idProdotto= Integer.parseInt(request.getParameter("idProdotto"));
-		int idColore= Integer.parseInt(request.getParameter("coloreProdotto"));
-		System.out.println(idProdotto);
-		System.out.println(idColore);
-		ArrayList<Colore> listaColore= new ArrayList<Colore>();
-		
-		try
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		if(utente==null)
 		{
-			if(idColore==-1)
+			response.sendRedirect("Login.jsp");
+		}
+		else
+		{		
+			int idProdotto= Integer.parseInt(request.getParameter("idProdotto"));
+			int idColore= Integer.parseInt(request.getParameter("coloreProdotto"));
+			ArrayList<Colore> listaColore= new ArrayList<Colore>();
+			
+			try
 			{
-				listaColore= coloreDAO.colorePerId(idProdotto);
-				System.out.println(listaColore.size());
-				for(int i=0; i<listaColore.size(); i++)
+				if(idColore==-1)
 				{
-					System.out.println("ID: "+listaColore.get(i).getId());
-					System.out.println("ID colore: "+listaColore.get(i).getIdProdotto());
-					Colore colore= new Colore();
-					colore.setId(listaColore.get(i).getId());
-					colore.setIdProdotto(listaColore.get(i).getIdProdotto());
-					coloreDAO.eliminaColore(colore);
-				}
-				Prodotto prodotto= new Prodotto();
-				prodotto.setId(idProdotto);
-				prodottoDAO.eliminaProdotto(prodotto);
-			}
-			else
-			{
-				Colore colore= new Colore();
-				colore.setId(idColore);
-				colore.setIdProdotto(idProdotto);				
-				coloreDAO.eliminaColore(colore);
-				listaColore= coloreDAO.colorePerId(idProdotto); 
-				if(listaColore.size()==0)
-				{
+					listaColore= coloreDAO.colorePerId(idProdotto);
+					for(int i=0; i<listaColore.size(); i++)
+					{
+						Colore colore= new Colore();
+						colore.setId(listaColore.get(i).getId());
+						colore.setIdProdotto(listaColore.get(i).getIdProdotto());
+						coloreDAO.eliminaColore(colore);
+					}
 					Prodotto prodotto= new Prodotto();
 					prodotto.setId(idProdotto);
 					prodottoDAO.eliminaProdotto(prodotto);
-				}				
+				}
+				else
+				{
+					Colore colore= new Colore();
+					colore.setId(idColore);
+					colore.setIdProdotto(idProdotto);				
+					coloreDAO.eliminaColore(colore);
+					listaColore= coloreDAO.colorePerId(idProdotto); 
+					if(listaColore.size()==0)
+					{
+						Prodotto prodotto= new Prodotto();
+						prodotto.setId(idProdotto);
+						prodottoDAO.eliminaProdotto(prodotto);
+					}				
+				}
+				response.sendRedirect("DashboardAdminServlet");
+			}
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				logger.log(Level.INFO, "Exception", e);
 			}
 		}
-		catch (ClassNotFoundException | SQLException e) 
-		{
-			logger.log(Level.INFO, "Exception", e);
-		}
-		
-		RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardAdminServlet"); 
-		dispatcher.forward(request, response);
 	}
 
 	/**

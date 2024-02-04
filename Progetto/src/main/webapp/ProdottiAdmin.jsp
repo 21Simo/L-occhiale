@@ -37,6 +37,14 @@
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
+	<%
+	if(utente==null)
+	{
+		response.sendRedirect("Login.jsp");
+	}
+	else
+	{
+	%>
 	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
 		<main class="main-container">
@@ -62,7 +70,6 @@
 				{
 					JSONObject prodotto = (JSONObject) json.get("prodotto" + i);
 					JSONObject colore = (JSONObject) prodotto.get("colore0");
-					System.out.println(prodotto);
 					String genere;
 					if(prodotto.get("sesso").equals("M"))
 					{
@@ -99,6 +106,9 @@
         	
         </main>
 	</div>
+	<%
+	}
+	%>
 
 	<footer>
 		<%@ include file="Footer.jsp" %>

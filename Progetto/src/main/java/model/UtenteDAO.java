@@ -20,7 +20,6 @@ public class UtenteDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setString(1, utente.getNome());
 			preparedStatement.setString(2, utente.getCognome());
 			preparedStatement.setString(3, utente.getCodiceFiscale());
@@ -34,6 +33,7 @@ public class UtenteDAO
 			preparedStatement.setString(11, utente.getProvincia());
 			preparedStatement.setString(12, utente.getComune());
 			preparedStatement.setString(13, utente.getIndirizzo());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			
 			connessione.commit();
@@ -119,7 +119,6 @@ public class UtenteDAO
 			utente.setEmail("errore");
 			while(risultati.next())
 			{
-				System.out.println("Risultato: "+risultati.getString("email"));
 				utente= new Utente();
 				utente.setId(risultati.getInt("id"));
 				utente.setNome(risultati.getString("nome"));
@@ -136,7 +135,6 @@ public class UtenteDAO
 				utente.setComune(risultati.getString("comune"));
 				utente.setIndirizzo(risultati.getString("indirizzo"));
 			}
-			System.out.println("Login: "+utente.getEmail());
 			return utente;
 		}
 		finally
@@ -208,7 +206,6 @@ public class UtenteDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setString(1, utente.getNome());
 			preparedStatement.setString(2, utente.getCognome());
 			preparedStatement.setString(3, utente.getCodiceFiscale());
@@ -222,6 +219,7 @@ public class UtenteDAO
 			preparedStatement.setString(11, utente.getComune());
 			preparedStatement.setString(12, utente.getIndirizzo());
 			preparedStatement.setInt(13, utente.getId());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			
 			connessione.commit();

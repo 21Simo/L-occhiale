@@ -20,7 +20,6 @@ public class OrdineDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setInt(1, ordine.getIdOrdine());
 			preparedStatement.setString(2, ordine.getFile());
 			preparedStatement.setInt(3, ordine.getQuantitàProdotto());
@@ -28,6 +27,7 @@ public class OrdineDAO
 			preparedStatement.setString(5, ordine.getImmagineProdotto());
 			preparedStatement.setString(6, ordine.getNomeProdotto());
 			preparedStatement.setString(7, ordine.getColoreProdotto());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			
 			connessione.commit();

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,9 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.Carello;
-import model.DettagliOrdine;
-import model.DettagliOrdineDAO;
+import model.Carrello;
 import model.Utente;
 import model.UtenteDAO;
 
@@ -53,41 +50,39 @@ public class LoginServlet extends HttpServlet
 		try
 		{
 			utente=utenteDAO.login(email, password);
+			if(utente.getEmail().equals("errore"))
+			{
+				request.setAttribute("login", utente.getEmail());
+				utente.setTipo("errore");
+				request.getSession().setAttribute("utente", utente);
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/Login.jsp");
+				dispatcher.forward(request, response);
+			}
+			else
+			{
+				request.getSession().setAttribute("utente", utente);
+				Carrello carrello=(Carrello) request.getSession().getAttribute("carrello");
+				if(carrello!=null)
+				{
+					Carrello carrelloUtente= carrello;
+					request.getSession().setAttribute("carrelloUtente", carrelloUtente);
+					carrello= null;
+				}
+				
+				String tipo= utente.getTipo();
+				if(tipo.equals("Utente"))
+				{
+					response.sendRedirect("DashboardUtenteServlet");
+				}
+				else if (tipo.equals("Amministratore")) 
+				{
+					response.sendRedirect("DashboardAdminServlet");
+				}
+			}
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			logger.log(Level.INFO, "Exception", e);
-		}
-		if(utente.getEmail().equals("errore"))
-		{
-			request.setAttribute("login", utente.getEmail());
-			utente.setTipo("errore");
-			request.getSession().setAttribute("utente", utente);
-			RequestDispatcher dispatcher= request.getRequestDispatcher("/Login.jsp");
-			dispatcher.forward(request, response);
-		}
-		else
-		{
-			request.getSession().setAttribute("utente", utente);
-			Carello carello=(Carello) request.getSession().getAttribute("carello");
-			if(carello!=null)
-			{
-				Carello carelloUtente= carello;
-				request.getSession().setAttribute("carelloUtente", carelloUtente);
-				carello= null;
-			}
-			
-			String tipo= utente.getTipo();
-			if(tipo.equals("Utente"))
-			{
-				RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardUtenteServlet"); 
-				dispatcher.forward(request, response);
-			}
-			else if (tipo.equals("Amministratore")) 
-			{
-				RequestDispatcher dispatcher= request.getRequestDispatcher("DashboardAdminServlet");
-				dispatcher.forward(request, response);
-			}
 		}
 	}
 

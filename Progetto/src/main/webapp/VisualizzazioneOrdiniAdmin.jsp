@@ -39,7 +39,6 @@
         	<%
 					JSONObject ordini=(JSONObject) request.getAttribute("ordiniJson");
 					JSONArray listaOrdini=(JSONArray) ordini.get("ordini");
-					System.out.println("Ordini JSP: "+listaOrdini);
 					if(listaOrdini==null || listaOrdini.length()==0)
 					{
 				%>
@@ -62,7 +61,6 @@
 						for(int i=0; i<listaOrdini.length(); i++)
 						{
 							JSONObject ordine=(JSONObject) listaOrdini.get(i);
-							System.out.println(ordine);
 							ColoreDAO coloreDAO= new ColoreDAO();
 							String importo= coloreDAO.prezzo(ordine.get("importo").toString());
 							Date data=Date.valueOf(ordine.get("data").toString());							

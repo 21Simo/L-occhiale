@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 import model.DettagliOrdine;
 import model.DettagliOrdineDAO;
-import model.UtenteDAO;
+import model.Utente;
 
 /**
  * Servlet che serve per ottenere gli ordini per l'amministratore. 
@@ -50,27 +50,50 @@ public class OrdiniAdminServlet extends HttpServlet
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		String opzione= request.getParameter("opzione");
-		System.out.println(opzione);
-		if(opzione.equals("Data"))
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		if(utente==null)
 		{
-			String data1String= request.getParameter("data1");
-			System.out.println(data1String);
-			String data2String= request.getParameter("data2");
-			System.out.println(data2String);
-			SimpleDateFormat converti= new SimpleDateFormat("yyyy-MM-dd");
-			try 
+			response.sendRedirect("Login.jsp");
+		}
+		else
+		{		
+			String opzione= request.getParameter("opzione");
+			if(opzione.equals("Data"))
 			{
-				java.util.Date data1= converti.parse(data1String);
-				Date data1Date= new Date(data1.getTime());
-				System.out.println(data1Date);
-				java.util.Date data2= converti.parse(data2String);
-				Date data2Date= new Date(data2.getTime());
-				System.out.println(data2Date);
+				String data1String= request.getParameter("data1");
+				String data2String= request.getParameter("data2");
+				SimpleDateFormat converti= new SimpleDateFormat("yyyy-MM-dd");
 				try 
 				{
-					ArrayList<DettagliOrdine> listaOrdini= dettagliOrdineDAO.ordiniTraDueDate(data1Date, data2Date);
-					System.out.println(listaOrdini);
+					java.util.Date data1= converti.parse(data1String);
+					Date data1Date= new Date(data1.getTime());
+					java.util.Date data2= converti.parse(data2String);
+					Date data2Date= new Date(data2.getTime());
+					try 
+					{
+						ArrayList<DettagliOrdine> listaOrdini= dettagliOrdineDAO.ordiniTraDueDate(data1Date, data2Date);
+						JSONObject ordiniJson= new JSONObject();
+						ordiniJson.put("ordini", listaOrdini);
+						request.setAttribute("ordiniJson", ordiniJson);
+						RequestDispatcher dispatcher= request.getRequestDispatcher("VisualizzazioneOrdiniAdmin.jsp");
+						dispatcher.forward(request, response);
+					} 
+					catch (ClassNotFoundException | SQLException e) 
+					{
+						logger.log(Level.INFO, "Exception", e);
+					}				
+				} 
+				catch (ParseException e) 
+				{
+					logger.log(Level.INFO, "Exception", e);
+				}
+			}
+			else if(opzione.equals("Utente"))
+			{
+				int utenteId= Integer.parseInt(request.getParameter("utenteOption"));
+				try 
+				{
+					ArrayList<DettagliOrdine> listaOrdini= dettagliOrdineDAO.ordiniPerUtente(utenteId);
 					JSONObject ordiniJson= new JSONObject();
 					ordiniJson.put("ordini", listaOrdini);
 					request.setAttribute("ordiniJson", ordiniJson);
@@ -80,30 +103,7 @@ public class OrdiniAdminServlet extends HttpServlet
 				catch (ClassNotFoundException | SQLException e) 
 				{
 					logger.log(Level.INFO, "Exception", e);
-				}				
-			} 
-			catch (ParseException e) 
-			{
-				logger.log(Level.INFO, "Exception", e);
-			}
-		}
-		else if(opzione.equals("Utente"))
-		{
-			int utente= Integer.parseInt(request.getParameter("utenteOption"));
-			System.out.println(utente);
-			try 
-			{
-				ArrayList<DettagliOrdine> listaOrdini= dettagliOrdineDAO.ordiniPerUtente(utente);
-				System.out.println(listaOrdini);
-				JSONObject ordiniJson= new JSONObject();
-				ordiniJson.put("ordini", listaOrdini);
-				request.setAttribute("ordiniJson", ordiniJson);
-				RequestDispatcher dispatcher= request.getRequestDispatcher("VisualizzazioneOrdiniAdmin.jsp");
-				dispatcher.forward(request, response);
-			} 
-			catch (ClassNotFoundException | SQLException e) 
-			{
-				logger.log(Level.INFO, "Exception", e);
+				}
 			}
 		}
 	}

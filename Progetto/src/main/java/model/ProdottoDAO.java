@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 
 public class ProdottoDAO 
 {
@@ -108,10 +106,10 @@ public class ProdottoDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setString(1, prodotto.getNome());
 			preparedStatement.setString(2, prodotto.getMarca());
 			preparedStatement.setInt(3, prodotto.getId());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			connessione.commit();
 		}
@@ -143,11 +141,11 @@ public class ProdottoDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setString(1, prodotto.getNome());
 			preparedStatement.setString(2, "Occhiali");
 			preparedStatement.setString(3, prodotto.getMarca());
 			preparedStatement.setString(4, prodotto.getSesso());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			connessione.commit();
 		}
@@ -216,8 +214,8 @@ public class ProdottoDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setInt(1, prodotto.getId());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();		
 			connessione.commit();
 		}

@@ -1,4 +1,4 @@
-<%@page import="model.ProdottoCarello"%>
+<%@page import="model.ProdottoCarrello"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -6,10 +6,8 @@
     
 <%
 	JSONObject prodotto= (JSONObject) request.getAttribute("prodotto");
-	System.out.println(prodotto);
 	String coloreSelezionato=request.getAttribute("coloreSelezionato").toString();
 	JSONObject colore= (JSONObject) prodotto.get(coloreSelezionato);
-	System.out.println(colore);
 %>    
     
 <!DOCTYPE html>
@@ -39,6 +37,14 @@
 	<nav>
 		<%@ include file="Header.jsp" %>
 	</nav>
+	<%
+	if(utente==null)
+	{
+		response.sendRedirect("Login.jsp");
+	}
+	else
+	{
+	%>
 	<div class="grid-container">
 		<%@ include file="MenùDashboardAdmin.jsp" %>
 		<main class="main-container">
@@ -108,9 +114,7 @@
 										if (prodotto.names().get(i).toString().contains("colore") == true) 
 										{
 											String nome = prodotto.names().get(i).toString();
-											System.out.println("Colore: "+nome);
-											JSONObject coloreJSON = (JSONObject) prodotto.get(nome);
-											System.out.println(coloreJSON);				
+											JSONObject coloreJSON = (JSONObject) prodotto.get(nome);				
 									%>
 										<option value="<%=coloreJSON.get("immagine")%>,<%=coloreJSON.get("prezzo")%>,<%=coloreJSON.get("colore")%>,<%=coloreJSON.get("quantità")%>,<%=coloreJSON.get("codiceProdotto")%>"><%=nome %></option>
 									<%
@@ -145,6 +149,9 @@
 			</div>
         </main>
 	</div>
+	<%
+	}
+	%>
 	
 	<footer>
 		<%@ include file="Footer.jsp" %>

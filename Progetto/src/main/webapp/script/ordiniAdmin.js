@@ -1,7 +1,6 @@
 function opzioni()
 {
 	var opzione = $('#opzione').find(":selected").val();
-	console.log(opzione);
 	if(opzione=="Data")
 	{
 		$('#data').removeClass("nascondi");
@@ -35,7 +34,6 @@ function validazioneOrdini()
 	}
 	
 	var opzioneSelezionata = $('#opzione').find(":selected").val();
-	console.log(opzioneSelezionata);
 	if(opzioneSelezionata=="Data")
 	{
 		if(data("data1")==true)

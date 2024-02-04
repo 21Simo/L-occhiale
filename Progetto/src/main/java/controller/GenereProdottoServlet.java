@@ -51,7 +51,6 @@ public class GenereProdottoServlet extends HttpServlet
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String genere= request.getParameter("genere");
-		System.out.println(genere);
 		if(genere.equals("Uomo"))
 		{
 			genere="M";

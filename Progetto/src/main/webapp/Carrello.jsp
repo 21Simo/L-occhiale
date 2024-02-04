@@ -1,5 +1,5 @@
 <%@page import="model.ColoreDAO"%>
-<%@page import="model.ProdottoCarello"%>
+<%@page import="model.ProdottoCarrello"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -7,39 +7,39 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-    <title>Carello</title>
+    <title>Carrello</title>
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link href="./css/carrello.css" rel="stylesheet">
 </head>
 <body>
 	<nav>
-		<%@ include file="Header.jsp"%>
+		<%@ include file="Header.jsp"%>  
 	</nav>
 	
 	<%
-		Carello carelloSessione;
-		if(utente!=null)
-		{
-			carelloSessione=(Carello) session.getAttribute("carelloUtente");
-		}
-		else
-		{
-			carelloSessione=(Carello) session.getAttribute("carello");
-		}
-		if(carelloSessione==null)
-		{
+	Carrello carrelloSessione;
+	if(utente!=null)
+	{
+		carrelloSessione=(Carrello) session.getAttribute("carrelloUtente");
+	}
+	else
+	{
+		carrelloSessione=(Carrello) session.getAttribute("carrello");
+	}
+	if(carrelloSessione==null)
+	{
 	%>
 	
 	<div class="carelloVuoto">
-		<img src="./img/carello vuoto.png" class="immagineCarelloVuoto">
-		<p class="testoCarelloVuoto">Il carello è vuoto</p>
+		<img src="./img/carrello vuoto.png" class="immagineCarelloVuoto">
+		<p class="testoCarelloVuoto">Il carrello è vuoto</p>
 	</div>
 	
 	<%
-		}
-		else
-		{
-			ArrayList<ProdottoCarello> listaProdotti=carelloSessione.getListaProdotti();
+	}
+	else
+	{
+		ArrayList<ProdottoCarrello> listaProdotti=carrelloSessione.getListaProdotti();
 	%>
 
 	<div class="wrapper">
@@ -66,19 +66,19 @@
 						<h4>Prezzo: <%=totaleStringa %> &euro;</h4>
 						<p>Gradazione: <%=listaProdotti.get(i).getGradazione() %></p>
 						<div class="product-quantity counter">
-							<form action="VisualizzazioneCarelloServlet" method="post">
+							<form action="VisualizzazioneCarrelloServlet" method="post">
 								<button name="quantitàBottone" value="meno-<%=i%>" class="bottoneNascosto">
 									<span class="down" onClick='decreaseCount(event, this)'>-</span>
 								</button>
 							</form>
   							<input type="text" value="<%=listaProdotti.get(i).getColore().getQuantità() %>" class="quantitaProdottoInput" id="numeroQuantità" readonly="readonly">
-  							<form action="VisualizzazioneCarelloServlet" method="post">
+  							<form action="VisualizzazioneCarrelloServlet" method="post">
   								<button name="quantitàBottone" value="più-<%=i%>" class="bottoneNascosto">
   									<span class="up" onClick='increaseCount(event, this)'>+</span>
   								</button>
   							</form>
 						</div>
-						<form action="VisualizzazioneCarelloServlet" method="post">
+						<form action="VisualizzazioneCarrelloServlet" method="post">
 							<button class="btn-area" name="prodotto" value="<%=i%>">
 								<i aria-hidden="true" class="fa fa-trash"></i>
 								Rimuovi

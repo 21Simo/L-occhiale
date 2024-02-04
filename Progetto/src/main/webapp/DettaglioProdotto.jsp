@@ -1,4 +1,5 @@
-<%@page import="model.ProdottoCarello"%>
+<%@page import="model.ColoreDAO"%>
+<%@page import="model.ProdottoCarrello"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -16,14 +17,14 @@
 	<meta charset="ISO-8859-1">
 	<title>Dettaglio Prodotto</title>
 	<link rel="stylesheet" href="./css/dettaglioProdotti.css">
-	<link rel="stylesheet" href="./css/modalAggiungiCarello.css">
+	<link rel="stylesheet" href="./css/modalAggiungiCarrello.css">
 </head>
 <body>
 	<nav>
-		<%@ include file="Header.jsp"%>
+		<%@ include file="Header.jsp"%>  
 	</nav>
 	
-	<form enctype="multipart/form-data" method="post" action="AggiungiCarelloServlet" onsubmit="return validazioneDettagli()">
+	<form enctype="multipart/form-data" method="post" action="AggiungiCarrelloServlet" onsubmit="return validazioneDettagli()">
 		<div class="row" id="card-1">
 			<div class="column left">
 				<input type="text" id="immagineProdotto" name="immagineProdotto" value="./img/prodotti/<%=colore.get("immagine") %>" hidden="true">
@@ -51,27 +52,27 @@
 				<div class="color-content">
 					<div class="color-groups">
 						<%
-							for(int i=0; i<prodotto.names().length(); i++)
+						for(int i=0; i<prodotto.names().length(); i++)
+						{
+							if(prodotto.names().get(i).toString().contains("colore")==true)
 							{
-								if(prodotto.names().get(i).toString().contains("colore")==true)
+								String nome=prodotto.names().get(i).toString();
+								JSONObject coloreJSON=(JSONObject) prodotto.get(nome);
+								if(nome.equals(coloreSelezionato))
 								{
-									String nome=prodotto.names().get(i).toString();
-									JSONObject coloreJSON=(JSONObject) prodotto.get(nome);
-									if(nome.equals(coloreSelezionato))
-									{
 						%>
 						<img title="<%=nome %>" name="<%=coloreJSON.get("id") %>" src="./img/prodotti/<%=coloreJSON.get("immagine") %>" class="color card-1 active-color" id="<%=coloreJSON.get("immagine") %>" onclick="cambiaImmagine(id, <%=coloreJSON.get("prezzo")%>, <%=coloreJSON.get("quantità")%>)">
 						<input type="text" id="coloreProdottoAttivo" name="coloreProdottoAttivo" value="<%=nome %>" hidden="true">
 						<%
-									}
-									else
-									{
+								}
+								else
+								{
 						%>
 						<img title="<%=nome %>" name="<%=coloreJSON.get("id") %>" src="./img/prodotti/<%=coloreJSON.get("immagine") %>" class="color card-1" id="<%=coloreJSON.get("immagine") %>" onclick="cambiaImmagine(id, <%=coloreJSON.get("prezzo")%>, <%=coloreJSON.get("quantità")%>)">
 						<%
-									}
 								}
 							}
+						}
 						%>
 					</div>
 				</div>
@@ -82,127 +83,128 @@
 					<input type="text" id="quantitàProdotto" name="quantitaProdotto" value="1" hidden="true">
 					<select id="quantità" class="menuQuantita" onchange="quantita()">
 					<%
-						Carello carelloSessione;
-						if(utente!=null)
-						{
-							carelloSessione=(Carello) session.getAttribute("carelloUtente");
-						}
-						else
-						{
-							carelloSessione=(Carello) session.getAttribute("carello");
-						}
-						int quantitàSospesa=0;
-						if(carelloSessione!=null)
-						{
-							ArrayList<ProdottoCarello> listaCarello= carelloSessione.getListaProdotti();
-							for(int i=1; i<listaCarello.size(); i++)
-							{
-								if(listaCarello.get(i).getColore().getId()== Integer.parseInt(colore.get("id").toString()))
-								{
-									quantitàSospesa= listaCarello.get(i).getColore().getQuantità();
-								}
-							}
-						}
-						
-						int quantità=Integer.parseInt(colore.get("quantità").toString())-quantitàSospesa;
-						if(quantità<=0)
-						{
-					%>
-						<option value="0">0</option>
-					<%		
-						}
-						for(int i=1; i<=quantità; i++)
-						{
-					%>
-						<option value="<%=i %>"><%=i %></option>
-					<%
-						}
-					%>
-					</select>
-					<%
-						if(quantità<=0)
-						{
-					%>
-					<span id="disponibilità">Prodotto non disponibile</span>
-					<%
-						}
-					%>
-				</div>
-				<%
-					session.setAttribute("dettaglioProdotto", prodotto);
-					session.setAttribute("coloreSelezionato", coloreSelezionato);
-					if(quantità<=0)
+					Carrello carrelloSessione;
+					if(utente!=null)
 					{
-				%>
-				<button type="submit" class="bottoneDettagli" name="bottoneCarello" value="<%=prodotto.get("id")%>" id="myBtn" onclick="aggiungiCarello()" disabled="disabled">Aggiungi al carello</button>
-				<%
+						carrelloSessione=(Carrello) session.getAttribute("carrelloUtente");
 					}
 					else
 					{
-				%>
-				<button type="submit" class="bottoneDettagli" name="bottoneCarello" value="<%=prodotto.get("id")%>" id="myBtn" onclick="aggiungiCarello()">Aggiungi al carello</button>
-				<%
+						carrelloSessione=(Carrello) session.getAttribute("carrello");
 					}
+					int quantitàSospesa=0;
+					if(carrelloSessione!=null)
+					{
+						ArrayList<ProdottoCarrello> listaCarrello= carrelloSessione.getListaProdotti();
+						for(int i=1; i<listaCarrello.size(); i++)
+						{
+							if(listaCarrello.get(i).getColore().getId()== Integer.parseInt(colore.get("id").toString()))
+							{
+								quantitàSospesa= listaCarrello.get(i).getColore().getQuantità();
+							}
+						}
+					}
+					int quantità=Integer.parseInt(colore.get("quantità").toString())-quantitàSospesa;
+					if(quantità<=0)
+					{
+					%>
+						<option value="0">0</option>
+					<%
+					}
+					for(int i=1; i<=quantità; i++)
+					{
+					%>
+						<option value="<%=i%>"><%=i%></option>
+					<%
+					}
+					%>
+					</select>
+					<%
+					if(quantità<=0)
+					{
+					%>
+					<span id="disponibilità">Prodotto non disponibile</span>
+					<%
+					}
+					%>
+				</div>
+				<%
+				session.setAttribute("dettaglioProdotto", prodotto);
+				session.setAttribute("coloreSelezionato", coloreSelezionato);
+				if(quantità<=0)
+				{
+				%>
+				<button type="submit" class="bottoneDettagli" name="bottoneCarello" value="<%=prodotto.get("id")%>" id="myBtn" onclick="aggiungiCarrello()" disabled="disabled">Aggiungi al carrello</button>
+				<%
+				}
+				else
+				{
+				%>
+				<button type="submit" class="bottoneDettagli" name="bottoneCarello" value="<%=prodotto.get("id")%>" id="myBtn" onclick="aggiungiCarrello()">Aggiungi al carrello</button>
+				<%
+				}
 				%>
 			</div>
 		</div>
 	</form>
 	
 	<%
-		boolean modal=false;
-		if(request.getAttribute("modal")!=null)
-		{
-			boolean modalPar=(Boolean) request.getAttribute("modal");
-			modal=true;
-		}
-		if(modal==true)
-		{
+	boolean modal=false;
+	if(request.getAttribute("modal")!=null)
+	{
+		boolean modalPar=(Boolean) request.getAttribute("modal");
+		modal=true;
+	}
+	if(modal==true)
+	{
 	%>
 	<div id="myModal" class="modal">
 		<div class="modal-content">
 			<div class="chiudi">
-				<div class="title">Prodotto aggiunto nel carello</div>
+				<div class="title">Prodotto aggiunto nel carrello</div>
 				<span class="close" onmouseup="prova()">&times;</span>
 			</div>
 			<div class="contenuto">
 				<div class="shopping-cart">
 					<div class="item">
 						<div class="image">
-							<img src="./img/prodotti/<%=colore.get("immagine") %>" alt="" height="100%" width="100%" id="immagineModal" />
+							<img src="./img/prodotti/<%=colore.get("immagine")%>" alt="" height="100%" width="100%" id="immagineModal" />
 						</div>
 
 						<div class="description">
-							<span><%=prodotto.get("nome") %></span> <span id="colorazione"><%=colore.get("colore") %></span>
+							<span><%=prodotto.get("nome")%></span> <span id="colorazione"><%=colore.get("colore")%></span>
 						</div>
 
-						<div class="total-price" id="prezzoModal"><%=colore.get("prezzo") %> &euro;</div>
+						<div class="total-price" id="prezzoModal"><%=colore.get("prezzo")%> &euro;</div>
 					</div>
 				</div>
 				<div class="infoCarello">
 				<%
-					Carello carelloDettagli;
-					if(utente!=null)
-					{
-						carelloDettagli=(Carello) session.getAttribute("carelloUtente");
-					}
-					else
-					{
-						carelloDettagli=(Carello) session.getAttribute("carello");
-					}
-					if(carelloDettagli!=null)
-					{
+				Carrello carrelloDettagli;
+				if(utente!=null)
+				{
+					carrelloDettagli=(Carrello) session.getAttribute("carrelloUtente");
+				}
+				else
+				{
+					carrelloDettagli=(Carrello) session.getAttribute("carrello");
+				}
+				if(carrelloDettagli!=null)
+				{
+					ColoreDAO coloreDAO= new ColoreDAO();
+					String totale= coloreDAO.prezzo(carrelloDettagli.getTotaleCosto());
 				%>
-					<p id="totaleCarello">Totale costo: <%=carelloDettagli.getTotaleCosto() %> &euro;</p>
-					<p id="quantitàCarello">Totale prodotti nel carello: <%=carelloDettagli.getQuantitaCarello() %></p>
+					<p id="totaleCarello">Totale costo: <%=totale %> &euro;</p>
+					<p id="quantitàCarello">Totale prodotti nel carello: <%=carrelloDettagli.getQuantitaCarrello() %></p>
 				<%
-					}
-					else
-					{
+				}
+				else
+				{
 				%>
 					<p id="totaleCarello">Totale costo: 0 &euro;</p>
 					<p id="quantitàCarello">Totale prodotti nel carello: 0</p>
 				<%
-					}	
+				}	
 				%>
 				</div>
 				<div class="infoCarelloBottoni">
@@ -210,14 +212,14 @@
 						<button name="prodotti" class="bottoneModal" value="header">Continua lo shopping</button>
 					</form>
 					<a href="Carrello.jsp">
-						<button class="bottoneModal">Vai al carello</button>
+						<button class="bottoneModal">Vai al carrello</button>
 					</a>
 				</div>
 			</div>
 		</div>
 	</div>
 	<%
-		}
+	}
 	%>
 	
 	<footer>
@@ -225,23 +227,18 @@
 	</footer>
 	<script type="text/javascript" src="./script/jquery-3.7.1.min.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/cambiaImmagineDettagli.js"></script>
-	<script type="text/javascript" charset="UTF-8" src="./script/modalAggiungiCarello.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="./script/modalAggiungiCarrello.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="./script/validazioneFileGradazioneDettagli.js"></script>
 	
 	<script type="text/javascript">	
-		function aggiungiCarello() 
+		function aggiungiCarrello() 
 		{
-			console.log("ooo");
 			<%
-				String id= prodotto.get("id").toString();
-				System.out.println("Click X: "+id);
+			String id= prodotto.get("id").toString();
 			%>
 			var bottone= <%=id%>+"/colore0";
-			console.log(bottone);
 			var quantitàSelezionata=$('#quantitàProdotto').val();
-			console.log(quantitàSelezionata);
 			var ultimaOption= $('#quantità option:last-child').val();
-			console.log(ultimaOption);
 			for(var i=1; i==quantitàSelezionata; i++)
 			{
 				$('#quantità option:last-child').remove();

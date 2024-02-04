@@ -15,13 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import model.Colore;
-import model.ColoreDAO;
 import model.DettagliOrdine;
 import model.Ordine;
 import model.OrdineDAO;
 import model.Prodotto;
-import model.ProdottoDAO;
+import model.Utente;
 import model.UtenteDAO;
 
 /**
@@ -37,10 +35,6 @@ public class DettaglioOrdineServlet extends HttpServlet
 	private UtenteDAO utenteDAO;
 	
 	private OrdineDAO ordineDAO;
-	
-	private ProdottoDAO prodottoDAO;
-	
-	private ColoreDAO coloreDAO;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,8 +44,6 @@ public class DettaglioOrdineServlet extends HttpServlet
         super();
         this.utenteDAO= new UtenteDAO();
         this.ordineDAO= new OrdineDAO();
-        this.prodottoDAO= new ProdottoDAO();
-        this.coloreDAO= new ColoreDAO();
     }
 
 	/**
@@ -61,40 +53,37 @@ public class DettaglioOrdineServlet extends HttpServlet
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		ArrayList<DettagliOrdine> listaDettagliOrdini=(ArrayList<DettagliOrdine>) request.getSession().getAttribute("listaDettagliOrdini");
-		System.out.println("DettaglioOrdineServlet: "+listaDettagliOrdini);
-		
-		int indiceDettaglioProdotto= Integer.parseInt(request.getParameter("dettaglioOrdine"));
-		
-		System.out.println("DettaglioOrdineServlet: "+indiceDettaglioProdotto);
-		
-		try 
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		if(utente==null)
 		{
-			String indirizzo= utenteDAO.indirizzoPerUtente(listaDettagliOrdini.get(indiceDettaglioProdotto).getIdUtente());
-			System.out.println("DettaglioOrdineServlet: "+indirizzo);
-			System.out.println("DettaglioOrdineServlet: "+listaDettagliOrdini.get(indiceDettaglioProdotto).getId());
-			ArrayList<Ordine> listaOrdini= ordineDAO.ordinePerId(listaDettagliOrdini.get(indiceDettaglioProdotto).getId());
-			System.out.println("DettagliOrdineServlet: "+listaOrdini.get(0).getId());
-			ArrayList<Prodotto> prodotti= new ArrayList<Prodotto>();
-			ArrayList<Colore> listaColore= new ArrayList<Colore>();
-			for(int i=0; i<listaOrdini.size(); i++)
-			{
-				System.out.println("DettaglioOrdineServlet file: "+listaOrdini.get(i).getFile());
-				System.out.println("Immagine prodotto: "+listaOrdini.get(i).getImmagineProdotto());
-			}
-			JSONObject dettaglioOrdineJson= new JSONObject();
-			dettaglioOrdineJson.put("dettagliOrdine", listaDettagliOrdini.get(indiceDettaglioProdotto));
-			dettaglioOrdineJson.put("indirizzo", indirizzo);
-			dettaglioOrdineJson.put("prodotti", prodotti);
-			dettaglioOrdineJson.put("ordine", listaOrdini);
-			request.setAttribute("dettaglioOrdineJson", dettaglioOrdineJson);
-		} 
-		catch (ClassNotFoundException | SQLException e) 
-		{
-			logger.log(Level.INFO, "Exception", e);
+			response.sendRedirect("Login.jsp");
 		}
-		RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioOrdine.jsp");
-		dispatcher.forward(request, response);
+		else
+		{
+		
+			ArrayList<DettagliOrdine> listaDettagliOrdini=(ArrayList<DettagliOrdine>) request.getSession().getAttribute("listaDettagliOrdini");
+			
+			int indiceDettaglioProdotto= Integer.parseInt(request.getParameter("dettaglioOrdine"));
+			
+			try 
+			{
+				String indirizzo= utenteDAO.indirizzoPerUtente(listaDettagliOrdini.get(indiceDettaglioProdotto).getIdUtente());
+				ArrayList<Ordine> listaOrdini= ordineDAO.ordinePerId(listaDettagliOrdini.get(indiceDettaglioProdotto).getId());
+				ArrayList<Prodotto> prodotti= new ArrayList<Prodotto>();
+				JSONObject dettaglioOrdineJson= new JSONObject();
+				dettaglioOrdineJson.put("dettagliOrdine", listaDettagliOrdini.get(indiceDettaglioProdotto));
+				dettaglioOrdineJson.put("indirizzo", indirizzo);
+				dettaglioOrdineJson.put("prodotti", prodotti);
+				dettaglioOrdineJson.put("ordine", listaOrdini);
+				request.setAttribute("dettaglioOrdineJson", dettaglioOrdineJson);
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioOrdine.jsp");
+				dispatcher.forward(request, response);
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				logger.log(Level.INFO, "Exception", e);
+			}
+		}
 	}
 
 	/**

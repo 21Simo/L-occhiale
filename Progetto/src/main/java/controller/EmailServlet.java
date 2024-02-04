@@ -43,14 +43,14 @@ public class EmailServlet extends HttpServlet
 		try
 		{
 			json.put("presenza", utenteDAO.presenzaEmail(email));
+			response.setContentType("application/json");
+			PrintWriter out= response.getWriter();
+			out.print(json);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			logger.log(Level.INFO, "Exception", e);
 		}
-		response.setContentType("application/json");
-		PrintWriter out= response.getWriter();
-		out.print(json);
 	}
 
 	

@@ -48,25 +48,26 @@ public class ProvinceServlet extends HttpServlet
 		int regione= Integer.parseInt(request.getParameter("regione"));
 		JSONObject jsonProvince= new JSONObject();
 		JSONArray jsonArray= new JSONArray();
-		JSONArray prova= new JSONArray();
+		JSONArray jsonId= new JSONArray();
 		try
 		{
 			ArrayList<Province> listaProvince= provinceDAO.province(regione);
 			for(int i=0; i<listaProvince.size(); i++)
 			{
 				jsonArray.put(listaProvince.get(i).getNome());
-				prova.put(listaProvince.get(i).getId());
+				jsonId.put(listaProvince.get(i).getId());
 			}
 			jsonProvince.put("province", jsonArray);
-			jsonProvince.put("id", prova);
+			jsonProvince.put("id", jsonId);
+			
+			response.setContentType("application/json");
+			PrintWriter out= response.getWriter();
+			out.print(jsonProvince);
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			logger.log(Level.INFO, "Exception", e);
 		}
-		response.setContentType("application/json");
-		PrintWriter out= response.getWriter();
-		out.print(jsonProvince);
 	}
 
 	/**

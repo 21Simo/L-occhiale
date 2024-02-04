@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,8 +37,7 @@ public class LogoutServlet extends HttpServlet
 		if(utente!=null)
 		{
 			request.getSession().setAttribute("utente", null);
-			RequestDispatcher dispatcher= request.getRequestDispatcher("IndexServlet");
-			dispatcher.forward(request, response);
+			response.sendRedirect("IndexServlet");
 		}
 	}
 

@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -80,13 +79,12 @@ public class RegistrazioneServlet extends HttpServlet
 			try 
 			{
 				utenteDAO.inserisciUtente(utente);
+				response.sendRedirect("IndexServlet");
 			} 
 			catch (ClassNotFoundException | SQLException e) 
 			{
 				logger.log(Level.INFO, "Exception", e);
 			}
-			RequestDispatcher dispatcher= request.getRequestDispatcher("Index.jsp");
-			dispatcher.forward(request, response);
 		} 
 		catch (ParseException e) 
 		{

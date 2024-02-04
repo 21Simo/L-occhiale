@@ -37,13 +37,11 @@
 		<main class="main-container">
         	<div class="main-title">
          		<p class="font-weight-bold">Ordini</p>
-        	</div>
-        
+        	</div>      
         
 				<%
 					JSONObject ordini=(JSONObject) request.getAttribute("ordini");
 					JSONArray listaOrdini=(JSONArray) ordini.get("listaOrdini");
-					System.out.println("Ordini JSP: "+listaOrdini);
 					if(listaOrdini==null)
 					{
 				%>

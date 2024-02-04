@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
@@ -15,25 +14,25 @@ import javax.servlet.http.Part;
 
 import org.json.JSONObject;
 
-import model.Carello;
+import model.Carrello;
 import model.Colore;
 import model.ColoreDAO;
-import model.ProdottoCarello;
+import model.ProdottoCarrello;
 import model.Utente;
 
 /**
  * Servlet che serve per aggiungere i prodotti al carrello.
  */
-@WebServlet("/AggiungiCarelloServlet")
+@WebServlet("/AggiungiCarrelloServlet")
 @MultipartConfig
-public class AggiungiCarelloServlet extends HttpServlet 
+public class AggiungiCarrelloServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AggiungiCarelloServlet() 
+    public AggiungiCarrelloServlet() 
     {
         super();
     }
@@ -59,28 +58,29 @@ public class AggiungiCarelloServlet extends HttpServlet
 		String codiceProdotto=(String) coloreJSON.get("codiceProdotto");
 		
 		Utente utente=(Utente) request.getSession().getAttribute("utente");
-		Carello carelloSessione;
+		Carrello carrelloSessione;
 		if(utente!=null)
 		{
-			if(request.getSession().getAttribute("carello")!=null)
+			if(request.getSession().getAttribute("carrello")!=null)
 			{
-				carelloSessione=(Carello) request.getSession().getAttribute("carello");
-				request.getSession().setAttribute("carello", null);
-				request.getSession().setAttribute("carelloUtente", carelloSessione);
+				carrelloSessione=(Carrello) request.getSession().getAttribute("carrello");
+				request.getSession().setAttribute("carrello", null);
+				request.getSession().setAttribute("carrelloUtente", carrelloSessione);
 			}
 			else
 			{
-				carelloSessione=(Carello) request.getSession().getAttribute("carelloUtente");
+				carrelloSessione=(Carrello) request.getSession().getAttribute("carrelloUtente");
 			}
 		}
 		else
 		{
-			carelloSessione=new Carello();
-			carelloSessione= (Carello) request.getSession().getAttribute("carello");
+			carrelloSessione=new Carrello();
+			carrelloSessione= (Carrello) request.getSession().getAttribute("carrello");
 		}
-		ProdottoCarello prodottoSelezionato= new ProdottoCarello();
+		ProdottoCarrello prodottoSelezionato= new ProdottoCarrello();
 		prodottoSelezionato.setNome(nomeProdotto);
 		prodottoSelezionato.setId(id);
+		prodottoSelezionato.setMarca(marcaProdotto);
 		Colore coloreSelezionatoOggetto=new Colore();
 		coloreSelezionatoOggetto.setId(idColore);
 		coloreSelezionatoOggetto.setImmagine(immagineProdotto);
@@ -109,48 +109,48 @@ public class AggiungiCarelloServlet extends HttpServlet
 			prodottoSelezionato.setNomeFile("null");
 		}
 		
-		if(carelloSessione==null)
+		if(carrelloSessione==null)
 		{
-			Carello carello=new Carello();
-			carello.setQuantitaCarello(1);
-			carello.setTotaleCosto(prezzoProdotto);
-			carello.aggiungiProdotto(prodottoSelezionato);
+			Carrello carrello=new Carrello();
+			carrello.setQuantitaCarrello(1);
+			carrello.setTotaleCosto(prezzoProdotto);
+			carrello.aggiungiProdotto(prodottoSelezionato);
 			if(utente!=null)
 			{
-				request.getSession().setAttribute("carelloUtente", carello);
+				request.getSession().setAttribute("carrelloUtente", carrello);
 			}
 			else
 			{
-				request.getSession().setAttribute("carello", carello);
+				request.getSession().setAttribute("carrello", carrello);
 			}
 			ColoreDAO coloreDAO=new ColoreDAO();
-			String totaleCosto=coloreDAO.prezzo(carello.getTotaleCosto());
+			String totaleCosto=coloreDAO.prezzo(carrello.getTotaleCosto());
 		}
 		else
 		{
-			int quantitàCarello=carelloSessione.getQuantitaCarello();
-			quantitàCarello=quantitàCarello+1;
-			carelloSessione.setQuantitaCarello(quantitàCarello);
-			Double prezzoCarello=Double.parseDouble(carelloSessione.getTotaleCosto());
-			prezzoCarello=prezzoCarello+Double.parseDouble(prezzoProdotto);
-			carelloSessione.setTotaleCosto(prezzoCarello.toString());
-			carelloSessione.aggiungiProdotto(prodottoSelezionato);
-			Boolean duplicato=carelloSessione.duplicato(carelloSessione.getListaProdotti());
+			int quantitàCarrello=carrelloSessione.getQuantitaCarrello();
+			quantitàCarrello=quantitàCarrello+1;
+			carrelloSessione.setQuantitaCarrello(quantitàCarrello);
+			Double prezzoCarrello=Double.parseDouble(carrelloSessione.getTotaleCosto());
+			prezzoCarrello=prezzoCarrello+Double.parseDouble(prezzoProdotto);
+			carrelloSessione.setTotaleCosto(prezzoCarrello.toString());
+			carrelloSessione.aggiungiProdotto(prodottoSelezionato);
+			Boolean duplicato=carrelloSessione.duplicato(carrelloSessione.getListaProdotti());
 			if(duplicato==true)
 			{
-				quantitàCarello--;
-				carelloSessione.setQuantitaCarello(quantitàCarello);
+				quantitàCarrello--;
+				carrelloSessione.setQuantitaCarrello(quantitàCarrello);
 			}
 			if(utente!=null)
 			{
-				request.getSession().setAttribute("carelloUtente", carelloSessione);
+				request.getSession().setAttribute("carrelloUtente", carrelloSessione);
 			}
 			else
 			{
-				request.getSession().setAttribute("carello", carelloSessione);
+				request.getSession().setAttribute("carrello", carrelloSessione);
 			}
 			ColoreDAO coloreDAO=new ColoreDAO();
-			String totaleCosto=coloreDAO.prezzo(carelloSessione.getTotaleCosto());
+			String totaleCosto=coloreDAO.prezzo(carrelloSessione.getTotaleCosto());
 		}
 		request.setAttribute("prodotto", prodotto);
 		request.setAttribute("coloreSelezionato", coloreSelezionato);

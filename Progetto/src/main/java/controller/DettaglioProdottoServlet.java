@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import model.Carello;
+import model.Carrello;
 import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
-import model.ProdottoCarello;
+import model.ProdottoCarrello;
 import model.ProdottoDAO;
 import model.Utente;
 
@@ -50,21 +50,20 @@ public class DettaglioProdottoServlet extends HttpServlet
 		try
 		{
 			String id=request.getParameter("bottone");
-			System.out.println("Id: "+id);
 			int indice=id.indexOf("/");
 			int idProdotto=Integer.parseInt(id.substring(0, indice));
 			String indiceColore=id.substring(indice+1); 
 			Prodotto prodottoo= prodottoDAO.dettagliProdottiPerId(idProdotto);
 			
 			Utente utente=(Utente) request.getSession().getAttribute("utente");
-			Carello carelloSessione;
+			Carrello carrelloSessione;
 			if(utente!=null)
 			{
-				carelloSessione=(Carello) request.getSession().getAttribute("carelloUtente");
+				carrelloSessione=(Carrello) request.getSession().getAttribute("carrelloUtente");
 			}
 			else
 			{
-				carelloSessione=(Carello) request.getSession().getAttribute("carello");
+				carrelloSessione=(Carrello) request.getSession().getAttribute("carrello");
 			}
 			
 			JSONObject prodotto= new JSONObject();
@@ -84,15 +83,14 @@ public class DettaglioProdottoServlet extends HttpServlet
 				coloreJson.put("prezzo", colore.get(j).getPrezzo());
 					
 				int quantitàSospesa=0;
-				if(carelloSessione!=null)
+				if(carrelloSessione!=null)
 				{
-					ArrayList<ProdottoCarello> listaCarello= carelloSessione.getListaProdotti();
-					for(int k=0; k<listaCarello.size(); k++)
+					ArrayList<ProdottoCarrello> listaCarrello= carrelloSessione.getListaProdotti();
+					for(int k=0; k<listaCarrello.size(); k++)
 					{
-						if(listaCarello.get(k).getColore().getId()==colore.get(j).getId())
+						if(listaCarrello.get(k).getColore().getId()==colore.get(j).getId())
 						{
-							System.out.println("Perfetto.");
-							quantitàSospesa= listaCarello.get(k).getColore().getQuantità();
+							quantitàSospesa= listaCarrello.get(k).getColore().getQuantità();
 						}
 					}
 				}
@@ -103,31 +101,30 @@ public class DettaglioProdottoServlet extends HttpServlet
 			}
 			request.setAttribute("prodotto", prodotto);
 			request.setAttribute("coloreSelezionato", indiceColore);
+			String admin= request.getParameter("admin");
+			String azione= request.getParameter("azione");
+			if(admin.equals("true"))
+			{
+				if(azione.equals("modifica"))
+				{
+					RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioProdottoAdmin.jsp");
+					dispatcher.forward(request, response);
+				}
+				else if(azione.equals("elimina"))
+				{
+					RequestDispatcher dispatcher= request.getRequestDispatcher("/EliminaProdotto.jsp");
+					dispatcher.forward(request, response);
+				}
+			}
+			else if(admin.equals("false"))
+			{
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioProdotto.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 		catch (ClassNotFoundException | SQLException e)
 		{
 			logger.log(Level.INFO, "Exception", e);
-		}
-		String admin= request.getParameter("admin");
-		System.out.println(admin);
-		String azione= request.getParameter("azione");
-		if(admin.equals("true"))
-		{
-			if(azione.equals("modifica"))
-			{
-				RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioProdottoAdmin.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(azione.equals("elimina"))
-			{
-				RequestDispatcher dispatcher= request.getRequestDispatcher("/EliminaProdotto.jsp");
-				dispatcher.forward(request, response);
-			}
-		}
-		else if(admin.equals("false"))
-		{
-			RequestDispatcher dispatcher= request.getRequestDispatcher("/DettaglioProdotto.jsp");
-			dispatcher.forward(request, response);
 		}
 	}
 

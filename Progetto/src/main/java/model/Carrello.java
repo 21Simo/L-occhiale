@@ -2,9 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
-public class Carello 
+public class Carrello 
 {
-	public Carello()
+	public Carrello()
 	{
 		
 	}
@@ -59,22 +59,22 @@ public class Carello
 		this.totaleCosto = totaleCosto;
 	}
 	
-	public int getQuantitaCarello() 
+	public int getQuantitaCarrello() 
 	{
-		return quantitaCarello;
+		return quantitaCarrello;
 	}
 	
-	public void setQuantitaCarello(int quantitaCarello) 
+	public void setQuantitaCarrello(int quantitaCarrello) 
 	{
-		this.quantitaCarello = quantitaCarello;
+		this.quantitaCarrello = quantitaCarrello;
 	}
 	
-	public void aggiungiProdotto(ProdottoCarello prodotto)
+	public void aggiungiProdotto(ProdottoCarrello prodotto)
 	{
 		this.listaProdotti.add(prodotto);
 	}
 	
-	public boolean duplicato(ArrayList<ProdottoCarello> lista)
+	public boolean duplicato(ArrayList<ProdottoCarrello> lista)
 	{
 		for(int i=0; i<this.listaProdotti.size()-1; i++)
 		{
@@ -100,7 +100,7 @@ public class Carello
 		return false;
 	}
 	
-	public ArrayList<ProdottoCarello> getListaProdotti() 
+	public ArrayList<ProdottoCarrello> getListaProdotti() 
 	{
 		return listaProdotti;
 	}
@@ -111,6 +111,6 @@ public class Carello
 	private String colore;
 	private String prezzo;
 	private String totaleCosto;
-	private int quantitaCarello;
-	private ArrayList<ProdottoCarello> listaProdotti=new ArrayList<ProdottoCarello>();
+	private int quantitaCarrello;
+	private ArrayList<ProdottoCarrello> listaProdotti=new ArrayList<ProdottoCarrello>();
 }

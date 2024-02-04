@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class PagamentoDAO 
 {
@@ -20,11 +19,11 @@ public class PagamentoDAO
 		{
 			connessione= DriverManagerConnectionPool.getConnessione();
 			preparedStatement= connessione.prepareStatement(query);
-			System.out.println(preparedStatement);
 			preparedStatement.setString(1, pagamento.getNomeCliente());
 			preparedStatement.setString(2, pagamento.getNumeroCarta());
 			preparedStatement.setString(3, pagamento.getScadenza());
 			preparedStatement.setString(4, pagamento.getCvv());
+			System.out.println(preparedStatement);
 			preparedStatement.executeUpdate();
 			
 			connessione.commit();

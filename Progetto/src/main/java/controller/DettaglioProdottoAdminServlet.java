@@ -18,6 +18,7 @@ import model.Colore;
 import model.ColoreDAO;
 import model.Prodotto;
 import model.ProdottoDAO;
+import model.Utente;
 
 /**
  * Servlet che serve per il dettaglio prodotto per l'amministratore. 
@@ -50,72 +51,70 @@ public class DettaglioProdottoAdminServlet extends HttpServlet
 	{
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		int idProdotto= Integer.parseInt(request.getParameter("idProdotto"));
-		Part filePart= request.getPart("uploadDocument");
-		System.out.println("File: "+filePart.getSubmittedFileName().length());
-		String path="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\img\\prodotti\\";
-		if(filePart.getSubmittedFileName().length()!=0)
+		Utente utente=(Utente) request.getSession().getAttribute("utente");
+		if(utente==null)
 		{
-			String nomeFilePart= filePart.getSubmittedFileName();
-			System.out.println("Nome file: "+nomeFilePart);
-			filePart.write(path+nomeFilePart);
+			response.sendRedirect("Login.jsp");
 		}
-		
-		System.out.println("Path: "+path);
-		String marcaProdotto= request.getParameter("marcaProdotto");
-		String nomeProdotto= request.getParameter("nomeProdotto");
-		String genereProdotto= request.getParameter("genereProdotto");
-		String prezzoProdotto= request.getParameter("prezzoProdotto");
-		String coloreProdotto= request.getParameter("coloreProdotto");
-		System.out.println("Colore: "+coloreProdotto);
-		String nomeColoreProdotto= request.getParameter("nomeColoreProdotto");
-		System.out.println("Nome colore: "+nomeColoreProdotto);
-		int quantitàProdotto= Integer.parseInt(request.getParameter("quantitaProdotto"));
-		System.out.println("Quantità: "+quantitàProdotto);
-		String immagine= request.getParameter("immagineProdotto");
-		System.out.println("Immagine: "+immagine);
-		String codiceProdotto= request.getParameter("codiceProdotto");
-		System.out.println("Codice prodotto: "+codiceProdotto);
-		
-		int idColore= Integer.parseInt(request.getParameter("idColore"));
-		System.out.println("Colore id: "+idColore);
-		
-		String valoreBottone= request.getParameter("bottone");
-		System.out.println(valoreBottone);
-		
-		Prodotto prodotto= new Prodotto();
-		prodotto.setId(idProdotto);
-		prodotto.setNome(nomeProdotto);
-		prodotto.setMarca(marcaProdotto);
-		prodotto.setSesso(genereProdotto);
-		Colore colore= new Colore();
-		colore.setId(idColore);
-		colore.setIdProdotto(idProdotto);
-		colore.setColore(nomeColoreProdotto);
-		colore.setImmagine(immagine);
-		colore.setPrezzo(prezzoProdotto);
-		colore.setQuantità(quantitàProdotto);
-		colore.setCodiceProdotto(codiceProdotto);
-		
-		try 
-		{
-			if(valoreBottone.equals("update"))
+		else
+		{		
+			int idProdotto= Integer.parseInt(request.getParameter("idProdotto"));
+			Part filePart= request.getPart("uploadDocument");
+			String path="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\img\\prodotti\\";
+			if(filePart.getSubmittedFileName().length()!=0)
 			{
-				prodottoDAO.aggiornaProdotto(prodotto);
-				coloreDAO.aggiornaColore(colore);
+				String nomeFilePart= filePart.getSubmittedFileName();
+				filePart.write(path+nomeFilePart);
 			}
-			else if(valoreBottone.equals("insert"))
+			
+			String marcaProdotto= request.getParameter("marcaProdotto");
+			String nomeProdotto= request.getParameter("nomeProdotto");
+			String genereProdotto= request.getParameter("genereProdotto");
+			String prezzoProdotto= request.getParameter("prezzoProdotto");
+			String coloreProdotto= request.getParameter("coloreProdotto");
+			String nomeColoreProdotto= request.getParameter("nomeColoreProdotto");
+			int quantitàProdotto= Integer.parseInt(request.getParameter("quantitaProdotto"));
+			String immagine= request.getParameter("immagineProdotto");
+			String codiceProdotto= request.getParameter("codiceProdotto");
+			
+			int idColore= Integer.parseInt(request.getParameter("idColore"));
+			
+			String valoreBottone= request.getParameter("bottone");
+			
+			Prodotto prodotto= new Prodotto();
+			prodotto.setId(idProdotto);
+			prodotto.setNome(nomeProdotto);
+			prodotto.setMarca(marcaProdotto);
+			prodotto.setSesso(genereProdotto);
+			Colore colore= new Colore();
+			colore.setId(idColore);
+			colore.setIdProdotto(idProdotto);
+			colore.setColore(nomeColoreProdotto);
+			colore.setImmagine(immagine);
+			colore.setPrezzo(prezzoProdotto);
+			colore.setQuantità(quantitàProdotto);
+			colore.setCodiceProdotto(codiceProdotto);
+			
+			try 
 			{
-				coloreDAO.inserisciColore(colore);
+				if(valoreBottone.equals("update"))
+				{
+					prodottoDAO.aggiornaProdotto(prodotto);
+					coloreDAO.aggiornaColore(colore);
+				}
+				else if(valoreBottone.equals("insert"))
+				{
+					coloreDAO.inserisciColore(colore);
+				}
+				request.setAttribute("prodotti", request.getSession().getAttribute("prodottiAdmin"));
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/ProdottiAdmin.jsp");
+				dispatcher.forward(request, response);
+			} 
+			catch (ClassNotFoundException | SQLException e) 
+			{
+				logger.log(Level.INFO, "Exception", e);
 			}
-		} 
-		catch (ClassNotFoundException | SQLException e) 
-		{
-			logger.log(Level.INFO, "Exception", e);
 		}
-		request.setAttribute("prodotti", request.getSession().getAttribute("prodottiAdmin"));
-		RequestDispatcher dispatcher= request.getRequestDispatcher("/ProdottiAdmin.jsp");
-		dispatcher.forward(request, response);
 	}
 
 	/**

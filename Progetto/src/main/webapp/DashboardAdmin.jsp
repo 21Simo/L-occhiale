@@ -5,9 +5,7 @@
     
 <%
 	JSONObject ultimiProdottiJson=(JSONObject) request.getAttribute("ultimiProdotti");
-	System.out.println(ultimiProdottiJson);
 	JSONArray listaUltimiProdotti=(JSONArray) ultimiProdottiJson.get("listaUltimiProdotti");
-	System.out.println(listaUltimiProdotti);
 %>
     
 <!DOCTYPE html>

@@ -1,5 +1,5 @@
 <%@page import="model.Utente"%>
-<%@page import="model.Carello"%>
+<%@page import="model.Carrello"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -36,11 +36,10 @@
       <div class="header-right">
       	<%
 		Utente utente=(Utente) request.getSession().getAttribute("utente");
-		System.out.println("Header utente: "+utente);
-		Carello carello;
+		Carrello carrello;
 		if(utente!=null)
 		{
-			carello=(Carello) session.getAttribute("carelloUtente");
+			carrello=(Carrello) session.getAttribute("carrelloUtente");
 			String tipo= utente.getTipo();
 			if(tipo.equals("Utente"))
 			{
@@ -69,22 +68,21 @@
 		}
 		else
 		{
-			carello=(Carello) session.getAttribute("carello");
+			carrello=(Carrello) session.getAttribute("carrello");
 		%>
 		<a href="Login.jsp" class="menu noLink">
 			<img alt="Account" src="img/icone/person.svg" class="icone">
 		</a>
 		<%
 		}
-		System.out.println("Header carello: "+carello);
 		%>
 		<a href="Carrello.jsp" class="menu noLink" id="carello">
-			<img alt="Carello" src="img/icone/cart4.svg" class="icone">
+			<img alt="Carrello" src="img/icone/cart4.svg" class="icone">
 			<%
-			if(carello!=null)
+			if(carrello!=null)
 			{
 			%>
-			<span class='cart-counter' id="contatoreCarello"><%=carello.getQuantitaCarello() %></span>
+			<span class='cart-counter' id="contatoreCarello"><%=carrello.getQuantitaCarrello() %></span>
 			<%
 			}
 			%>

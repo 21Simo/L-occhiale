@@ -1,11 +1,6 @@
 function generaPDF()
 {
 	var pdfObject = jsPDFInvoiceTemplate.default(props);
-	
-	console.log("Oggetto creato", pdfObject);
-	console.log(telefonoHtml);
-	console.log(indiceTelefono);
-	console.log(telefono);
 }
 
 var righe= document.getElementById("dettagliOrdini").rows.length-1;
