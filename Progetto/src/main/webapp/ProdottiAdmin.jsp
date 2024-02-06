@@ -57,6 +57,16 @@
 					<button class="bottoneInserisci">Inserisci un prodotto</button>
 				</a>
 			</div>
+			<%
+			if(json.length()==0)
+			{
+			%>
+			<p>Non ci sono prodotti.</p>
+			<%
+			}
+			else
+			{
+			%>
 			<table id="ordini">
 				<tr>
 					<th>Nome prodotto</th>
@@ -101,6 +111,7 @@
 				</tr>
 				<%
 				}
+			}
 				%>
 			</table>
         	

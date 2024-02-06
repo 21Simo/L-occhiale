@@ -42,7 +42,7 @@
 				<%
 					JSONObject ordini=(JSONObject) request.getAttribute("ordini");
 					JSONArray listaOrdini=(JSONArray) ordini.get("listaOrdini");
-					if(listaOrdini==null)
+					if(listaOrdini.length()==0)
 					{
 				%>
 				<p>Non ci sono ordini</p>

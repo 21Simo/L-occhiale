@@ -58,13 +58,29 @@ public class VisualizzazioneCarrelloServlet extends HttpServlet
 						if(quantitàProdotto>1)
 						{
 							listaProdotti.get(indice).getColore().setQuantità(quantitàProdotto-1);
+							Double prezzoCarrello= Double.valueOf(carrello.getTotaleCosto()); 
+							Double prezzoProdotto= Double.valueOf(listaProdotti.get(indice).getColore().getPrezzo());
+							String totaleCarrello= String.valueOf(prezzoCarrello-prezzoProdotto);
+							carrello.setTotaleCosto(totaleCarrello);
 						}
 						break;
 					case "più":
 						listaProdotti.get(indice).getColore().setQuantità(quantitàProdotto+1);
+						Double prezzoCarrello= Double.valueOf(carrello.getTotaleCosto()); 
+						Double prezzoProdotto= Double.valueOf(listaProdotti.get(indice).getColore().getPrezzo());
+						String totaleCarrello= String.valueOf(prezzoCarrello+prezzoProdotto);
+						carrello.setTotaleCosto(totaleCarrello);
 						break;
 					default:
 						break;
+				}
+				if(utente!=null)
+				{
+					request.getSession().setAttribute("carrelloUtente",carrello);
+				}
+				else
+				{
+					request.getSession().setAttribute("carrello",carrello);
 				}
 			}
 			else
@@ -92,6 +108,7 @@ public class VisualizzazioneCarrelloServlet extends HttpServlet
 					if(utente!=null)
 					{
 						request.getSession().setAttribute("carrelloUtente",carrello);
+						request.getSession().setAttribute("carrello",carrello);
 					}
 					else
 					{
@@ -105,6 +122,7 @@ public class VisualizzazioneCarrelloServlet extends HttpServlet
 					if(utente!=null)
 					{
 						request.getSession().setAttribute("carrelloUtente",carrello);
+						request.getSession().setAttribute("carrello",carrello);
 					}
 					else
 					{

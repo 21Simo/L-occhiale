@@ -245,7 +245,7 @@
 			}
 			$.ajax
 			({
-				data: {bottone: bottone},
+				data: {bottone: bottone, admin:null},
 				url: 'DettaglioProdottoServlet',
 				method: 'POST',
 				success: function (risultati)

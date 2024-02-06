@@ -87,7 +87,6 @@ public class Carrello
 						if(this.listaProdotti.get(i).getNomeFile().equals(this.listaProdotti.get(k).getNomeFile()))
 						{
 							this.listaProdotti.remove(k);
-							System.out.println(this.listaProdotti.size());
 							int quantitàProdotto=this.listaProdotti.get(i).getColore().getQuantità();
 							quantitàProdotto++;
 							this.listaProdotti.get(i).getColore().setQuantità(quantitàProdotto);

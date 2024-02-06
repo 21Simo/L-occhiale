@@ -41,7 +41,7 @@
           		<p class="font-weight-bold">Prodotti inseriti di recente</p>
         	</div>
         	<%
-        	if(listaUltimiProdotti==null)
+        	if(listaUltimiProdotti.length()==0)
         	{
         	%>
         	<p>Non ci sono prodotti inseriti di recente.</p>

@@ -75,7 +75,6 @@ public class ModificaAccountServlet extends HttpServlet
 				String indirizzo= request.getParameter("indirizzo");
 				if(!utente.getNome().equals(nome) || !utente.getCognome().equals(cognome) || !utente.getCodiceFiscale().equals(codiceFiscale) || !utente.getDataNascita().equals(dataNascita) || !utente.getEmail().equals(email) || !utente.getPassword().equals(password) || !utente.getTelefono().equals(telefono) || !utente.getSesso().equals(sesso) || !utente.getRegione().equals(nomeRegione) || !utente.getProvincia().equals(nomeProvincia) || !utente.getComune().equals(comune) || !utente.getIndirizzo().equals(indirizzo))
 				{
-					System.out.println("Prova");
 					Utente utenteAggiornato= new Utente();
 					utenteAggiornato.setId(utente.getId());
 					utenteAggiornato.setNome(nome);

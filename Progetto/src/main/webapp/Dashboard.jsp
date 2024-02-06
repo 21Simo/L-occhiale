@@ -46,7 +46,7 @@
 		}
 		else
 		{
-			if(listaDettagliOrdini==null)
+			if(listaDettagliOrdini.length()==0)
 			{
 		%>
 		<p>Non ci sono ordini recenti. </p>
