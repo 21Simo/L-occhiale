@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.UtenteDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -60,12 +61,15 @@
                         	<div id="data" class="nascondi">
                         		<div class="input-field">
                             		<label>Dalla data</label>
-                            		<input type="date" id="data1" name="data1" placeholder="Inserisci la tua data di nascita">
+                            		<%                   
+                            			LocalDate oggi=LocalDate.now();                            			
+                            		%>
+                            		<input type="date" id="data1" name="data1" placeholder="Inserisci la tua data di nascita" max="<%=oggi%>">
                             		<p id="erroreData1" class="errore"></p>
                         		</div>	
                         		<div class="input-field">
                             		<label>Alla data</label>
-                            		<input type="date" id="data2" name="data2" placeholder="Inserisci la tua data di nascita">
+                            		<input type="date" id="data2" name="data2" placeholder="Inserisci la tua data di nascita" max="<%=oggi%>">
                             		<p id="erroreData2" class="errore"></p>
                         		</div>					
                         	</div>

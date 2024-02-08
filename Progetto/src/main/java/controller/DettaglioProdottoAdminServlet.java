@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -61,10 +62,20 @@ public class DettaglioProdottoAdminServlet extends HttpServlet
 			int idProdotto= Integer.parseInt(request.getParameter("idProdotto"));
 			Part filePart= request.getPart("uploadDocument");
 			String path="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\img\\prodotti\\";
+			String fileImmagine="";
 			if(filePart.getSubmittedFileName().length()!=0)
 			{
 				String nomeFilePart= filePart.getSubmittedFileName();
-				filePart.write(path+nomeFilePart);
+				int indice= nomeFilePart.lastIndexOf(".");
+				String uuid= UUID.randomUUID().toString();
+				String nomeFile= nomeFilePart.substring(0, indice);
+				String estensione= nomeFilePart.substring(indice);
+				filePart.write(path+nomeFile+uuid+estensione);
+				fileImmagine=nomeFile+uuid+estensione;
+			}
+			else
+			{
+				fileImmagine= request.getParameter("immagineProdotto");
 			}
 			
 			String marcaProdotto= request.getParameter("marcaProdotto");
@@ -90,7 +101,7 @@ public class DettaglioProdottoAdminServlet extends HttpServlet
 			colore.setId(idColore);
 			colore.setIdProdotto(idProdotto);
 			colore.setColore(nomeColoreProdotto);
-			colore.setImmagine(immagine);
+			colore.setImmagine(fileImmagine);
 			colore.setPrezzo(prezzoProdotto);
 			colore.setQuantità(quantitàProdotto);
 			colore.setCodiceProdotto(codiceProdotto);

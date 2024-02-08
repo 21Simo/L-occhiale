@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -84,9 +85,15 @@ public class InserisciProdotto extends HttpServlet
 				int ultimoId= prodottoDAO.ultimoId();
 				for(int i=1; i<=colori; i++)
 				{
+					String fileImmagine="";
 					Part filePart= request.getPart("immagine"+i);
-					String nomeFile= filePart.getSubmittedFileName();
-					filePart.write(path+nomeFile);
+					String nomeFilePart= filePart.getSubmittedFileName();
+					int indice= nomeFilePart.lastIndexOf(".");
+					String uuid= UUID.randomUUID().toString();
+					String nomeFile= nomeFilePart.substring(0, indice);
+					String estensione= nomeFilePart.substring(indice);
+					filePart.write(path+nomeFile+uuid+estensione);
+					fileImmagine=nomeFile+uuid+estensione;
 					prezzo[i-1]= request.getParameter("prezzoProdotto"+i).replace(',', '.');
 					nomeColore[i-1]= request.getParameter("nomeColoreProdotto"+i);
 					quantità[i-1]= Integer.parseInt(request.getParameter("quantitaProdotto"+i));
@@ -94,7 +101,7 @@ public class InserisciProdotto extends HttpServlet
 					Colore colore= new Colore();
 					colore.setIdProdotto(ultimoId);
 					colore.setColore(nomeColore[i-1]);
-					colore.setImmagine(nomeFile);
+					colore.setImmagine(fileImmagine);
 					colore.setPrezzo(prezzo[i-1]);
 					colore.setQuantità(quantità[i-1]);
 					colore.setCodiceProdotto(codiceProdotto[i-1]);

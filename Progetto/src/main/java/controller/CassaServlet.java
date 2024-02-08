@@ -99,7 +99,7 @@ public class CassaServlet extends HttpServlet
 					String file= listaProdotti.get(i).getPath();
 					String pathTemp="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\tmp file\\";
 					String destinazione="D:\\Università\\2 anno\\2 semestre\\TSW\\RepoGithub\\Progetto\\src\\main\\webapp\\file\\";
-					Files.move(Paths.get(pathTemp+file.substring(file.lastIndexOf("\\")+1)), Paths.get(destinazione+file.substring(file.lastIndexOf("\\")+1)));					
+					Files.move(Paths.get(pathTemp+file.substring(file.lastIndexOf("\\")+1)), Paths.get(destinazione+file.substring(file.lastIndexOf("\\")+1)));
 					ordine.setFile(file);
 				}
 				ordine.setIdProdotto(listaProdotti.get(i).getId());

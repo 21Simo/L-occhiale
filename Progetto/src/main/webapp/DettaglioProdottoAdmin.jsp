@@ -65,7 +65,7 @@
    										<%=colore.get("immagine") %>
 									</label>
                             		<input name="uploadDocument" type="file" id="sceltaFile" accept="image/*" class="elementoNascosto" value="./img/prodotti/<%=colore.get("immagine") %>" disabled="disabled"/>
-                            		<span id="erroreFile" class="errore"></span> 
+                            		<span id="erroreFile" class="errore"></span>
                         		</div>
                         		<div class="input-field">
 									<label>Marca: </label>

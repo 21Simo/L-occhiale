@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="model.RegioneDAO"%>
 <%@page import="model.Regione"%>
 <%@page import="java.util.ArrayList"%>
@@ -47,7 +48,11 @@
 
                         <div class="input-field">
                             <label>Date di nascita</label>
-                            <input type="date" id="dataNascita" name="dataNascita" placeholder="Inserisci la tua data di nascita" required>
+                            <%
+                            	int anno=LocalDate.now().getYear();
+                            	anno=anno-16;                 
+                            %>
+                            <input type="date" id="dataNascita" name="dataNascita" placeholder="Inserisci la tua data di nascita" max="<%=anno %>-12-31" required>
                             <p id="erroreDataNascita" class="errore"></p>
                         </div>
 

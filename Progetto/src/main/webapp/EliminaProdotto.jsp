@@ -98,19 +98,26 @@
 									<select id="coloreProdotto" name="coloreProdotto" onchange="aggiorna(this)">
 										<option selected="selected">Inserisci il colore da eliminare o tutto il prodotto</option>
 									<%
+									int indice=-1;
 									for (int i = 0; i < prodotto.names().length(); i++) 
 									{
 										if (prodotto.names().get(i).toString().contains("colore") == true) 
 										{
 											String nome = prodotto.names().get(i).toString();
+											indice= Integer.parseInt(nome.substring(nome.length()-1));											
 											JSONObject coloreJSON = (JSONObject) prodotto.get(nome);				
 									%>
 										<option value="<%=coloreJSON.get("id")%>"><%=coloreJSON.get("colore") %></option>
 									<%
 										}
 									}
+									if(indice>0)
+									{
 									%>
 										<option value="-1">Tutto il prodotto</option>
+									<%
+									}
+									%>
 									</select>
 									<%
 									int k=0;

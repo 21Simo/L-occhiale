@@ -260,9 +260,13 @@ $(document).ready(function ()
 	$('#sceltaFile').change(function () 
 	{
 		var i = $(this).prev('label').clone();
+		console.log(i);
 		var file = $('#sceltaFile')[0].files[0].name;
+		console.log(file);
 		$('#etichettaSceltaFile').html(file);
 		$('#erroreFile').html("");
+		$("#sceltaFile").attr("value", "./img/prodotti/"+file);
+		$("#immagineProdotto").attr("value", file);
 	}); 
 });
 
