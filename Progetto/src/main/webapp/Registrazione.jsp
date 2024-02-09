@@ -80,12 +80,13 @@
 
                         <div class="input-field">
                             <label>Sesso</label>
-                            <select name="sesso" required>
+                            <select id="sesso" name="sesso" required>
                                 <option disabled selected>Seleziona il tuo sesso</option>
                                 <option>Maschio</option>
                                 <option>Femmina</option>
                                 <option>Altro</option>
                             </select>
+                            <p id="erroreSesso" class="errore"></p>
                         </div>
          
                     </div>

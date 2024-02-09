@@ -1,6 +1,6 @@
 function validazione()
 {
-	var nomeOK, cognomeOK, codiceFiscaleOK, dataNascitaOK, emailOK, passwordOK, telefonoOK, indirizzoOK;
+	var nomeOK, cognomeOK, codiceFiscaleOK, dataNascitaOK, emailOK, passwordOK, telefonoOK, indirizzoOK, sessoOK;
 	
 	if(nome()==true)
 	{
@@ -116,12 +116,24 @@ function validazione()
 		indirizzoOK=false;
 	}
 	
+	if(sesso()==true)
+	{
+		$("#sesso").removeClass("bordoErrore");
+		$('#erroreSesso').html("");
+		sessoOK=true;
+	}
+	else
+	{
+		$('#erroreSesso').html("Errore: devi selezionare il sesso.");
+		$("#sesso").addClass("bordoErrore");
+		sessoOK=false;
+	}
 	
-	if(nomeOK==false && cognomeOK==false && codiceFiscaleOK==false && dataNascitaOK==false && emailOK==false && passwordOK==false && telefonoOK==false && indirizzoOK==false)
+	if(nomeOK==false && cognomeOK==false && codiceFiscaleOK==false && dataNascitaOK==false && emailOK==false && passwordOK==false && telefonoOK==false && indirizzoOK==false && sessoOK==false)
 	{
 		return false;
 	}
-	else if(nomeOK==false || cognomeOK==false || codiceFiscaleOK==false || dataNascitaOK==false || emailOK==false || passwordOK==false || telefonoOK==false || indirizzoOK==false)
+	else if(nomeOK==false || cognomeOK==false || codiceFiscaleOK==false || dataNascitaOK==false || emailOK==false || passwordOK==false || telefonoOK==false || indirizzoOK==false || sessoOK==false)
 	{
 		return false;
 	}
@@ -243,6 +255,19 @@ function indirizzo()
 	else
 	{
 		return false;
+	}
+}
+
+function sesso()
+{
+	var sessoForm= document.forms["form"]["sesso"].value.trim();
+	if(sessoForm=="Seleziona il tuo sesso")
+	{
+		return false;
+	}
+	else
+	{
+		return true;
 	}
 }
 

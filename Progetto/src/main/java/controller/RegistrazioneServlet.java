@@ -54,6 +54,7 @@ public class RegistrazioneServlet extends HttpServlet
 			String password=request.getParameter("password");
 			String telefono=request.getParameter("telefono");
 			String sesso=request.getParameter("sesso");
+			System.out.println(sesso); 
 			String regione=request.getParameter("regione");
 			int indiceRegione=regione.indexOf("/");
 			String nomeRegione=regione.substring(indiceRegione+1);
